@@ -8,16 +8,16 @@
 import Foundation
 import UIKit
 
-struct FastPickerModel{
+struct FastPickerModel {
     var totalSelectedFast: Int?
     var callback: ((_ totalSelectedFast: Int) -> Void?)
 }
 
 class FastPickerView: UIView {
 
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
 
     var selectedHours = 0
     var selectedDays = 0
@@ -87,15 +87,15 @@ class FastPickerView: UIView {
         }
     }
 
-    //=============================================
+    // =============================================
     // MARK: Callback
-    //=============================================
+    // =============================================
 
     var dismiss: ((TimeInterval) -> Void)?
 
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
 
     init(model: FastPickerModel) {
         self.model = model
@@ -152,9 +152,9 @@ class FastPickerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //========================================
+    // ========================================
     // MARK: Helpers
-    //========================================
+    // ========================================
 
     @objc func savePressed() {
         calculateTotalSelectedFast()
@@ -175,5 +175,4 @@ class FastPickerView: UIView {
 //            dismiss?(TimeInterval(seconds))
 //        }
     }
-
 }

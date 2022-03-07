@@ -24,12 +24,11 @@ struct ProfileSettingsModel {
 
 class ProfileSettingsView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     let imageSize: CGFloat = 200
-    
     
     lazy var imageView: UIImageView = {
         let view = UIImageView()
@@ -46,14 +45,13 @@ class ProfileSettingsView: UIView {
         return view
     }()
     
-    var pictureBtnEdit: UIButton = {
-        var editButton = UIButton()
+    lazy var pictureBtnEdit: UIButton = {
+        let editButton = UIButton()
         editButton.titleLabel?.font = UIFont(name: "Montserrat-ExtraLight", size: 15)
         editButton.setTitleColor(.stdText, for: .normal)
         editButton.addTarget(self, action: #selector(editBtnPressed), for: .touchUpInside)
         return editButton
     }()
-    
     
     let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -125,21 +123,20 @@ class ProfileSettingsView: UIView {
         }
     }
     
-    //=================================
+    // =================================
     // MARK: Callbacks
-    //=================================
+    // =================================
     
     var action: (() -> Void)?
     
-    //========================================
+    // ========================================
     // MARK: Initialization
-    //========================================
+    // ========================================
     
     init(model: ProfileSettingsModel) {
         self.model = model
         super.init(frame: .zero)
         
-
         addSubview(imageView)
         imageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -191,9 +188,9 @@ class ProfileSettingsView: UIView {
         imageView.layer.cornerRadius = imageView.frame.size.height/2
     }
     
-    //=============================================
+    // =============================================
     // MARK: Helpers
-    //=============================================
+    // =============================================
     
     func refreshOptions() {
         optionStackView.subviews.forEach { $0.removeFromSuperview() }
@@ -208,7 +205,7 @@ class ProfileSettingsView: UIView {
     }
     
     @objc func signOut() {
-//        model.signOut()
+        model.signOut()
         print("SIGNING OUT!!!")
     }
 }

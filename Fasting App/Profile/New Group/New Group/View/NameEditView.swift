@@ -10,9 +10,9 @@ import UIKit
 
 class NameEditView: UIView, UITextFieldDelegate {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     //    var name: String = ""
     
@@ -66,16 +66,16 @@ class NameEditView: UIView, UITextFieldDelegate {
         return view
     }()
     
-    //=================================
+    // =================================
     // MARK: Callbacks
-    //=================================
+    // =================================
     
     var callback: ((_ name: String) -> Void)?
     var dismiss: (() -> Void)?
     
-    //=================================
+    // =================================
     // MARK: Initialization
-    //=================================
+    // =================================
     
     init() {
         super.init(frame: .zero)
@@ -124,9 +124,9 @@ class NameEditView: UIView, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //=============================================
+    // =============================================
     // MARK: Helpers
-    //=============================================
+    // =============================================
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         texfield.endEditing(true)
@@ -142,5 +142,4 @@ class NameEditView: UIView, UITextFieldDelegate {
     @objc func cancelButtonPressed() {
         dismiss?()
     }
-    
 }

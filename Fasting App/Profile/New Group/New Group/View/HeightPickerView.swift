@@ -16,9 +16,9 @@ struct HeightPickerModel {
 
 class HeightPickerView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     weak var delegate: ModalViewControllerDelegate?
     
@@ -95,16 +95,16 @@ class HeightPickerView: UIView {
         }
     }
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
     
     init(model: HeightPickerModel) {
         self.model = model
         super.init(frame: .zero)
         
         backgroundColor = .blackWhiteBackground
-                
+        
         addSubview(homeIndicatorBar)
         homeIndicatorBar.snp.makeConstraints {
             $0.top.equalToSuperview().offset(15)
@@ -156,9 +156,9 @@ class HeightPickerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //========================================
+    // ========================================
     // MARK: Helpers
-    //========================================
+    // ========================================
     
     @objc func saveButtonPressed() {
         calculateHeight()
@@ -190,87 +190,5 @@ class HeightPickerView: UIView {
         } else {
             model.callback("feet", Double(feet ?? 0), Double(inches ?? 0))
         }
-        
     }
 }
-
-//=============================================
-// MARK: UIPickerViewDataSource
-//=============================================
-
-//extension HeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        4
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        
-//        if selectedUnits == "metrics" {
-//            if component == 0 {
-//               return 1 //meter header
-//            } else if component == 1 {
-//                return 3 //meters
-//            } else if component == 2 {
-//               return 1 //centimeters header
-//            } else {
-//               return 100 //days
-//            }
-//        } else {
-//            if component == 0 {
-//               return 1 //feet header
-//            } else if component == 1 {
-//                return 10 //feet
-//            } else if component == 2 {
-//               return 1 //inches header
-//            } else {
-//               return 12 //inches
-//            }
-//        }
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        if selectedUnits == "metrics" {
-//            if component == 0 {
-//                return "m:" //header
-//            } else if component == 1 {
-//                return "\(row)" //value
-//            } else if component == 2 {
-//                return "cm:" //header
-//            } else if component == 3 {
-//                return "\(row)" //value
-//            }
-//        } else {
-//            if component == 0 {
-//                return "feet:" //header
-//            } else if component == 1 {
-//                return "\(row)" //value
-//            } else if component == 2 {
-//                return "inch:" //header
-//            } else if component == 3 {
-//                return "\(row)" //value
-//            }
-//        }
-//        return nil
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        if selectedUnits == "metrics" {
-//            if component == 1 {
-//                meters = row
-//                firstUnit = Double(meters ?? 0)
-//            } else {
-//                centimeters = row
-//                secondUnit = Double(centimeters ?? 0)
-//            }
-//        } else {
-//            if component == 1 {
-//                feet = row
-//                firstUnit = Double(feet ?? 0)
-//            } else {
-//                inches = row
-//                secondUnit = Double(inches ?? 0)
-//            }
-//        }
-//    }
-//    
-//}

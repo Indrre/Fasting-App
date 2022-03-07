@@ -10,7 +10,6 @@ import SDWebImage
 
 extension UIView {
     
-    
     func addShadow(color: UIColor? = UIColor.black.withAlphaComponent(0.3)) {
         layer.shadowColor = color?.cgColor
         layer.shadowOpacity = 0.5
@@ -30,7 +29,7 @@ extension UIView {
         layer0.colors = [
           topColor.cgColor,
           bottomColor.withAlphaComponent(0).cgColor,
-          topColor.cgColor,
+          topColor.cgColor
         ]
         layer0.locations = [0, 1]
         layer0.startPoint = CGPoint(x: 0.15, y: 0.5)
@@ -77,7 +76,6 @@ extension CAShapeLayer {
     }
     
 }
-
 
 class ImageService {
     
@@ -171,23 +169,23 @@ extension WeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         switch selectedUnit {
         case .kilograms:
             if component == 0 {
-                return 1 //KG header
+                return 1 // KG header
             } else if component == 1 {
-                return kgArray.count //kilograms
+                return kgArray.count // kilograms
             } else if component == 2 {
-                return 1 //grams header
+                return 1 // grams header
             } else {
-                return gramsArray.count //grams
+                return gramsArray.count // grams
             }
         default:
             if component == 0 {
-                return 1 //stone header
+                return 1 // stone header
             } else if component == 1 {
-                return 100 //stones
+                return 100 // stones
             } else if component == 2 {
-                return 1 //pound header
+                return 1 // pound header
             } else {
-                return 15 //inches
+                return 15 // inches
             }
         }
     }
@@ -196,23 +194,23 @@ extension WeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         switch selectedUnit {
         case .kilograms:
             if componentKG == 0 {
-                return "kg:" //header
+                return "kg:" // header
             } else if componentKG == 1 {
-                return String(format: "%d", kgArray[row]) //value
+                return String(format: "%d", kgArray[row]) // value
             } else if componentKG == 2 {
-                return "g:" //header
+                return "g:" // header
             } else if componentKG == 3 {
-                return String(format: "%d", gramsArray[row]) //value
+                return String(format: "%d", gramsArray[row]) // value
             }
         default:
             if componentKG == 0 {
-                return "st:" //header
+                return "st:" // header
             } else if componentKG == 1 {
-                return String(format: "%d", stoneArray[row]) //value
+                return String(format: "%d", stoneArray[row]) // value
             } else if componentKG == 2 {
-                return "lbs:" //header
+                return "lbs:" // header
             } else if componentKG == 3 {
-                return String(format: "%d", kgArray[row]) //value
+                return String(format: "%d", kgArray[row]) // value
             }
         }
         return nil
@@ -250,47 +248,46 @@ extension HeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         
         if selectedUnits == "metrics" {
             if component == 0 {
-               return 1 //meter header
+               return 1 // meter header
             } else if component == 1 {
-                return 3 //meters
+                return 3 // meters
             } else if component == 2 {
-               return 1 //centimeters header
+               return 1 // centimeters header
             } else {
-               return 100 //days
+               return 100 // days
             }
         } else {
             if component == 0 {
-               return 1 //feet header
+               return 1 // feet header
             } else if component == 1 {
-                return 10 //feet
+                return 10 // feet
             } else if component == 2 {
-               return 1 //inches header
+               return 1 // inches header
             } else {
-               return 12 //inches
+               return 12 // inches
             }
         }
     }
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if selectedUnits == "metrics" {
             if component == 0 {
-                return "m:" //header
+                return "m:" // header
             } else if component == 1 {
-                return "\(row)" //value
+                return "\(row)" // value
             } else if component == 2 {
-                return "cm:" //header
+                return "cm:" // header
             } else if component == 3 {
-                return "\(row)" //value
+                return "\(row)" // value
             }
         } else {
             if component == 0 {
-                return "feet:" //header
+                return "feet:" // header
             } else if component == 1 {
-                return "\(row)" //value
+                return "\(row)" // value
             } else if component == 2 {
-                return "inch:" //header
+                return "inch:" // header
             } else if component == 3 {
-                return "\(row)" //value
+                return "\(row)" // value
             }
         }
         return nil
@@ -356,9 +353,3 @@ extension ActivityPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         
     }
 }
-
-
-
-
-
-

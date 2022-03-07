@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-class ContainerView: UIView {
+class LoginView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: - Properties
-    //=============================================
+    // =============================================
     
     lazy var title: UILabel = {
         let view = UILabel()
@@ -30,44 +30,40 @@ class ContainerView: UIView {
         return view
     }()
     
-
+    lazy var fastLogIcon: UIImageView = {
+        let view = UIImageView()
+        view.tintColor = .stdText
+        view.image = UIImage(named: "icon")
+        view.clipsToBounds = true
+        return view
+    }()
     
-
-    
-    //=============================================
+    // =============================================
     // MARK: - Initialization
-    //=============================================
+    // =============================================
     
     init() {
         super.init(frame: .zero)
-            
+        
         addSubview(title)
         title.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).offset(50)
             $0.centerX.equalToSuperview()
         }
             
-        addSubview(launchIcon)
-        launchIcon.snp.makeConstraints {
+        addSubview(fastLogIcon)
+        fastLogIcon.snp.makeConstraints {
             $0.top.equalTo(title.snp.bottom).offset(50)
             $0.centerX.equalToSuperview()
             $0.size.equalTo(200)
         }
-        
-  
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //=============================================
+    // =============================================
     // MARK: - Helpers
-    //=============================================
-    
-
-    
+    // =============================================
 }
-
-
-

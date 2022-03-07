@@ -59,6 +59,12 @@ class ProfileViewController: UIViewController {
                 completion: nil
             )
         }
+        model.presentLogin = { [weak self] controller in
+            self?.navigationController?
+                .pushViewController(
+                    controller,
+                    animated: true)
+        }
         return model
     }()
     
@@ -73,7 +79,6 @@ class ProfileViewController: UIViewController {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    
     
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -94,9 +99,9 @@ class ProfileViewController: UIViewController {
         )
     }
     
-    //=============================================
+    // =============================================
     // MARK: Helpers
-    //=============================================
+    // =============================================
     
     func setNavigationBarItem() {
         let navigationArrow = UIButton(type: .system)
@@ -108,5 +113,4 @@ class ProfileViewController: UIViewController {
     func setup() {
         profileSettingsView.model = model.profileSettingsModel
     }
-    
 }

@@ -40,11 +40,9 @@ class MainViewController: ViewController {
         return view
     }()
     
-    
     // =============================================
     // MARK: Properties
     // =============================================
-    
     
     lazy var model: MainViewModel = {
         let model = MainViewModel()
@@ -60,7 +58,7 @@ class MainViewController: ViewController {
         model.presentController = { [weak self] controller in
             self?.present(
                 controller,
-                animated: true,
+                animated: false,
                 completion: nil
             )
         }
@@ -74,7 +72,8 @@ class MainViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         model.viewDidLoad()
-        view.backgroundColor = .stdBackground
+        view.backgroundColor = .blue
+        self.navigationItem.setHidesBackButton(true, animated: true)
         
         setup()
         
@@ -151,7 +150,6 @@ class MainViewController: ViewController {
                 view.addShadow(color: UIColor.black.withAlphaComponent(0.8))
                 fastRingView.layer.borderWidth = 20
             }
-            
         }
     }
     
@@ -174,7 +172,7 @@ class MainViewController: ViewController {
         fastRingView.model = model.ringModel
     }
     
-    func setBackground() {
+    override func setBackground() {
         guard
             let mainColor = UIColor.stdBackground,
             let topColor = UIColor.topBackground else { return }

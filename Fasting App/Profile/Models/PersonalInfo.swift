@@ -11,11 +11,8 @@ public enum PersonalInfo: String {
     case age, weight, height, gender, activity
 }
 
-
 extension PersonalInfo {
-    
     var title: String {
         return rawValue.capitalized
     }
-    
 }

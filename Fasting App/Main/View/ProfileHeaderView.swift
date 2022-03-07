@@ -9,19 +9,17 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
-
 struct ProfileHeaderModel {
     let name: String?
     let profilePic: UIImage?
-    let callback: (() -> Void)?
+    let action: (() -> Void)?
 }
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: TouchableView {
     
-    
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     let imageSize: CGFloat = 60
     
@@ -60,7 +58,8 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func labelTapped() {
-        model.callback?()
+        print("DEBUG: TAP TAP TAP!!!")
+        model.action?()
     }
     
     func setupLabelTap() {
@@ -69,16 +68,16 @@ class ProfileHeaderView: UIView {
         imageView.addGestureRecognizer(labelTap)
     }
     
-    //=================================
+    // =================================
     // MARK: Callbacks
-    //=================================
+    // =================================
     
-    var callback: (() -> Void)?
+    var action: (() -> Void)?
     var presentController: ((UIViewController) -> Void)?
     
-    //========================================
+    // ========================================
     // MARK: Initialization
-    //========================================
+    // ========================================
     
     init(model: ProfileHeaderModel) {
         self.model = model
@@ -86,6 +85,8 @@ class ProfileHeaderView: UIView {
         backgroundColor = .clear
         
         setupGreeting()
+        
+        backgroundColor = .clear
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
         addGestureRecognizer(tap)
@@ -138,7 +139,7 @@ class ProfileHeaderView: UIView {
             case 0..<12 : timeOfTheDay = "Good Morning,"
             case 12..<18 : timeOfTheDay = "Good Afternoon,"
             case 18..<24 : timeOfTheDay = "Good Evening,"
-            default: print("DEBUG: Hi")
+            default: debugPrint("DEBUG: Hi")
         }
         lblGreeting.text = timeOfTheDay
     }

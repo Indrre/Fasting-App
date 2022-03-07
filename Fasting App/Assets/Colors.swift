@@ -36,6 +36,4 @@ extension UIColor {
     static let calorieColor = UIColor(red: 0.957, green: 0.494, blue: 0.325, alpha: 1)
     static let lightCalorieColor = UIColor(red: 0.957, green: 0.494, blue: 0.325, alpha: 0.5)
     static let weightColor =  UIColor(red: 0.957, green: 0.742, blue: 0.325, alpha: 1)
-
-    
 }

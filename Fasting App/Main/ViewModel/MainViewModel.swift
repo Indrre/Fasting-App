@@ -26,6 +26,7 @@ class MainViewModel {
     
     var fast: Fast? {
         didSet {
+            checkState()
             updateLabel()
             refreshController?()
         }
@@ -43,16 +44,17 @@ class MainViewModel {
         }
     }
     
-    var state: State? {
+    var state: State = .stopped {
         didSet {
+            print("DEBUG: STEP 3")
             print("DEBUG: STATE IN VM \(state)")
+            refreshController?()
         }
     }
 //
 //    var isRunning: Bool {
 //        return startTime != nil
 //    }
-    
     
     var startTime: TimeInterval?
     
@@ -65,19 +67,18 @@ class MainViewModel {
             trackColor: UIColor.gray,
             animatedColor: UIColor(named: "time-color")!,
             lblTimer: timerLabel,
-//            lblFast: fastLabel,
+            lblFast: fastLabel,
             timeSelected: timeSelected,
-            callback: { [weak self] in
+            prsentPicker: { [weak self] in
                 self?.presentFastPicker()
             },
             stopStartBtn: { [ weak self] state in
                 self?.handleStopStart(state: state)
             },
-            state: state!,
-            btnStartStop: state!
+            state: state
+//            btnStartStop: state!
         )
     }
-    
     var fastPickerModel: FastPickerModel {
         return FastPickerModel(
             totalSelectedFast: 10,
@@ -91,7 +92,7 @@ class MainViewModel {
         return ProfileHeaderModel(
             name: user?.fullName ?? "Not found",
             profilePic: profileImage,
-            callback: { [weak self] in
+            action: { [weak self] in
                 self?.presentProfileController()
             }
         )
@@ -123,14 +124,14 @@ class MainViewModel {
     func viewDidLoad() {
         UserService.startObservingUser(self)
         FastService.startObservingFast(self)
-        checkState()
         UserService.refreshUser()
         FastService.start()
+//        checkState()
         updateLabel()
     }
     
     func checkState() {
-        if fast?.start != nil || fast?.end == nil {
+        if fast?.start != nil && fast?.end == nil {
             state = .running
         } else {
             state = .stopped
@@ -144,6 +145,7 @@ class MainViewModel {
     }
     
     @objc func presentProfileController() {
+        print("DEBUG: RECEIVING")
         let controller = ProfileViewController()
         pushController?(controller)
     }
@@ -156,7 +158,6 @@ class MainViewModel {
     }
     
     func saveSelectedInterval(timeSelected: Int) {
-//        timeSelected = timeSelected
         var fast = FastService.currentFast
         if fast == nil {
             fast = Fast(
@@ -173,7 +174,6 @@ class MainViewModel {
     
     func updateLabel() {
         let fast = FastService.currentFast?.timeSelected
-
         if fast == nil {
             timerLabel = "Select Fast"
             fastLabel = ""
@@ -185,9 +185,8 @@ class MainViewModel {
     
     func handleStopStart(state: State) {
         self.state = state
-       
-        print("DEBUG: self?.state \(state)")
-        if state == .running {
+        print("DEBUG: HANDLE STOP START BUTTON _ STATE \(state)")
+            if state == .running {
             guard var fast = FastService.currentFast else { return }
             fast.updateEnd(interval: Date().timeIntervalSince1970)
 //            endFast()
@@ -195,7 +194,7 @@ class MainViewModel {
         } else {
             startFast()
         }
-            
+        UserService.refreshUser()
     }
     
     func startFast() {
@@ -207,8 +206,7 @@ class MainViewModel {
             guard var fast = FastService.currentFast else { return }
             fast.updateStart(interval: Date().timeIntervalSince1970)
             FastService.updateFast(fast)
-            
-            
+    
             UserService.refreshUser()
             state = .running
         }
@@ -225,13 +223,11 @@ class MainViewModel {
     func passingFast(fast: Int) {
         
     }
-    
-    
 }
 
-//=================================
+// =================================
 // MARK: TemplateObserver
-//=================================
+// =================================
 
 extension MainViewModel: UserServiceObserver {
     func userServiceUserUpdated(_ user: User?) {
@@ -245,26 +241,25 @@ extension MainViewModel: FastServiceObserver {
     }
 }
 
-//=============================================
+// =============================================
 // MARK: UIPickerViewDataSource
-//=============================================
+// =============================================
 
 extension FastPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
-
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 4 //2 headers and 2 values
+        return 4 // 2 headers and 2 values
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0 {
-           return 1 //hours header
+           return 1 // hours header
         } else if component == 1 {
-           return 31 //hours
+           return 31 // hours
         } else if component == 2 {
-           return 1 //days header
+           return 1 // days header
         } else {
-           return 25 //days
+           return 25 // days
         }
     }
 
@@ -285,17 +280,14 @@ extension FastPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         }
 
         if component == 0 {
-            pickerLabel?.text = "Days:" //header
+            pickerLabel?.text = "Days:" // header
         } else if component == 1 {
-            pickerLabel?.text = "\(row)" //value
+            pickerLabel?.text = "\(row)" // value
         } else if component == 2 {
-            pickerLabel?.text = "Hours:" //header
+            pickerLabel?.text = "Hours:" // header
         } else if component == 3 {
-            pickerLabel?.text = "\(row)" //value
+            pickerLabel?.text = "\(row)" // value
         }
         return pickerLabel!
     }
-
 }
-
-

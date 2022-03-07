@@ -13,17 +13,16 @@ struct GenderPickerModel {
     let callback: ((_ gender: String) -> Void?)
 }
 
-
 class GenderPickerView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     weak var delegate: ModalViewControllerDelegate?
     
     var gender: String = "Female"
-        
+    
     var genderArray = ["Female", "Male", "Other"]
     
     lazy var homeIndicatorBar: UIImageView = {
@@ -78,16 +77,16 @@ class GenderPickerView: UIView {
         }
     }
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
     
     init(model: GenderPickerModel) {
         self.model = model
         super.init(frame: .zero)
         
         backgroundColor = .blackWhiteBackground
-                
+        
         addSubview(homeIndicatorBar)
         homeIndicatorBar.snp.makeConstraints {
             $0.top.equalToSuperview().offset(15)
@@ -100,7 +99,6 @@ class GenderPickerView: UIView {
         topLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(40)
             $0.centerX.width.equalToSuperview()
-        
         }
 
         addSubview(agePicker)
@@ -131,9 +129,9 @@ class GenderPickerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //========================================
+    // ========================================
     // MARK: Helpers
-    //========================================
+    // ========================================
     
     @objc func saveButtonPressed() {
         model.callback(gender)
@@ -144,27 +142,3 @@ class GenderPickerView: UIView {
         delegate?.modalClose()
     }
 }
-
-//=============================================
-// MARK: UIPickerViewDataSource
-//=============================================
-
-//extension GenderPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
-//    
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return genderArray.count
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return genderArray[row]
-//    }
-//    
-//    internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        gender = genderArray[row]
-//    }
-//}
-//

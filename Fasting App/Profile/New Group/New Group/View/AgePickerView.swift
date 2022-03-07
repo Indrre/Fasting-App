@@ -19,14 +19,14 @@ struct AgePickerModel {
 
 class AgePickerView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     weak var delegate: ModalViewControllerDelegate?
     
     var age: Int = 18
-        
+    
     var ageArray = Array(18...100)
     
     lazy var homeIndicatorBar: UIImageView = {
@@ -82,10 +82,9 @@ class AgePickerView: UIView {
         }
     }
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
-    
+    // =============================================
     
     init(model: AgePickerModel) {
         self.model = model
@@ -105,7 +104,6 @@ class AgePickerView: UIView {
         topLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(40)
             $0.centerX.width.equalToSuperview()
-        
         }
 
         addSubview(agePicker)
@@ -141,9 +139,9 @@ class AgePickerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //========================================
+    // ========================================
     // MARK: Helpers
-    //========================================
+    // ========================================
     
     @objc func saveButtonPressed() {
         model.callback(age)
@@ -154,28 +152,3 @@ class AgePickerView: UIView {
         delegate?.modalClose()
     }
 }
-
-//=============================================
-// MARK: UIPickerViewDataSource
-//=============================================
-
-//extension AgePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
-//    
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return ageArray.count
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return String(format: "%d", ageArray[row])
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        age = ageArray[row]
-//    }
-//    
-//}
-

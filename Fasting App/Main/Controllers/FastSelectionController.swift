@@ -10,14 +10,13 @@ import UIKit
 
 class FastSelectionsViewController: ModalViewController {
     
-    //=======================================
-    //MARK: Properties
-    //=======================================
+    // =======================================
+    // MARK: Properties
+    // =======================================
     
     lazy var fastPickerView: FastPickerView = {
         return FastPickerView(model: model.fastPickerModel)
     }()
-   
     
     lazy var model: MainViewModel = {
         let model = MainViewModel()
@@ -30,19 +29,17 @@ class FastSelectionsViewController: ModalViewController {
     func setup() {
         print("SETUOP!!!e")
     }
-
     
-    //=======================================
-    //MARK: Callback
-    //=======================================
+    // =======================================
+    // MARK: Callback
+    // =======================================
     
     var selectedCallback: (() -> Void)?
     var didDismiss: ((TimeInterval?) -> Void)?
     
-    
-    //=======================================
-    //MARK: Initialization
-    //=======================================
+    // =======================================
+    // MARK: Initialization
+    // =======================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +54,9 @@ class FastSelectionsViewController: ModalViewController {
         }
     }
     
-    //=======================================
-    //MARK: Helpers
-    //=======================================
+    // =======================================
+    // MARK: Helpers
+    // =======================================
     
     func setupView() {
         fastPickerView.model = model.fastPickerModel
@@ -70,6 +67,4 @@ extension FastSelectionsViewController: ModalViewControllerDelegate {
     func modalClose() {
         dismissModal()
     }
-    
 }
-

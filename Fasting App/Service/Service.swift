@@ -8,16 +8,15 @@
 import Firebase
 import UIKit
 
-//=================================
+// =================================
 // MARK: - DatabaseRefs
-//=================================
+// =================================
 
 let DB_REF = Database.database().reference()
 let REF_USERS = DB_REF.child("users")
 let REF_FASTS = DB_REF.child("fasts")
 
-
-//=================================
+// =================================
 // MARK: - Shared Service
 //=================================
 
@@ -25,7 +24,6 @@ struct Service {
     
     static let shared = Service()
     var image = UIImage()
-
     
     func fetchUserData(uid: String, completion: @escaping(User) -> Void) {
         REF_USERS.child(uid).observeSingleEvent(of: .value) { (returningData) in
@@ -110,9 +108,8 @@ struct Service {
      */
     func updateFast(_ fast: Fast) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        
         var params: [String: Any] = [
-            "start": fast.start,
+            "start": fast.start as Any,
             "timeSelected": fast.timeSelected
         ]
         

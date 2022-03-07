@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-
 struct PickerModel {
     let dataSource: UIPickerViewDataSource
     let delegate: UIPickerViewDelegate
@@ -17,9 +16,9 @@ struct PickerModel {
 
 class PickerView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     weak var delegate: ModalViewControllerDelegate?
     
@@ -80,10 +79,9 @@ class PickerView: UIView {
         }
     }
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
-    
+    // =============================================
     
     init(model: PickerModel) {
         self.model = model
@@ -139,9 +137,9 @@ class PickerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //========================================
+    // ========================================
     // MARK: Helpers
-    //========================================
+    // ========================================
     
     @objc func saveButtonPressed() {
 //        model.callback(age)

@@ -17,8 +17,6 @@ class UserSettingsProfilePickerController: ModalViewController {
     lazy var profileSettingsView: ProfileSettingsView = {
         return ProfileSettingsView(model: model.profileSettingsModel)
     }()
-
-    
     
     lazy var model: ProfileSettingViewModel = {
         let model = ProfileSettingViewModel()
@@ -31,9 +29,9 @@ class UserSettingsProfilePickerController: ModalViewController {
     return model
 }()
     
-    //=============================================
+    // =============================================
     // MARK: Components
-    //=============================================
+    // =============================================
 
     lazy var agePicker: AgePickerView = {
         let view = AgePickerView(model: model.ageViewModel)
@@ -41,7 +39,7 @@ class UserSettingsProfilePickerController: ModalViewController {
         view.layer.cornerRadius = 20
         return view
     }()
-    
+
     lazy var weightPicker: WeightPickerView = {
         let view = WeightPickerView(model: model.weightModel)
         view.delegate = self
@@ -70,20 +68,18 @@ class UserSettingsProfilePickerController: ModalViewController {
         return view
     }()
     
-    //=======================================
+    // =======================================
     // MARK: Initialization
-    //=======================================
+    // =======================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .clear
-        
     }
     
-    //=============================================
+    // =============================================
     // MARK: Helpers
-    //=============================================
+    // =============================================
     
     func setup() {
         profileSettingsView.model = model.profileSettingsModel

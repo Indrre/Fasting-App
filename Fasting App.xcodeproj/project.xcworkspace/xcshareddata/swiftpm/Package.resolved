@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
         "state": {
           "branch": null,
-          "revision": "9b2f6aca5b4685c45f9f5481f19bee8e7982c538",
-          "version": "8.9.1"
+          "revision": "6cc2991c11872510a5314bc112cc7558dd9d046a",
+          "version": "8.12.0"
         }
       },
       {

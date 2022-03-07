@@ -28,10 +28,10 @@ struct ProfileInfoModel {
 
 class UserInfoReusableView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
-            
+    // =============================================
+    
     let lblName: UILabel = {
         let view = UILabel()
         view.textColor = .stdText
@@ -39,7 +39,7 @@ class UserInfoReusableView: UIView {
         return view
     }()
     
-    var editIcon: UIButton = {
+    lazy var editIcon: UIButton = {
         var editButton = UIButton()
         editButton.setImage(UIImage(named: "profile-info-edit"), for: .normal)
         editButton.addTarget(self, action: #selector(editButtonPressed), for: .touchUpInside)
@@ -69,19 +69,19 @@ class UserInfoReusableView: UIView {
         }
     }
     
-    //=============================================
+    // =============================================
     // MARK: Callback
-    //=============================================
+    // =============================================
     
      var callback: (() -> Void)?
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
     
     init() {
         super.init(frame: .zero)
-                
+        
         addSubview(lblName)
         lblName.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(15)
@@ -107,16 +107,15 @@ class UserInfoReusableView: UIView {
             $0.left.right.equalToSuperview().inset(15)
             $0.bottom.equalToSuperview()
         }
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //=============================================
+    // =============================================
     // MARK: Helpers
-    //=============================================
+    // =============================================
 
     @objc func editButtonPressed() {
         model?.action?()

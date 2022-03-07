@@ -48,5 +48,4 @@ extension Fast {
         }
         return Date().timeIntervalSince1970 - (start ?? 0)
     }
-    
 }

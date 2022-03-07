@@ -15,9 +15,9 @@ protocol ModalViewControllerDelegate: AnyObject {
 
 class ModalViewController: UIViewController {
     
-    //=============================================
+    // =============================================
     // MARK: Components
-    //=============================================
+    // =============================================
     
     lazy var btnClose: UIButton = {
         let view = UIButton()
@@ -26,15 +26,15 @@ class ModalViewController: UIViewController {
         return view
     }()
 
-    //=============================================
+    // =============================================
     // MARK: Constraints
-    //=============================================
+    // =============================================
     
     var bottomConstraint: Constraint?
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,9 +59,9 @@ class ModalViewController: UIViewController {
         bottomConstraint?.update(inset: -view.frame.size.height)
     }
     
-    //=============================================
+    // =============================================
     // MARK: Helpers
-    //=============================================
+    // =============================================
                                                 
     func presentModal() {
         bottomConstraint?.update(inset: 50)
@@ -93,5 +93,4 @@ class ModalViewController: UIViewController {
             })
         })
     }
-    
 }

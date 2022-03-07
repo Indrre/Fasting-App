@@ -12,21 +12,19 @@ enum State {
     case stopped, running
 }
 
-//struct StartStopModel {
+// struct StartStopModel {
 //    let state: State
 //
 //    init( state: State = .running) {
 //        self.state = state
 //    }
-//}
+// }
 
 class StartStopButtonView: TouchableView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
-    
-   
+    // =============================================
     
     lazy var btnStart: UIImageView = {
         var view = UIImageView()
@@ -48,11 +46,9 @@ class StartStopButtonView: TouchableView {
         didSet {
             switch currentState {
             case .running:
-                print( "DEBUG: RUNNING" )
                 btnStart.isHidden = true
                 btnStop.isHidden = false
             case .stopped:
-                print( "DEBUG: STOPPED" )
                 btnStart.isHidden = false
                 btnStop.isHidden = true
             }
@@ -63,9 +59,9 @@ class StartStopButtonView: TouchableView {
 //        didSet { currentState = model.state }
 //    }
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
     
     init() {
         super.init(frame: .zero)

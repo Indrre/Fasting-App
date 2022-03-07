@@ -23,8 +23,7 @@ struct User {
     let gender: String?
     let activity: String?
     let timeSelected: Int?
-
-
+    
     init(uid: String, dictionary: [String: Any]) {
         self.uid = uid
         self.email = dictionary["email"] as? String ?? ""
@@ -35,7 +34,7 @@ struct User {
         self.weightUnit = dictionary["weightUnit"] as? String ?? "kg"
         self.heightFirstUnit = dictionary["heightFirstUnit"] as? Double ?? 0
         self.heightSecondUnit = dictionary["heightSecondUnit"] as? Double ?? 0
-        self.heightMsureUnit = dictionary["heightUnit"] as? String ?? "kg"
+        self.heightMsureUnit = dictionary["heightUnit"] as? String ?? "m"
         self.gender = dictionary["gender"] as? String ?? "Female"
         self.activity = dictionary["activity"] as? String ?? "Inactive (less than 30 mins)"
         self.timeSelected = dictionary["timeSelected"] as? Int

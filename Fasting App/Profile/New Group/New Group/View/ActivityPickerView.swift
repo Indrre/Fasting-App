@@ -13,12 +13,11 @@ struct ActivityPickerModel {
     let callback: ((_ ativity: String) -> Void?)
 }
 
-
 class ActivityPickerView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     weak var delegate: ModalViewControllerDelegate?
     
@@ -79,15 +78,15 @@ class ActivityPickerView: UIView {
         }
     }
     
-    //=================================
+    // =================================
     // MARK: Callbacks
-    //=================================
+    // =================================
     
     var callback: ((_ activity: String) -> Void)?
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
     
     init(model: ActivityPickerModel) {
         self.model = model
@@ -137,9 +136,9 @@ class ActivityPickerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //========================================
+    // ========================================
     // MARK: Helpers
-    //========================================
+    // ========================================
     
     @objc func saveButtonPressed() {
         
@@ -159,27 +158,3 @@ class ActivityPickerView: UIView {
         delegate?.modalClose()
     }
 }
-
-//=============================================
-// MARK: UIPickerViewDataSource
-//=============================================
-
-//extension ActivityPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
-//    
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return activityArray.count
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return activityArray[row]
-//    }
-//    
-//    internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        activity = activityArray[row]
-//        
-//    }
-//}

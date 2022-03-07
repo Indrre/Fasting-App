@@ -1,5 +1,5 @@
 //
-//  ContainerViewController.swift
+//  LoginViewController.swift
 //  Fasting App
 //
 //  Created by indre zibolyte on 23/01/2022.
@@ -11,20 +11,19 @@ import AuthenticationServices
 import FirebaseAuth
 import CryptoKit
 
-class ContainerViewController: UIViewController {
+class LoginViewController: ViewController {
     
-    //=============================================
+    // =============================================
     // MARK: - Properties
-    //=============================================
+    // =============================================
     
     fileprivate var currentNonce: String?
     fileprivate var sha256: String?
     
-    lazy var containerView: ContainerView = {
-        let view = ContainerView()
+    lazy var loginView: LoginView = {
+        let view = LoginView()
         return view
     }()
-    
     
     lazy var btnSignIn: UIButton = {
         let view = UIButton()
@@ -41,36 +40,27 @@ class ContainerViewController: UIViewController {
         return view
     }()
     
-    //=============================================
+    // =============================================
     // MARK: - Lifecycle
-    //=============================================
+    // =============================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        self.navigationItem.leftBarButtonItem = nil
         view.backgroundColor = .stdBackground
-        checkIfUserIsLogedIn()
+        configureLogin()
+        self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
-    //=============================================
+    // =============================================
     // MARK: - Helpers
-    //=============================================
-    
-    @objc func checkIfUserIsLogedIn() {
-        if Auth.auth().currentUser?.uid == nil {
-            configureLogin()
-        } else {
-            
-            presentMainContoller()
-        }
-    }
+    // =============================================
     
     func configureLogin() {
-        view.addSubview(containerView)
-        containerView.snp.makeConstraints {
+        view.addSubview(loginView)
+        loginView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
-        
         
         view.addSubview(btnSignIn)
         btnSignIn.snp.makeConstraints {
@@ -82,9 +72,7 @@ class ContainerViewController: UIViewController {
     }
     
     func presentMainContoller() {
-        let controller = MainViewController()
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true, completion: nil)
+        navigationController?.pushViewController(MainViewController(), animated: true)
     }
     
     @available(iOS 13, *)
@@ -94,10 +82,8 @@ class ContainerViewController: UIViewController {
         let hashString = hashedData.compactMap {
             String(format: "%02x", $0)
         }.joined()
-        
         return hashString
     }
-    
     
     // Unhashed nonce.
     
@@ -115,23 +101,20 @@ class ContainerViewController: UIViewController {
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
     }
-    
-    
-    
 }
 
-//=============================================
+// =============================================
 // MARK: - Extensions
-//=============================================
+// =============================================
 
-extension ContainerViewController: ASAuthorizationControllerPresentationContextProviding {
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
 }
 
 @available(iOS 13.0, *)
-extension ContainerViewController: ASAuthorizationControllerDelegate {
+extension LoginViewController: ASAuthorizationControllerDelegate {
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
@@ -139,11 +122,11 @@ extension ContainerViewController: ASAuthorizationControllerDelegate {
                 fatalError("Invalid state: A login callback was received, but no login request was sent.")
             }
             guard let appleIDToken = appleIDCredential.identityToken else {
-                print("Unable to fetch identity token")
+                debugPrint("Unable to fetch identity token")
                 return
             }
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                debugPrint("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                 return
             }
             // Initialize a Firebase credential.
@@ -152,12 +135,16 @@ extension ContainerViewController: ASAuthorizationControllerDelegate {
                                                       rawNonce: nonce)
             // Sign in with Firebase.
             Auth.auth().signIn(with: credential) {(authDataResult, error) in
-                if let user = authDataResult?.user {
-                    
-                    let values = ["email": user.email, "country": "UK"]
-                    Service.shared.updateUserValues(values: values as [String : Any])
-                    UserService.refreshUser()
-                    self.presentMainContoller()
+                if error != nil {
+                    debugPrint("DEBUG: Failed to Login: \(String(describing: error))")
+                } else {
+                    if let user = authDataResult?.user {
+                        
+                        let values = ["email": user.email]
+                        Service.shared.updateUserValues(values: values as [String: Any])
+                        UserService.refreshUser()
+                        self.presentMainContoller()
+                    }
                 }
             }
         }
@@ -166,7 +153,7 @@ extension ContainerViewController: ASAuthorizationControllerDelegate {
 
 func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
     // Handle error.
-    print("Sign in with Apple errored: \(error)")
+    debugPrint("Sign in with Apple errored: \(error)")
 }
 
 // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
@@ -200,6 +187,5 @@ private func randomNonceString(length: Int = 32) -> String {
             }
         }
     }
-    
     return result
 }

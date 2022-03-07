@@ -16,12 +16,10 @@ struct RingViewModel {
     let lblTimer: String?
     let lblFast: String?
     var timeSelected: Int?
-    let callback: (() -> Void)?
+    let prsentPicker: (() -> Void)?
     var stopStartBtn: ((_ state: State) -> Void)?
     let state: State
-    let btnStartStop: State
-    
-    
+//    let btnStartStop: State
     
     init(
         isAnimated: Bool = false,
@@ -30,32 +28,30 @@ struct RingViewModel {
         lblTimer: String? = nil,
         lblFast: String? = nil,
         timeSelected: Int? = nil,
-        callback: (() -> Void)? = nil,
+        prsentPicker: (() -> Void)? = nil,
         stopStartBtn: ((_ state: State) -> Void)? = nil,
-        state: State,
-        btnStartStop: State
-        )
-    {
-        
+        state: State
+//        btnStartStop: State
+        ) {
         self.isAnimated = isAnimated
         self.trackColor = trackColor!
         self.animatedColor = animatedColor!
         self.lblTimer = lblTimer
         self.lblFast = lblFast
         self.timeSelected = timeSelected
-        self.callback = callback
+        self.prsentPicker = prsentPicker
         self.stopStartBtn = stopStartBtn
         self.state = state
-        self.btnStartStop = btnStartStop
+//        self.btnStartStop = btnStartStop
     }
     
 }
 
 class RingView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     var model: RingViewModel {
         didSet {
@@ -63,13 +59,16 @@ class RingView: UIView {
             lblTimer.text = model.lblTimer
             timeSelected = model.timeSelected ?? 0
             state = model.state
-            btnStartStop.currentState = model.btnStartStop
+//            btnStartStop.currentState = model.btnStartStop
         }
     }
     
     var state: State? {
         didSet {
-            animateRing(timeSelected: timeSelected)
+            print("DEBUG: State in Ring View \(state)")
+            if state == .running {
+                animateRing(timeSelected: timeSelected)
+            }
         }
     }
     
@@ -134,14 +133,14 @@ class RingView: UIView {
     lazy var btnStartStop: StartStopButtonView = {
         let view = StartStopButtonView()
         view.callback = { [weak self] in
-                self?.buttonPressed()
+                self?.handleRingButton()
             }
         return view
     }()
     
-    //========================================
+    // ========================================
     // MARK: Initialization
-    //========================================
+    // ========================================
     
     init(model: RingViewModel) {
         self.model = model
@@ -162,7 +161,6 @@ class RingView: UIView {
         lblContainerStackView.addArrangedSubview(lblTimer)
         lblContainerStackView.addArrangedSubview(lblFast)
         
-        
         addSubview(ringView)
         ringView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -175,16 +173,15 @@ class RingView: UIView {
             $0.top.equalTo(lblContainerStackView.snp.bottom).offset(25)
         }
         btnStartStop.currentState = .stopped
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //=============================================
+    // =============================================
     // MARK: Lifecycle
-    //=============================================
+    // =============================================
     
     override func layoutSubviews() {
         setupTimeRunningRing()
@@ -196,12 +193,12 @@ class RingView: UIView {
         
     }
     
-    //=============================================
+    // =============================================
     // MARK: Helpers
-    //=============================================
+    // =============================================
     
     @objc func labelTapped() {
-        model.callback?()
+        model.prsentPicker?()
     }
     
     func setupLabelTap() {
@@ -239,17 +236,7 @@ class RingView: UIView {
         timeRing?.strokeEnd = 0
     }
     
-    func buttonPressed() {
+    func handleRingButton() {
         model.stopStartBtn?(btnStartStop.currentState)
-        print("DEBUG: btnStartStop.currentState \(btnStartStop.currentState)")
     }
-    
-    @objc func handleStart() {
-        
-    }
-    
-    func handleStop() {
-        
-    }
-    
 }

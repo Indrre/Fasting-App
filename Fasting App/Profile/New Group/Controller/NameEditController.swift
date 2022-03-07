@@ -11,9 +11,9 @@ import UIKit
 
 class NameEditController: ModalViewController {
     
-//=============================================
+// =============================================
 // MARK: Components
-//=============================================
+// =============================================
 
 lazy var nameEditView: NameEditView = {
     let view = NameEditView()
@@ -29,7 +29,7 @@ lazy var nameEditView: NameEditView = {
 
 override func viewDidLoad() {
     super.viewDidLoad()
-    
+     
     view.backgroundColor = .clear
     
     view.addSubview(nameEditView)
@@ -40,13 +40,13 @@ override func viewDidLoad() {
     }
 }
 
-//=============================================
+// =============================================
 // MARK: Helpers
-//=============================================
+// =============================================
     
     func updateName(name: String) {
         let values = ["fullName": name]
-        Service.shared.updateUserValues(values: values as [String : Any])
+        Service.shared.updateUserValues(values: values as [String: Any])
         UserService.refreshUser()
         dismiss(animated: true, completion: nil)
     }
@@ -62,4 +62,3 @@ extension NameEditController: ModalViewControllerDelegate {
         dismissModal()
     }
 }
-

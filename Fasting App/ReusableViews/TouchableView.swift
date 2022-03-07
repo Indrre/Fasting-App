@@ -10,9 +10,9 @@ import UIKit
 
 class TouchableView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
     
     var callback: (() -> Void)?
     
@@ -25,9 +25,9 @@ class TouchableView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //=============================================
+    // =============================================
     // MARK: Helpers
-    //=============================================
+    // =============================================
     
     private func touched() {
         UIView.animate(
@@ -53,9 +53,9 @@ class TouchableView: UIView {
         })
     }
     
-    //=============================================
+    // =============================================
     // MARK: LifeCycle
-    //=============================================
+    // =============================================
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         touched()
@@ -86,5 +86,4 @@ class TouchableView: UIView {
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         released()
     }
-    
 }

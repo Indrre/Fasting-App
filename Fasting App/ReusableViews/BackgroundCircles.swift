@@ -8,12 +8,11 @@
 import Foundation
 import UIKit
 
-
 class BackgroundCircles: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     let circleSize: CGFloat = 146
     
@@ -35,9 +34,9 @@ class BackgroundCircles: UIView {
         return view
     }()
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
     
     init() {
         super.init(frame: .zero)
@@ -68,9 +67,9 @@ class BackgroundCircles: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //=============================================
+    // =============================================
     // MARK: Helpers
-    //=============================================
+    // =============================================
     
     override func layoutSubviews() {
         super.layoutSubviews()

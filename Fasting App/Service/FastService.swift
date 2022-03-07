@@ -65,8 +65,6 @@ class FastService {
                 currentFast?.id,
                 forKey: kCurrentFastId
             )
-            
-            print("CURRENT ID: \(currentFast?.id)")
             observers.forEach {
                 $0.observer?.fastServiceFastUpdated(currentFast)
             }
@@ -79,7 +77,11 @@ class FastService {
         
         Service.shared.fetchFast(
             id: id) { fast, error in
-                self.currentFast = fast
+                if error != nil {
+                    debugPrint("DEBUG: Error Fetching Fast: \(String(describing: error))")
+                } else {
+                    self.currentFast = fast
+                }
             }
     }
     
@@ -91,7 +93,6 @@ class FastService {
     class func updateEnd(_ fast: Fast) {
         self.currentFast = nil
         Service.shared.updateFast(fast)
-        print("DEBUG: ending fast")
     }
     
 }

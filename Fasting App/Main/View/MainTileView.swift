@@ -16,12 +16,11 @@ struct MainTileViewModel {
     let callback: (() -> Void?)
 }
 
-
 class MainTileView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     var lblToday: UILabel = {
         var label = UILabel()
@@ -125,15 +124,15 @@ class MainTileView: UIView {
         }
     }
     
-    //=================================
+    // =================================
     // MARK: Callbacks
-    //=================================
+    // =================================
     
     var action: (() -> Void)?
         
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
     
     init(model: MainTileViewModel) {
         self.model = model
@@ -162,5 +161,4 @@ class MainTileView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

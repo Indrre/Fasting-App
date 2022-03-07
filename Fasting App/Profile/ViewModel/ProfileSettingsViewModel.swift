@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseStorage
-//import FirebaseCore
-//import AVFoundation
 
 class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
@@ -33,7 +31,6 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             getWeight()
             getHeight()
             rerefreshController?()
-            
         }
     }
     
@@ -48,10 +45,10 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             profileImage: profileImage,
             name: user?.fullName ?? "",
             lblAgeValue: String(user?.age ?? 18),
-            lblWeightValue: String(weight ?? "0.0") + (user?.weightUnit ?? ">"),
+            lblWeightValue: String(weight ?? "0.0") + (user?.weightUnit ?? "0.0"),
             lblHeightValue: String(height  ?? "0") + (user?.heightMsureUnit ?? "0"),
             lblGenderValue: user?.gender ?? "Female",
-            lblActivityValue: user?.activity ?? "Inactive (less than 30 mins)",
+            lblActivityValue: user?.activity ?? "Inactive ",
             callback: { [weak self] in
                 self?.showActionSheetController()
             },
@@ -111,9 +108,9 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         )
     }
     
-    //=================================
+    // =================================
     // MARK: Callbacks
-    //=================================
+    // =================================
     
     var rerefreshController: (() -> Void)?
     var presentActionSheet: ((UIViewController) -> Void)?
@@ -121,10 +118,11 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     var presentInageEditController: ((UIViewController) -> Void)?
     var presentPickerController: ((UIViewController) -> Void)?
     var presentController: ((_ type: PersonalInfo) -> Void)?
+    var presentLogin: ((UIViewController) -> Void)?
     
-    //=============================================
+    // =============================================
     // MARK: Helpers
-    //=============================================
+    // =============================================
     
     func viewDidLoad() {
         getWeight()
@@ -135,22 +133,22 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     
     func saveName(name: String) {
         let values = ["fullName": name]
-        Service.shared.updateUserValues(values: values as [String : Any])
+        Service.shared.updateUserValues(values: values as [String: Any])
         UserService.refreshUser()
     }
     
     func saveAge(age: Int) {
         self.age = age
         let values = ["age": age]
-        Service.shared.updateUserValues(values: values as [String : Any])
+        Service.shared.updateUserValues(values: values as [String: Any])
         UserService.refreshUser()
     }
     
     func saveWeight(mesureUnits: String, value: Double) {
         let values = [
             "weightUnit": mesureUnits,
-            "weight": value] as [String : Any]
-        Service.shared.updateUserValues(values: values as [String : Any])
+            "weight": value] as [String: Any]
+        Service.shared.updateUserValues(values: values as [String: Any])
         UserService.refreshUser()
     }
     
@@ -159,21 +157,21 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         let values = [
             "heightUnit": mesureUnits,
             "heightFirstUnit": heightFirstUnit,
-            "heightSecondUnit": heightSecondUnit] as [String : Any]
-        Service.shared.updateUserValues(values: values as [String : Any])
+            "heightSecondUnit": heightSecondUnit] as [String: Any]
+        Service.shared.updateUserValues(values: values as [String: Any])
         UserService.refreshUser()
     }
     
     func saveGender(gender: String) {
-        let values = ["gender":  gender] as [String : Any]
-        Service.shared.updateUserValues(values: values as [String : Any])
+        let values = ["gender": gender] as [String: Any]
+        Service.shared.updateUserValues(values: values as [String: Any])
         self.gender = gender
         UserService.refreshUser()
     }
     
     func saveActivity(activity: String) {
-        let values = ["activity":  activity] as [String : Any]
-        Service.shared.updateUserValues(values: values as [String : Any])
+        let values = ["activity": activity] as [String: Any]
+        Service.shared.updateUserValues(values: values as [String: Any])
         self.activity = activity
         UserService.refreshUser()
     }
@@ -224,17 +222,16 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         presentInageEditController?(imagePicker)
     }
     
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         picker.dismiss(animated: true, completion: nil)
         
         guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         guard let imageData = selectedImage.pngData() else { return }
         
         let userID = user?.uid
-        imageStorage.child("\(String(describing: userID))/file.png").putData(imageData, metadata: nil) { _,  error in
+        imageStorage.child("\(String(describing: userID))/file.png").putData(imageData, metadata: nil) { _, error in
             guard error == nil else {
-                print("Failed to upload image")
+                debugPrint("Failed to upload image")
                 return
             }
             
@@ -288,23 +285,27 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             )
         )
         actionSheet.view.tintColor = UIColor.stdText
-        
         presentActionSheet?(actionSheet)
     }
     
     func signOut() {
         do {
             try Auth.auth().signOut()
-            print("DEBUG: Success! Logged out!!!")
+            presentLoginController()
         } catch {
-            debugPrint("Error Signing Out")
+            debugPrint("DEBUG: Error Signing Out")
         }
+    }
+    
+    func presentLoginController() {
+        let controller = LoginViewController()
+        presentLogin?(controller)
     }
 }
 
-//=================================
+// =================================
 // MARK: TemplateObserver
-//=================================
+// =================================
 
 extension ProfileSettingViewModel: UserServiceObserver {
 

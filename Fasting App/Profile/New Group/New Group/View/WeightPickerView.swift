@@ -32,9 +32,9 @@ extension Unit {
 
 class WeightPickerView: UIView {
     
-    //=============================================
+    // =============================================
     // MARK: Properties
-    //=============================================
+    // =============================================
     
     weak var delegate: ModalViewControllerDelegate?
     var weight: String?
@@ -113,16 +113,15 @@ class WeightPickerView: UIView {
         return view
     }()
     
-    
     var model: WeightPickerModel {
         didSet {
             weight = model.weight
         }
     }
     
-    //=============================================
+    // =============================================
     // MARK: Initialization
-    //=============================================
+    // =============================================
     
     init(model: WeightPickerModel) {
         self.model = model
@@ -180,10 +179,9 @@ class WeightPickerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    //========================================
+    // ========================================
     // MARK: Helpers
-    //========================================
+    // ========================================
     
     @objc func saveButtonPressed() {
         
@@ -213,87 +211,3 @@ class WeightPickerView: UIView {
         weightPicker.selectRow(0, inComponent: 3, animated: true)
     }
 }
-//=============================================
-// MARK: UIPickerViewDataSource
-//=============================================
-
-//extension WeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
-//    
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        4
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        
-//        switch selectedUnit {
-//        case .kilograms:
-//            if component == 0 {
-//                return 1 //KG header
-//            } else if component == 1 {
-//                return kgArray.count //kilograms
-//            } else if component == 2 {
-//                return 1 //grams header
-//            } else {
-//                return gramsArray.count //grams
-//            }
-//        default:
-//            if component == 0 {
-//                return 1 //stone header
-//            } else if component == 1 {
-//                return 100 //stones
-//            } else if component == 2 {
-//                return 1 //pound header
-//            } else {
-//                return 15 //inches
-//            }
-//        }
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent componentKG: Int) -> String? {
-//        switch selectedUnit {
-//        case .kilograms:
-//            if componentKG == 0 {
-//                return "kg:" //header
-//            } else if componentKG == 1 {
-//                return String(format: "%d", kgArray[row]) //value
-//            } else if componentKG == 2 {
-//                return "g:" //header
-//            } else if componentKG == 3 {
-//                return String(format: "%d", gramsArray[row]) //value
-//            }
-//        default:
-//            if componentKG == 0 {
-//                return "st:" //header
-//            } else if componentKG == 1 {
-//                return String(format: "%d", stoneArray[row]) //value
-//            } else if componentKG == 2 {
-//                return "lbs:" //header
-//            } else if componentKG == 3 {
-//                return String(format: "%d", kgArray[row]) //value
-//            }
-//        }
-//        return nil
-//    }
-//    
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        
-//        switch selectedUnit {
-//        case .kilograms:
-//            if component == 1 {
-//                kilograms = row * 1000
-//            } else {
-//                grams = row  * 100
-//            }
-//            totalPoundsEntered = 0
-//            totalGramsEntered = kilograms + grams
-//        default:
-//            if component == 1 {
-//                stones = row * 14
-//            } else {
-//                pounds = row
-//            }
-//            totalGramsEntered = 0
-//            totalPoundsEntered = stones + pounds
-//        }
-//    }
-//}

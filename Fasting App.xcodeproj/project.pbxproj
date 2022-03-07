@@ -34,13 +34,13 @@
 		9348084327C43CA100DD61F5 /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9348083B27C43CA100DD61F5 /* Montserrat-Thin.ttf */; };
 		9376E02F279DB5EF00245FDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E02E279DB5EF00245FDA /* AppDelegate.swift */; };
 		9376E031279DB5EF00245FDA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E030279DB5EF00245FDA /* SceneDelegate.swift */; };
-		9376E033279DB5EF00245FDA /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E032279DB5EF00245FDA /* ContainerViewController.swift */; };
+		9376E033279DB5EF00245FDA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E032279DB5EF00245FDA /* LoginViewController.swift */; };
 		9376E038279DB5F000245FDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9376E037279DB5F000245FDA /* Assets.xcassets */; };
 		9376E046279DB5F000245FDA /* Fasting_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E045279DB5F000245FDA /* Fasting_AppTests.swift */; };
 		9376E050279DB5F000245FDA /* Fasting_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E04F279DB5F000245FDA /* Fasting_AppUITests.swift */; };
 		9376E052279DB5F000245FDA /* Fasting_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E051279DB5F000245FDA /* Fasting_AppUITestsLaunchTests.swift */; };
 		9376E079279DBB3C00245FDA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9376E078279DBB3C00245FDA /* SnapKit */; };
-		9376E082279DBD9500245FDA /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E081279DBD9500245FDA /* ContainerView.swift */; };
+		9376E082279DBD9500245FDA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E081279DBD9500245FDA /* LoginView.swift */; };
 		9376E085279DBE7800245FDA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E084279DBE7800245FDA /* Colors.swift */; };
 		9376E087279DC00A00245FDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9376E086279DC00A00245FDA /* GoogleService-Info.plist */; };
 		9376E08B279DD95100245FDA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E08A279DD95100245FDA /* User.swift */; };
@@ -76,10 +76,12 @@
 		9381D03427C6710B00DC3BFB /* StartStopButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D03327C6710B00DC3BFB /* StartStopButtonView.swift */; };
 		9381D03627C67C6200DC3BFB /* FastPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D03527C67C6200DC3BFB /* FastPickerView.swift */; };
 		9381D03827C67C8800DC3BFB /* Fast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D03727C67C8800DC3BFB /* Fast.swift */; };
-		9386E30B27C69899008AB597 /* FastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E30A27C69899008AB597 /* FastViewModel.swift */; };
 		9386E31027C810AA008AB597 /* PersonalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E30F27C810AA008AB597 /* PersonalInfo.swift */; };
 		9386E31427C836C2008AB597 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E31327C836C2008AB597 /* PickerView.swift */; };
 		9386E31627CFB5D4008AB597 /* FastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E31527CFB5D3008AB597 /* FastService.swift */; };
+		9386E31F27D4F735008AB597 /* TemplateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E31E27D4F735008AB597 /* TemplateService.swift */; };
+		9386E32327D5585A008AB597 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32227D5585A008AB597 /* LaunchViewController.swift */; };
+		9386E32527D69CD3008AB597 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32427D69CD3008AB597 /* Size.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,7 +129,7 @@
 		9376E02B279DB5EF00245FDA /* Fasting App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fasting App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9376E02E279DB5EF00245FDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9376E030279DB5EF00245FDA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9376E032279DB5EF00245FDA /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		9376E032279DB5EF00245FDA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9376E037279DB5F000245FDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9376E03C279DB5F000245FDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9376E041279DB5F000245FDA /* Fasting AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fasting AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,7 +137,7 @@
 		9376E04B279DB5F000245FDA /* Fasting AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fasting AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9376E04F279DB5F000245FDA /* Fasting_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fasting_AppUITests.swift; sourceTree = "<group>"; };
 		9376E051279DB5F000245FDA /* Fasting_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fasting_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		9376E081279DBD9500245FDA /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		9376E081279DBD9500245FDA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9376E084279DBE7800245FDA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		9376E086279DC00A00245FDA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9376E089279DD77C00245FDA /* Fasting App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Fasting App.entitlements"; sourceTree = "<group>"; };
@@ -153,10 +155,12 @@
 		9381D03327C6710B00DC3BFB /* StartStopButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartStopButtonView.swift; sourceTree = "<group>"; };
 		9381D03527C67C6200DC3BFB /* FastPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastPickerView.swift; sourceTree = "<group>"; };
 		9381D03727C67C8800DC3BFB /* Fast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fast.swift; sourceTree = "<group>"; };
-		9386E30A27C69899008AB597 /* FastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastViewModel.swift; sourceTree = "<group>"; };
 		9386E30F27C810AA008AB597 /* PersonalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfo.swift; sourceTree = "<group>"; };
 		9386E31327C836C2008AB597 /* PickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		9386E31527CFB5D3008AB597 /* FastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastService.swift; sourceTree = "<group>"; };
+		9386E31E27D4F735008AB597 /* TemplateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateService.swift; sourceTree = "<group>"; };
+		9386E32227D5585A008AB597 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		9386E32427D69CD3008AB597 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,7 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				931C5EC927A5C2B700752097 /* MainViewModel.swift */,
-				9386E30A27C69899008AB597 /* FastViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -351,7 +354,7 @@
 				931C5EE427AA6E0000752097 /* Profile */,
 				931C5ED427A8788900752097 /* Extensions */,
 				9348083327C43C9400DD61F5 /* Fonts */,
-				9376E083279DBE6D00245FDA /* Colors */,
+				9376E083279DBE6D00245FDA /* Assets */,
 				9376E037279DB5F000245FDA /* Assets.xcassets */,
 				9376E03C279DB5F000245FDA /* Info.plist */,
 			);
@@ -375,19 +378,21 @@
 			path = "Fasting AppUITests";
 			sourceTree = "<group>";
 		};
-		9376E083279DBE6D00245FDA /* Colors */ = {
+		9376E083279DBE6D00245FDA /* Assets */ = {
 			isa = PBXGroup;
 			children = (
 				9376E084279DBE7800245FDA /* Colors.swift */,
+				9386E32427D69CD3008AB597 /* Size.swift */,
 			);
-			path = Colors;
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		9376E0BB27A0725900245FDA /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				9376E032279DB5EF00245FDA /* ContainerViewController.swift */,
-				9376E081279DBD9500245FDA /* ContainerView.swift */,
+				9386E32227D5585A008AB597 /* LaunchViewController.swift */,
+				9376E032279DB5EF00245FDA /* LoginViewController.swift */,
+				9376E081279DBD9500245FDA /* LoginView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 				9376E08C279DD97B00245FDA /* Service.swift */,
 				9376E0B627A0132C00245FDA /* UserService.swift */,
 				9386E31527CFB5D3008AB597 /* FastService.swift */,
+				9386E31E27D4F735008AB597 /* TemplateService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -445,6 +451,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9376E055279DB5F000245FDA /* Build configuration list for PBXNativeTarget "Fasting App" */;
 			buildPhases = (
+				9386E32127D50502008AB597 /* Run Script */,
 				9376E027279DB5EF00245FDA /* Sources */,
 				9376E028279DB5EF00245FDA /* Frameworks */,
 				9376E029279DB5EF00245FDA /* Resources */,
@@ -600,11 +607,33 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9386E32127D50502008AB597 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9376E027279DB5EF00245FDA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9386E32527D69CD3008AB597 /* Size.swift in Sources */,
 				9381D02F27C58DC100DC3BFB /* TouchableView.swift in Sources */,
 				9376E0C627A1B01200245FDA /* FastSelectionController.swift in Sources */,
 				9381D02B27C58CBC00DC3BFB /* MainTileView.swift in Sources */,
@@ -614,7 +643,7 @@
 				9376E0BF27A0796B00245FDA /* RingView.swift in Sources */,
 				931C5EF027B02B2100752097 /* UserSettingsProfilePickerController.swift in Sources */,
 				931C5EF427B02CF100752097 /* HeightPickerView.swift in Sources */,
-				9376E082279DBD9500245FDA /* ContainerView.swift in Sources */,
+				9376E082279DBD9500245FDA /* LoginView.swift in Sources */,
 				9376E08D279DD97B00245FDA /* Service.swift in Sources */,
 				9386E31627CFB5D4008AB597 /* FastService.swift in Sources */,
 				9381D03127C58E2700DC3BFB /* BackgroundCircles.swift in Sources */,
@@ -629,16 +658,17 @@
 				931C5EF827B02D7100752097 /* AgePickerView.swift in Sources */,
 				931C5ED027A5EACA00752097 /* ProfileViewController.swift in Sources */,
 				931C5EE927AAB50C00752097 /* UserInfoReusableView.swift in Sources */,
-				9386E30B27C69899008AB597 /* FastViewModel.swift in Sources */,
 				931C5ECC27A5CFE300752097 /* ProfileHeaderView.swift in Sources */,
 				931C5EE227AA672F00752097 /* ModalViewController.swift in Sources */,
 				931C5ECA27A5C2B700752097 /* MainViewModel.swift in Sources */,
 				9386E31027C810AA008AB597 /* PersonalInfo.swift in Sources */,
+				9386E31F27D4F735008AB597 /* TemplateService.swift in Sources */,
 				9376E08B279DD95100245FDA /* User.swift in Sources */,
 				9376E0B727A0132C00245FDA /* UserService.swift in Sources */,
+				9386E32327D5585A008AB597 /* LaunchViewController.swift in Sources */,
 				9386E31427C836C2008AB597 /* PickerView.swift in Sources */,
 				931C5EF227B02C9F00752097 /* GenderPickerView.swift in Sources */,
-				9376E033279DB5EF00245FDA /* ContainerViewController.swift in Sources */,
+				9376E033279DB5EF00245FDA /* LoginViewController.swift in Sources */,
 				9376E0B927A01CB300245FDA /* MainViewController.swift in Sources */,
 				9381D03427C6710B00DC3BFB /* StartStopButtonView.swift in Sources */,
 				9381D03627C67C6200DC3BFB /* FastPickerView.swift in Sources */,
