@@ -44,11 +44,11 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         return ProfileSettingsModel(
             profileImage: profileImage,
             name: user?.fullName ?? "",
-            lblAgeValue: String(user?.age ?? 18),
-            lblWeightValue: String(weight ?? "0.0") + (user?.weightUnit ?? "0.0"),
-            lblHeightValue: String(height  ?? "0") + (user?.heightMsureUnit ?? "0"),
-            lblGenderValue: user?.gender ?? "Female",
-            lblActivityValue: user?.activity ?? "Inactive ",
+            age: String(user?.age ?? 18),
+            weight: String(weight ?? "0.0") + (user?.weightUnit ?? "0.0"),
+            height: String(height  ?? "0") + (user?.heightMsureUnit ?? "0"),
+            gender: user?.gender ?? "Female",
+            activity: user?.activity ?? "Inactive ",
             callback: { [weak self] in
                 self?.showActionSheetController()
             },

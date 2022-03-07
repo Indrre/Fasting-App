@@ -13,8 +13,8 @@ struct RingViewModel {
     let isAnimated: Bool
     let trackColor: UIColor
     let animatedColor: UIColor
-    let lblTimer: String?
-    let lblFast: String?
+    let timer: String?
+    let fast: String?
     var timeSelected: Int?
     let prsentPicker: (() -> Void)?
     var stopStartBtn: ((_ state: State) -> Void)?
@@ -25,8 +25,8 @@ struct RingViewModel {
         isAnimated: Bool = false,
         trackColor: UIColor? = nil,
         animatedColor: UIColor? = nil,
-        lblTimer: String? = nil,
-        lblFast: String? = nil,
+        timer: String? = nil,
+        fast: String? = nil,
         timeSelected: Int? = nil,
         prsentPicker: (() -> Void)? = nil,
         stopStartBtn: ((_ state: State) -> Void)? = nil,
@@ -36,8 +36,8 @@ struct RingViewModel {
         self.isAnimated = isAnimated
         self.trackColor = trackColor!
         self.animatedColor = animatedColor!
-        self.lblTimer = lblTimer
-        self.lblFast = lblFast
+        self.timer = timer
+        self.fast = fast
         self.timeSelected = timeSelected
         self.prsentPicker = prsentPicker
         self.stopStartBtn = stopStartBtn
@@ -55,8 +55,8 @@ class RingView: UIView {
     
     var model: RingViewModel {
         didSet {
-            lblFast.text = model.lblFast
-            lblTimer.text = model.lblTimer
+            lblFast.text = model.fast
+            lblTimer.text = model.timer
             timeSelected = model.timeSelected ?? 0
             state = model.state
 //            btnStartStop.currentState = model.btnStartStop

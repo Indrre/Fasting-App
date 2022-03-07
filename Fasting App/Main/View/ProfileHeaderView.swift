@@ -136,11 +136,19 @@ class ProfileHeaderView: TouchableView {
         var timeOfTheDay: String = ""
         
         switch hour {
-            case 0..<12 : timeOfTheDay = "Good Morning,"
-            case 12..<18 : timeOfTheDay = "Good Afternoon,"
-            case 18..<24 : timeOfTheDay = "Good Evening,"
-            default: debugPrint("DEBUG: Hi")
+        case 0..<12 : timeOfTheDay = .goodMorning
+        case 12..<18 : timeOfTheDay = .goodAfternoon
+        case 18..<24 : timeOfTheDay = .goodEvening
+        default: timeOfTheDay = .defaultGreeting
         }
         lblGreeting.text = timeOfTheDay
     }
+}
+
+extension String {
+    
+       static let goodMorning: String = "Good Morning"
+       static let goodAfternoon: String = "Good Afternoon"
+       static let goodEvening: String = "Good Evening"
+       static let defaultGreeting: String = "Hi"
 }

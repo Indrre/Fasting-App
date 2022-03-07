@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class MainViewController: ViewController {
+class MainViewController: UIViewController {
     
     // =============================================
     // MARK: Components
@@ -156,7 +156,6 @@ class MainViewController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setLargeTitleDisplayMode(.never)
-        setBackground()
     }
     
     deinit {
@@ -171,17 +170,4 @@ class MainViewController: ViewController {
         profileHeaderView.model = model.profileHeaderModel
         fastRingView.model = model.ringModel
     }
-    
-    override func setBackground() {
-        guard
-            let mainColor = UIColor.stdBackground,
-            let topColor = UIColor.topBackground else { return }
-        
-        layer.frame = view.bounds
-        layer.colors = [mainColor.cgColor, topColor.cgColor]
-        layer.startPoint = CGPoint(x: 0, y: 0)
-        layer.endPoint = CGPoint(x: 1, y: 1)
-        view.layer.insertSublayer(layer, at: 0)
-    }
-
 }

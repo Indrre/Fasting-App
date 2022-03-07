@@ -66,8 +66,8 @@ class MainViewModel {
         return RingViewModel(
             trackColor: UIColor.gray,
             animatedColor: UIColor(named: "time-color")!,
-            lblTimer: timerLabel,
-            lblFast: fastLabel,
+            timer: timerLabel,
+            fast: fastLabel,
             timeSelected: timeSelected,
             prsentPicker: { [weak self] in
                 self?.presentFastPicker()
@@ -101,9 +101,9 @@ class MainViewModel {
     var mainTileModel: MainTileViewModel {
         return MainTileViewModel(
             fastHours: "Fast Hours",
-            waterValue: "Water Consumed",
-            weightvalue: "Weight value",
-            calorieValue: "Calories eated",
+            water: "Water Consumed",
+            weight: "Weight value",
+            calories: "Calories eated",
             callback: { [ weak self] in
                 
             })
@@ -214,7 +214,7 @@ class MainViewModel {
     
     func endFast() {
         guard var fast = FastService.currentFast else { return }
-        let end = fast.end
+//        let end = fast.end
         fast.updateStart(interval: Date().timeIntervalSince1970)
 //        FastService.updateFast(.updateEnd(fase.e))
         checkState()
@@ -252,14 +252,15 @@ extension FastPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
         if component == 0 {
-           return 1 // hours header
+           return 1 // "Days" Header
         } else if component == 1 {
-           return 31 // hours
+           return 32 // Number of days
         } else if component == 2 {
-           return 1 // days header
+           return 1 // "Hours" Header
         } else {
-           return 25 // days
+           return 25 // Number of hours
         }
     }
 

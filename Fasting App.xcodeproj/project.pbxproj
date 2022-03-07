@@ -12,7 +12,6 @@
 		931C5ED027A5EACA00752097 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5ECF27A5EACA00752097 /* ProfileViewController.swift */; };
 		931C5ED627A8840400752097 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5ED527A8840300752097 /* ProfileSettingsView.swift */; };
 		931C5ED827A8883A00752097 /* ProfileSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5ED727A8883A00752097 /* ProfileSettingsViewModel.swift */; };
-		931C5EDA27A8976D00752097 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5ED927A8976D00752097 /* ViewController.swift */; };
 		931C5EDE27AA65D700752097 /* NameEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5EDD27AA65D700752097 /* NameEditController.swift */; };
 		931C5EE027AA662500752097 /* NameEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5EDF27AA662500752097 /* NameEditView.swift */; };
 		931C5EE227AA672F00752097 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5EE127AA672F00752097 /* ModalViewController.swift */; };
@@ -107,7 +106,6 @@
 		931C5ECF27A5EACA00752097 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		931C5ED527A8840300752097 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		931C5ED727A8883A00752097 /* ProfileSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewModel.swift; sourceTree = "<group>"; };
-		931C5ED927A8976D00752097 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		931C5EDD27AA65D700752097 /* NameEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameEditController.swift; sourceTree = "<group>"; };
 		931C5EDF27AA662500752097 /* NameEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameEditView.swift; sourceTree = "<group>"; };
 		931C5EE127AA672F00752097 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
@@ -222,7 +220,6 @@
 			children = (
 				9376E0B827A01CB300245FDA /* MainViewController.swift */,
 				9376E0C527A1B01200245FDA /* FastSelectionController.swift */,
-				931C5ED927A8976D00752097 /* ViewController.swift */,
 				931C5EE127AA672F00752097 /* ModalViewController.swift */,
 			);
 			path = Controllers;
@@ -637,7 +634,6 @@
 				9381D02F27C58DC100DC3BFB /* TouchableView.swift in Sources */,
 				9376E0C627A1B01200245FDA /* FastSelectionController.swift in Sources */,
 				9381D02B27C58CBC00DC3BFB /* MainTileView.swift in Sources */,
-				931C5EDA27A8976D00752097 /* ViewController.swift in Sources */,
 				931C5ED827A8883A00752097 /* ProfileSettingsViewModel.swift in Sources */,
 				9381D03827C67C8800DC3BFB /* Fast.swift in Sources */,
 				9376E0BF27A0796B00245FDA /* RingView.swift in Sources */,

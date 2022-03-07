@@ -10,9 +10,9 @@ import UIKit
 
 struct MainTileViewModel {
     var fastHours: String
-    var waterValue: String
-    var weightvalue: String
-    var calorieValue: String
+    var water: String
+    var weight: String
+    var calories: String
     let callback: (() -> Void?)
 }
 
@@ -118,9 +118,9 @@ class MainTileView: UIView {
     var model: MainTileViewModel {
         didSet {
             fastTile.value = model.fastHours
-            waterTile.value = model.waterValue
-            weightTile.value = model.weightvalue
-            calorieTile.value = model.calorieValue
+            waterTile.value = model.water
+            weightTile.value = model.weight
+            calorieTile.value = model.calories
         }
     }
     
