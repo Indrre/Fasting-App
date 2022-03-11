@@ -42,7 +42,6 @@ extension Fast {
     }
     
     var timeLapsed: TimeInterval {
-        // If user has added end time return the difference
         if let end = end {
             return end - (start ?? 0)
         }

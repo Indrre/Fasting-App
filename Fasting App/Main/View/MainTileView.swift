@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct MainTileViewModel {
+struct MainTileModel {
     var fastHours: String
     var water: String
     var weight: String
@@ -61,13 +61,13 @@ class MainTileView: UIView {
     
     lazy var fastTile: HomeTileView = {
         let view = HomeTileView()
-        view.model = HomeTileViewViewModel(
+        view.model = HomeTileViewModel(
             icon: "timer-icon-small",
             title: "Fast",
             color: .fastColor,
-            value: "Test",
+            value: "0h",
             action: { [weak self] in
-//                self?.takeToTotalFast()
+                self?.takeToTotalFast()
             }
         )
         return view
@@ -75,7 +75,7 @@ class MainTileView: UIView {
     
     lazy var waterTile: HomeTileView = {
         let view = HomeTileView()
-        view.model = HomeTileViewViewModel(
+        view.model = HomeTileViewModel(
             icon: "water-icon",
             title: "Water",
             color: .waterColor,
@@ -89,7 +89,7 @@ class MainTileView: UIView {
     
     lazy var weightTile: HomeTileView = {
         let view = HomeTileView()
-        view.model = HomeTileViewViewModel(
+        view.model = HomeTileViewModel(
             icon: "weight-icon-small",
             title: "Weight",
             color: .weightColor,
@@ -103,7 +103,7 @@ class MainTileView: UIView {
     
     lazy var calorieTile: HomeTileView = {
         let view = HomeTileView()
-        view.model = HomeTileViewViewModel(
+        view.model = HomeTileViewModel(
             icon: "calorie-icon",
             title: "Calories",
             color: .calorieColor,
@@ -115,7 +115,7 @@ class MainTileView: UIView {
         return view
     }()
     
-    var model: MainTileViewModel {
+    var model: MainTileModel {
         didSet {
             fastTile.value = model.fastHours
             waterTile.value = model.water
@@ -134,7 +134,7 @@ class MainTileView: UIView {
     // MARK: Initialization
     // =============================================
     
-    init(model: MainTileViewModel) {
+    init(model: MainTileModel) {
         self.model = model
         super.init(frame: .zero)
         
@@ -160,5 +160,9 @@ class MainTileView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func takeToTotalFast() {
+        model.callback()
     }
 }

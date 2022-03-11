@@ -68,6 +68,7 @@ class FastService {
             observers.forEach {
                 $0.observer?.fastServiceFastUpdated(currentFast)
             }
+            print("DEBUG: Timer - current fast \(currentFast)")
         }
     }
     
@@ -88,11 +89,9 @@ class FastService {
     class func updateFast(_ fast: Fast) {
         self.currentFast = fast
         Service.shared.updateFast(fast)
+        let currentFast = fast
+        if currentFast.end != nil {
+            self.currentFast = nil
+        }
     }
-    
-    class func updateEnd(_ fast: Fast) {
-        self.currentFast = nil
-        Service.shared.updateFast(fast)
-    }
-    
 }

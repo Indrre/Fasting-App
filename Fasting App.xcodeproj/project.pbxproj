@@ -349,6 +349,7 @@
 				9376E0BB27A0725900245FDA /* Login */,
 				931C5EE327AA6DA200752097 /* Main */,
 				931C5EE427AA6E0000752097 /* Profile */,
+				9386E32627DBB03F008AB597 /* Fast */,
 				931C5ED427A8788900752097 /* Extensions */,
 				9348083327C43C9400DD61F5 /* Fonts */,
 				9376E083279DBE6D00245FDA /* Assets */,
@@ -439,6 +440,13 @@
 				9386E30F27C810AA008AB597 /* PersonalInfo.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9386E32627DBB03F008AB597 /* Fast */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fast;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -836,7 +844,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -864,7 +871,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

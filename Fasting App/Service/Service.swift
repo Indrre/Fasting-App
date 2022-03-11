@@ -83,21 +83,17 @@ struct Service {
             
             let path = String(format: "%@/%@", uid, id)
             REF_FASTS.child(path).observeSingleEvent(of: .value) { (returningData) in
-                guard
-                    let dictionary = returningData.value as? [String: Any],
-                    let start = dictionary["start"] as? TimeInterval,
-                    let timeSelected = dictionary["timeSelected"] as? TimeInterval else {
-                        completion(nil, NSError(domain: "", code: 1000, userInfo: ["message": "missing fast"]))
-                        return
-                    }
-
+                
+                guard let dictionary = returningData.value as? [String: Any] else { return }
+                let start = dictionary["start"] as? TimeInterval ?? nil
+                let timeSelected = dictionary["timeSelected"] as? TimeInterval ?? nil
+                
                 let object = Fast(
                     id: id,
                     start: start,
                     end: dictionary["end"] as? TimeInterval,
-                    timeSelected: timeSelected
+                    timeSelected: timeSelected ?? 0
                 )
-
                 completion(object, nil)
             }
         }

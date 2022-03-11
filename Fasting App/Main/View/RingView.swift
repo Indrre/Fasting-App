@@ -10,28 +10,31 @@ import UIKit
 
 struct RingViewModel {
     
-    let isAnimated: Bool
+    let isAnimated: Bool?
     let trackColor: UIColor
     let animatedColor: UIColor
     let timer: String?
     let fast: String?
-    var timeSelected: Int?
+    var timeSelected: TimeInterval?
+    let state: State
+    let timeLapsed: Float
+    let stroke: CGFloat?
     let prsentPicker: (() -> Void)?
     var stopStartBtn: ((_ state: State) -> Void)?
-    let state: State
-//    let btnStartStop: State
     
     init(
-        isAnimated: Bool = false,
+        isAnimated: Bool? = false,
         trackColor: UIColor? = nil,
         animatedColor: UIColor? = nil,
         timer: String? = nil,
         fast: String? = nil,
-        timeSelected: Int? = nil,
+        timeSelected: TimeInterval?,
+        state: State,
+        timeLapsed: Float,
+        stroke: CGFloat,
         prsentPicker: (() -> Void)? = nil,
-        stopStartBtn: ((_ state: State) -> Void)? = nil,
-        state: State
-//        btnStartStop: State
+        stopStartBtn: ((_ state: State) -> Void)? = nil
+        
         ) {
         self.isAnimated = isAnimated
         self.trackColor = trackColor!
@@ -39,10 +42,11 @@ struct RingViewModel {
         self.timer = timer
         self.fast = fast
         self.timeSelected = timeSelected
+        self.state = state
+        self.timeLapsed = timeLapsed
+        self.stroke = stroke
         self.prsentPicker = prsentPicker
         self.stopStartBtn = stopStartBtn
-        self.state = state
-//        self.btnStartStop = btnStartStop
     }
     
 }
@@ -57,37 +61,27 @@ class RingView: UIView {
         didSet {
             lblFast.text = model.fast
             lblTimer.text = model.timer
-            timeSelected = model.timeSelected ?? 0
+            timeSelected = Int(model.timeSelected ?? 0)
             state = model.state
-//            btnStartStop.currentState = model.btnStartStop
+            timeLapsed = model.timeLapsed
+            stroke = model.stroke ?? 0
         }
     }
-    
     var state: State? {
         didSet {
-            print("DEBUG: State in Ring View \(state)")
+            btnStartStop.currentState = state!
             if state == .running {
-                animateRing(timeSelected: timeSelected)
+                animateRing(timeSelected: timeSelected, stroke: stroke ?? 0)
             }
         }
-    }
-    
-    var timeSelected: Int = 0
-    
-    var fastTimer: Int {
-        //        return FastStoreModel.shared.currentTimer.count
-        5
     }
     
     var trackLayer: CAShapeLayer?
     var timeRing: CAShapeLayer?
     var timer: Timer?
-    
-    var fastSelected: Int? {
-        didSet {
-            print("Label is setting up")
-        }
-    }
+    var timeLapsed: Float?
+    var stroke: CGFloat?
+    var timeSelected: Int = 0
     
     let ringView: UIView = {
         let view = UIView()
@@ -172,7 +166,7 @@ class RingView: UIView {
             $0.size.equalTo(30)
             $0.top.equalTo(lblContainerStackView.snp.bottom).offset(25)
         }
-        btnStartStop.currentState = .stopped
+//        btnStartStop.currentState = .stopped
     }
     
     required init?(coder: NSCoder) {
@@ -207,13 +201,14 @@ class RingView: UIView {
         lblTimer.addGestureRecognizer(labelTap)
     }
     
-    func animateRing(timeSelected: Int) {
+    func animateRing(timeSelected: Int, stroke: CGFloat) {
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         basicAnimation.toValue = 1
         basicAnimation.duration = CFTimeInterval(timeSelected)
         basicAnimation.fillMode = .forwards
         basicAnimation.isRemovedOnCompletion = false
         timeRing?.add(basicAnimation, forKey: "strokeEnd")
+        timeRing?.strokeEnd = stroke
     }
     
     func setupTimeRunningRing() {

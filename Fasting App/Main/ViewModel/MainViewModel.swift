@@ -18,7 +18,6 @@ class MainViewModel {
         
     var user: User? {
         didSet {
-            updateLabel()
             fetchUserImage()
             refreshController?()
         }
@@ -32,7 +31,7 @@ class MainViewModel {
         }
     }
     
-    var fastLabel = "" {
+    var fastLabel: String? {
         didSet {
             refreshController?()
         }
@@ -46,37 +45,42 @@ class MainViewModel {
     
     var state: State = .stopped {
         didSet {
-            print("DEBUG: STEP 3")
-            print("DEBUG: STATE IN VM \(state)")
             refreshController?()
         }
     }
-//
-//    var isRunning: Bool {
-//        return startTime != nil
-//    }
+    
+    var stroke: CGFloat = 0
+    
+    var timeSelected: TimeInterval?
+    
+    var fastTimer: TimeInterval {
+        return FastService.currentFast?.timeLapsed ?? 0
+    }
+    
+    var isAnimated: Bool?
     
     var startTime: TimeInterval?
-    
-    var timeSelected: Int?
-    
+    var timeLapsed: Float = 0
+    var timer: Timer?
     var profileImage: UIImage? 
     
     var ringModel: RingViewModel {
         return RingViewModel(
+            isAnimated: isAnimated,
             trackColor: UIColor.gray,
             animatedColor: UIColor(named: "time-color")!,
             timer: timerLabel,
             fast: fastLabel,
             timeSelected: timeSelected,
+            state: state,
+            timeLapsed: timeLapsed,
+            stroke: stroke,
             prsentPicker: { [weak self] in
                 self?.presentFastPicker()
             },
             stopStartBtn: { [ weak self] state in
                 self?.handleStopStart(state: state)
-            },
-            state: state
-//            btnStartStop: state!
+            }
         )
     }
     var fastPickerModel: FastPickerModel {
@@ -90,7 +94,7 @@ class MainViewModel {
     
     var profileHeaderModel: ProfileHeaderModel {
         return ProfileHeaderModel(
-            name: user?.fullName ?? "Not found",
+            name: user?.fullName ?? "",
             profilePic: profileImage,
             action: { [weak self] in
                 self?.presentProfileController()
@@ -98,14 +102,14 @@ class MainViewModel {
         )
     }
     
-    var mainTileModel: MainTileViewModel {
-        return MainTileViewModel(
-            fastHours: "Fast Hours",
+    var mainTileModel: MainTileModel {
+        return MainTileModel(
+            fastHours: fast?.timeLapsed.timeString ?? "" + "h",
             water: "Water Consumed",
             weight: "Weight value",
             calories: "Calories eated",
-            callback: { [ weak self] in
-                
+            callback: { [ weak self ] in
+                print("Calling")
             })
     }
     
@@ -126,15 +130,13 @@ class MainViewModel {
         FastService.startObservingFast(self)
         UserService.refreshUser()
         FastService.start()
-//        checkState()
         updateLabel()
     }
     
-    func checkState() {
-        if fast?.start != nil && fast?.end == nil {
-            state = .running
-        } else {
-            state = .stopped
+    func fetchUserImage() {
+        guard let imageURL = user?.imageURL else { return }
+        ImageService.fetchImage(urlString: imageURL) { [weak self] image, _ in
+            self?.profileImage = image
         }
     }
     
@@ -145,19 +147,20 @@ class MainViewModel {
     }
     
     @objc func presentProfileController() {
-        print("DEBUG: RECEIVING")
         let controller = ProfileViewController()
         pushController?(controller)
     }
     
-    func fetchUserImage() {
-        guard let imageURL = user?.imageURL else { return }
-        ImageService.fetchImage(urlString: imageURL) { [weak self] image, _ in
-            self?.profileImage = image
+    func checkState() {
+        if fast?.start != nil && fast?.end == nil {
+            state = .running
+        } else {
+            state = .stopped
         }
     }
     
     func saveSelectedInterval(timeSelected: Int) {
+        if timeSelected == 0 { return }
         var fast = FastService.currentFast
         if fast == nil {
             fast = Fast(
@@ -167,29 +170,31 @@ class MainViewModel {
         } else {
             fast?.updateTimeSelected(interval: TimeInterval(timeSelected))
         }
-        
+        updateLabel()
         guard let fast = fast else { return }
         FastService.updateFast(fast)
     }
     
     func updateLabel() {
-        let fast = FastService.currentFast?.timeSelected
-        if fast == nil {
-            timerLabel = "Select Fast"
-            fastLabel = ""
-        } else {
+        if state == .running {
+            startTimer()
+            updateCounter()
+            fastLabel = String(format: "%d", Int(fast!.timeSelected) / 60 / 60) + "" + "hours"
+        } else if fast?.timeSelected != nil {
             timerLabel = "Start Fast"
-            fastLabel = String(format: "%d", Int(fast!) / 60 / 60) + "" + "hours"
+            fastLabel = String(format: "%d", Int(fast!.timeSelected) / 60 / 60) + "" + "hours"
+        } else {
+            timerLabel = "Select Fast"
         }
+        UserService.refreshUser()
     }
     
     func handleStopStart(state: State) {
         self.state = state
-        print("DEBUG: HANDLE STOP START BUTTON _ STATE \(state)")
             if state == .running {
             guard var fast = FastService.currentFast else { return }
             fast.updateEnd(interval: Date().timeIntervalSince1970)
-//            endFast()
+            endFast()
             self.state = .stopped
         } else {
             startFast()
@@ -198,7 +203,6 @@ class MainViewModel {
     }
     
     func startFast() {
-        timeSelected = Int(FastService.currentFast?.timeSelected ?? 0)
         let fast = FastService.currentFast
         if fast == nil {
             presentFastPicker()
@@ -209,19 +213,41 @@ class MainViewModel {
     
             UserService.refreshUser()
             state = .running
+            startTimer()
+            
         }
+    }
+    
+    func startTimer() {
+        if FastService.currentFast == nil { return }
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(
+            timeInterval: 1.0,
+            target: self,
+            selector: #selector(updateCounter),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+    
+    @objc func updateCounter() {
+        if let fast = FastService.currentFast {
+            DispatchQueue.main.async {
+                self.timerLabel = fast.timeLapsed.timeString
+                self.isAnimated = true
+                let stroke = CGFloat(((self.fastTimer) / ((self.fast?.timeSelected)!)) )
+                self.stroke = Double(stroke)
+            }
+        }
+       
     }
     
     func endFast() {
         guard var fast = FastService.currentFast else { return }
-//        let end = fast.end
-        fast.updateStart(interval: Date().timeIntervalSince1970)
-//        FastService.updateFast(.updateEnd(fase.e))
-        checkState()
-    }
-    
-    func passingFast(fast: Int) {
-        
+        fast.updateEnd(interval: Date().timeIntervalSince1970)
+        FastService.updateFast(fast)
+        timer?.invalidate()
+        fastLabel = ""
     }
 }
 

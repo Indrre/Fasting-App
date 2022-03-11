@@ -36,7 +36,7 @@ class MainViewController: UIViewController {
     let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 20
+        view.spacing = 40
         return view
     }()
     
@@ -72,7 +72,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         model.viewDidLoad()
-        view.backgroundColor = .blue
+        view.backgroundColor = .stdBackground
+        setBackground()
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         setup()
@@ -84,12 +85,6 @@ class MainViewController: UIViewController {
             $0.height.equalTo(70)
         }
         
-//        view.addSubview(fastRingView)
-//        fastRingView.snp.makeConstraints {
-//            $0.size.equalTo(view.snp.width).multipliedBy(0.7)
-//            $0.center.equalToSuperview()
-//        }
-        
         view.addSubview(scrollView)
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         scrollView.snp.makeConstraints {
@@ -100,13 +95,7 @@ class MainViewController: UIViewController {
         
         scrollView.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(5)
-            $0.width.equalToSuperview().offset(-30)
-        }
-        
-        stackView.subviews.forEach { (view) in
-            view.removeFromSuperview()
+            $0.size.equalTo(scrollView)
         }
         
         let timerContainer = UIView()
@@ -121,16 +110,13 @@ class MainViewController: UIViewController {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(view)
         }
+        
         stackView.addArrangedSubview(mainTileView)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-//        if let fast = FastStore.shared.currentFast {
-//            fastRingView.handleStart(fast: fast.start)
-//        }
-//        updateUI()
     }
     
     override func viewDidLayoutSubviews() {
@@ -169,5 +155,6 @@ class MainViewController: UIViewController {
     func setup() {
         profileHeaderView.model = model.profileHeaderModel
         fastRingView.model = model.ringModel
+        mainTileView.model = model.mainTileModel
     }
 }
