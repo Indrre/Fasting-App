@@ -67,7 +67,7 @@
 		9376E0B927A01CB300245FDA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0B827A01CB300245FDA /* MainViewController.swift */; };
 		9376E0BF27A0796B00245FDA /* RingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0BE27A0796B00245FDA /* RingView.swift */; };
 		9376E0C127A07D4F00245FDA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0C027A07D4F00245FDA /* Extensions.swift */; };
-		9376E0C627A1B01200245FDA /* FastSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0C527A1B01200245FDA /* FastSelectionController.swift */; };
+		9376E0C627A1B01200245FDA /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0C527A1B01200245FDA /* DatePickerViewController.swift */; };
 		9381D02B27C58CBC00DC3BFB /* MainTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D02A27C58CBC00DC3BFB /* MainTileView.swift */; };
 		9381D02D27C58D8700DC3BFB /* HomeTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D02C27C58D8700DC3BFB /* HomeTileView.swift */; };
 		9381D02F27C58DC100DC3BFB /* TouchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D02E27C58DC100DC3BFB /* TouchableView.swift */; };
@@ -81,6 +81,12 @@
 		9386E31F27D4F735008AB597 /* TemplateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E31E27D4F735008AB597 /* TemplateService.swift */; };
 		9386E32327D5585A008AB597 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32227D5585A008AB597 /* LaunchViewController.swift */; };
 		9386E32527D69CD3008AB597 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32427D69CD3008AB597 /* Size.swift */; };
+		9386E32827DBD43F008AB597 /* FastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32727DBD43F008AB597 /* FastView.swift */; };
+		9386E32D27DBD66B008AB597 /* FastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32C27DBD66B008AB597 /* FastViewController.swift */; };
+		9386E32F27DBDAF3008AB597 /* FastMonthlyBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32E27DBDAF3008AB597 /* FastMonthlyBarView.swift */; };
+		9386E33127DBE239008AB597 /* HorizontalTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33027DBE239008AB597 /* HorizontalTimerView.swift */; };
+		9386E33327DBF642008AB597 /* FastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33227DBF642008AB597 /* FastViewModel.swift */; };
+		9386E33527DC8F24008AB597 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33427DC8F23008AB597 /* DatePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,7 +151,7 @@
 		9376E0B827A01CB300245FDA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9376E0BE27A0796B00245FDA /* RingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingView.swift; sourceTree = "<group>"; };
 		9376E0C027A07D4F00245FDA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		9376E0C527A1B01200245FDA /* FastSelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastSelectionController.swift; sourceTree = "<group>"; };
+		9376E0C527A1B01200245FDA /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		9381D02A27C58CBC00DC3BFB /* MainTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTileView.swift; sourceTree = "<group>"; };
 		9381D02C27C58D8700DC3BFB /* HomeTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTileView.swift; sourceTree = "<group>"; };
 		9381D02E27C58DC100DC3BFB /* TouchableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableView.swift; sourceTree = "<group>"; };
@@ -159,6 +165,12 @@
 		9386E31E27D4F735008AB597 /* TemplateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateService.swift; sourceTree = "<group>"; };
 		9386E32227D5585A008AB597 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		9386E32427D69CD3008AB597 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		9386E32727DBD43F008AB597 /* FastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastView.swift; sourceTree = "<group>"; };
+		9386E32C27DBD66B008AB597 /* FastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastViewController.swift; sourceTree = "<group>"; };
+		9386E32E27DBDAF3008AB597 /* FastMonthlyBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastMonthlyBarView.swift; sourceTree = "<group>"; };
+		9386E33027DBE239008AB597 /* HorizontalTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTimerView.swift; sourceTree = "<group>"; };
+		9386E33227DBF642008AB597 /* FastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastViewModel.swift; sourceTree = "<group>"; };
+		9386E33427DC8F23008AB597 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,23 +227,10 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		931C5ED227A716F000752097 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				9376E0B827A01CB300245FDA /* MainViewController.swift */,
-				9376E0C527A1B01200245FDA /* FastSelectionController.swift */,
-				931C5EE127AA672F00752097 /* ModalViewController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
 		931C5ED327A8786E00752097 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				931C5ECB27A5CFE300752097 /* ProfileHeaderView.swift */,
-				9376E0BE27A0796B00245FDA /* RingView.swift */,
 				9381D03327C6710B00DC3BFB /* StartStopButtonView.swift */,
-				9381D02A27C58CBC00DC3BFB /* MainTileView.swift */,
 				9381D03527C67C6200DC3BFB /* FastPickerView.swift */,
 			);
 			path = View;
@@ -245,14 +244,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		931C5EE327AA6DA200752097 /* Main */ = {
+		931C5EE327AA6DA200752097 /* NEED TO SORT */ = {
 			isa = PBXGroup;
 			children = (
 				931C5ED327A8786E00752097 /* View */,
-				931C5ED127A716C500752097 /* ViewModel */,
-				931C5ED227A716F000752097 /* Controllers */,
 			);
-			path = Main;
+			path = "NEED TO SORT";
 			sourceTree = "<group>";
 		};
 		931C5EE427AA6E0000752097 /* Profile */ = {
@@ -344,12 +341,15 @@
 				9376E089279DD77C00245FDA /* Fasting App.entitlements */,
 				9376E0C227A1973500245FDA /* Source */,
 				9376E0BD27A074DE00245FDA /* Service */,
-				9381D03227C58E5A00DC3BFB /* ReusableViews */,
+				9381D03227C58E5A00DC3BFB /* Reusables */,
 				9376E0BC27A0727900245FDA /* Model */,
+				938FD7F727DE66980064487F /* Modules */,
 				9376E0BB27A0725900245FDA /* Login */,
-				931C5EE327AA6DA200752097 /* Main */,
+				931C5EE327AA6DA200752097 /* NEED TO SORT */,
 				931C5EE427AA6E0000752097 /* Profile */,
 				9386E32627DBB03F008AB597 /* Fast */,
+				9386E32B27DBD638008AB597 /* FastViewModel */,
+				9386E32A27DBD622008AB597 /* FastViewController */,
 				931C5ED427A8788900752097 /* Extensions */,
 				9348083327C43C9400DD61F5 /* Fonts */,
 				9376E083279DBE6D00245FDA /* Assets */,
@@ -424,14 +424,13 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
-		9381D03227C58E5A00DC3BFB /* ReusableViews */ = {
+		9381D03227C58E5A00DC3BFB /* Reusables */ = {
 			isa = PBXGroup;
 			children = (
-				9381D02E27C58DC100DC3BFB /* TouchableView.swift */,
-				9381D03027C58E2700DC3BFB /* BackgroundCircles.swift */,
-				9381D02C27C58D8700DC3BFB /* HomeTileView.swift */,
+				938FD7FD27DE67510064487F /* Controllers */,
+				938FD7FC27DE67480064487F /* Views */,
 			);
-			path = ReusableViews;
+			path = Reusables;
 			sourceTree = "<group>";
 		};
 		9386E30E27C8109C008AB597 /* Models */ = {
@@ -445,8 +444,99 @@
 		9386E32627DBB03F008AB597 /* Fast */ = {
 			isa = PBXGroup;
 			children = (
+				9386E32927DBD619008AB597 /* View */,
 			);
 			path = Fast;
+			sourceTree = "<group>";
+		};
+		9386E32927DBD619008AB597 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9386E32727DBD43F008AB597 /* FastView.swift */,
+				9386E33027DBE239008AB597 /* HorizontalTimerView.swift */,
+				9386E32E27DBDAF3008AB597 /* FastMonthlyBarView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9386E32A27DBD622008AB597 /* FastViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9386E32C27DBD66B008AB597 /* FastViewController.swift */,
+			);
+			path = FastViewController;
+			sourceTree = "<group>";
+		};
+		9386E32B27DBD638008AB597 /* FastViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9386E33227DBF642008AB597 /* FastViewModel.swift */,
+			);
+			path = FastViewModel;
+			sourceTree = "<group>";
+		};
+		938FD7F727DE66980064487F /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				938FD7FA27DE66FE0064487F /* Date picker modal */,
+				938FD7F827DE66A80064487F /* Main  */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		938FD7F827DE66A80064487F /* Main  */ = {
+			isa = PBXGroup;
+			children = (
+				9376E0B827A01CB300245FDA /* MainViewController.swift */,
+				938FD7F927DE66D00064487F /* Views */,
+				931C5ED127A716C500752097 /* ViewModel */,
+			);
+			path = "Main ";
+			sourceTree = "<group>";
+		};
+		938FD7F927DE66D00064487F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				931C5ECB27A5CFE300752097 /* ProfileHeaderView.swift */,
+				9376E0BE27A0796B00245FDA /* RingView.swift */,
+				9381D02A27C58CBC00DC3BFB /* MainTileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		938FD7FA27DE66FE0064487F /* Date picker modal */ = {
+			isa = PBXGroup;
+			children = (
+				9376E0C527A1B01200245FDA /* DatePickerViewController.swift */,
+				938FD7FB27DE670B0064487F /* Views */,
+			);
+			path = "Date picker modal";
+			sourceTree = "<group>";
+		};
+		938FD7FB27DE670B0064487F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9386E33427DC8F23008AB597 /* DatePickerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		938FD7FC27DE67480064487F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9381D02E27C58DC100DC3BFB /* TouchableView.swift */,
+				9381D03027C58E2700DC3BFB /* BackgroundCircles.swift */,
+				9381D02C27C58D8700DC3BFB /* HomeTileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		938FD7FD27DE67510064487F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				931C5EE127AA672F00752097 /* ModalViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -640,12 +730,13 @@
 			files = (
 				9386E32527D69CD3008AB597 /* Size.swift in Sources */,
 				9381D02F27C58DC100DC3BFB /* TouchableView.swift in Sources */,
-				9376E0C627A1B01200245FDA /* FastSelectionController.swift in Sources */,
+				9376E0C627A1B01200245FDA /* DatePickerViewController.swift in Sources */,
 				9381D02B27C58CBC00DC3BFB /* MainTileView.swift in Sources */,
 				931C5ED827A8883A00752097 /* ProfileSettingsViewModel.swift in Sources */,
 				9381D03827C67C8800DC3BFB /* Fast.swift in Sources */,
 				9376E0BF27A0796B00245FDA /* RingView.swift in Sources */,
 				931C5EF027B02B2100752097 /* UserSettingsProfilePickerController.swift in Sources */,
+				9386E32827DBD43F008AB597 /* FastView.swift in Sources */,
 				931C5EF427B02CF100752097 /* HeightPickerView.swift in Sources */,
 				9376E082279DBD9500245FDA /* LoginView.swift in Sources */,
 				9376E08D279DD97B00245FDA /* Service.swift in Sources */,
@@ -655,10 +746,13 @@
 				9376E0C127A07D4F00245FDA /* Extensions.swift in Sources */,
 				931C5ED627A8840400752097 /* ProfileSettingsView.swift in Sources */,
 				931C5EEE27B0296400752097 /* ActivityPickerView.swift in Sources */,
+				9386E33127DBE239008AB597 /* HorizontalTimerView.swift in Sources */,
+				9386E32D27DBD66B008AB597 /* FastViewController.swift in Sources */,
 				9381D02D27C58D8700DC3BFB /* HomeTileView.swift in Sources */,
 				9376E085279DBE7800245FDA /* Colors.swift in Sources */,
 				931C5EE027AA662500752097 /* NameEditView.swift in Sources */,
 				931C5EF627B02D4A00752097 /* WeightPickerView.swift in Sources */,
+				9386E33527DC8F24008AB597 /* DatePickerView.swift in Sources */,
 				931C5EF827B02D7100752097 /* AgePickerView.swift in Sources */,
 				931C5ED027A5EACA00752097 /* ProfileViewController.swift in Sources */,
 				931C5EE927AAB50C00752097 /* UserInfoReusableView.swift in Sources */,
@@ -672,10 +766,12 @@
 				9386E32327D5585A008AB597 /* LaunchViewController.swift in Sources */,
 				9386E31427C836C2008AB597 /* PickerView.swift in Sources */,
 				931C5EF227B02C9F00752097 /* GenderPickerView.swift in Sources */,
+				9386E33327DBF642008AB597 /* FastViewModel.swift in Sources */,
 				9376E033279DB5EF00245FDA /* LoginViewController.swift in Sources */,
 				9376E0B927A01CB300245FDA /* MainViewController.swift in Sources */,
 				9381D03427C6710B00DC3BFB /* StartStopButtonView.swift in Sources */,
 				9381D03627C67C6200DC3BFB /* FastPickerView.swift in Sources */,
+				9386E32F27DBDAF3008AB597 /* FastMonthlyBarView.swift in Sources */,
 				9376E02F279DB5EF00245FDA /* AppDelegate.swift in Sources */,
 				9376E031279DB5EF00245FDA /* SceneDelegate.swift in Sources */,
 			);

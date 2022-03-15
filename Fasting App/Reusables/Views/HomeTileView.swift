@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct HomeTileViewModel {
+struct HomeTileModel {
     
     let icon: String
     let title: String
@@ -90,7 +90,7 @@ class HomeTileView: TouchableView {
     // MARK: Properties
     // =============================================
     
-    var model: HomeTileViewModel? {
+    var model: HomeTileModel? {
         didSet {
             guard let model = model else { return }
             

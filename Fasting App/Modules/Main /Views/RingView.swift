@@ -10,9 +10,8 @@ import UIKit
 
 struct RingViewModel {
     
-    let isAnimated: Bool?
-    let trackColor: UIColor
-    let animatedColor: UIColor
+    let trackColor: UIColor?
+    let animatedColor: UIColor?
     let timer: String?
     let fast: String?
     var timeSelected: TimeInterval?
@@ -20,10 +19,9 @@ struct RingViewModel {
     let timeLapsed: Float
     let stroke: CGFloat?
     let prsentPicker: (() -> Void)?
-    var stopStartBtn: ((_ state: State) -> Void)?
+    let stopStartBtn: ((_ state: State) -> Void)?
     
     init(
-        isAnimated: Bool? = false,
         trackColor: UIColor? = nil,
         animatedColor: UIColor? = nil,
         timer: String? = nil,
@@ -36,9 +34,8 @@ struct RingViewModel {
         stopStartBtn: ((_ state: State) -> Void)? = nil
         
         ) {
-        self.isAnimated = isAnimated
-        self.trackColor = trackColor!
-        self.animatedColor = animatedColor!
+        self.trackColor = trackColor
+        self.animatedColor = animatedColor
         self.timer = timer
         self.fast = fast
         self.timeSelected = timeSelected
@@ -48,7 +45,6 @@ struct RingViewModel {
         self.prsentPicker = prsentPicker
         self.stopStartBtn = stopStartBtn
     }
-    
 }
 
 class RingView: UIView {
@@ -82,6 +78,7 @@ class RingView: UIView {
     var timeLapsed: Float?
     var stroke: CGFloat?
     var timeSelected: Int = 0
+    let sender = "FastSelection"
     
     let ringView: UIView = {
         let view = UIView()
@@ -166,7 +163,6 @@ class RingView: UIView {
             $0.size.equalTo(30)
             $0.top.equalTo(lblContainerStackView.snp.bottom).offset(25)
         }
-//        btnStartStop.currentState = .stopped
     }
     
     required init?(coder: NSCoder) {
@@ -184,7 +180,6 @@ class RingView: UIView {
         ringView.layer.cornerRadius = ringView.frame.width/2
         centerView.layer.cornerRadius = centerView.frame.width/2
         setupLabelTap()
-        
     }
     
     // =============================================
@@ -223,7 +218,7 @@ class RingView: UIView {
         layer.addSublayer(trackLayer!)
         
         timeRing = CAShapeLayer.create(
-            strokeColor: model.animatedColor,
+            strokeColor: model.animatedColor ?? .lightGray,
             fillColor: UIColor.clear,
             radius: radius
         )

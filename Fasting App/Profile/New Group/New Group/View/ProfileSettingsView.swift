@@ -206,6 +206,5 @@ class ProfileSettingsView: UIView {
     
     @objc func signOut() {
         model.signOut()
-        print("SIGNING OUT!!!")
     }
 }

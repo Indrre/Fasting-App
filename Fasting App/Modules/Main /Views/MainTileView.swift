@@ -13,7 +13,9 @@ struct MainTileModel {
     var water: String
     var weight: String
     var calories: String
-    let callback: (() -> Void?)
+    let takeToFast: (() -> Void?)
+    let presentEditPicker: (() -> Void?)
+    let state: State
 }
 
 class MainTileView: UIView {
@@ -21,6 +23,17 @@ class MainTileView: UIView {
     // =============================================
     // MARK: Properties
     // =============================================
+        
+    var buttonState: State? {
+        didSet {
+            
+            if buttonState == .running {
+                btnEditTimer.isHidden = false
+            } else {
+                btnEditTimer.isHidden = true
+            }
+        }
+    }
     
     var lblToday: UILabel = {
         var label = UILabel()
@@ -29,6 +42,22 @@ class MainTileView: UIView {
         label.textColor = UIColor.stdText
         label.textAlignment = .left
         return label
+    }()
+    
+    lazy var btnEditTimer: UIButton = {
+        var editButton = UIButton()
+        editButton.titleLabel?.font = UIFont(name: "Montserrat-ExtraLight", size: 17)
+        editButton.setTitleColor(.stdText, for: .normal)
+        editButton.setTitle("Edit Timer", for: .normal)
+        editButton.addTarget(self, action: #selector(presentDayPicker), for: .touchUpInside)
+        return editButton
+    }()
+    
+    let lblStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 150
+        return view
     }()
     
     let stackView: UIStackView = {
@@ -61,7 +90,7 @@ class MainTileView: UIView {
     
     lazy var fastTile: HomeTileView = {
         let view = HomeTileView()
-        view.model = HomeTileViewModel(
+        view.model = HomeTileModel(
             icon: "timer-icon-small",
             title: "Fast",
             color: .fastColor,
@@ -75,7 +104,7 @@ class MainTileView: UIView {
     
     lazy var waterTile: HomeTileView = {
         let view = HomeTileView()
-        view.model = HomeTileViewModel(
+        view.model = HomeTileModel(
             icon: "water-icon",
             title: "Water",
             color: .waterColor,
@@ -89,7 +118,7 @@ class MainTileView: UIView {
     
     lazy var weightTile: HomeTileView = {
         let view = HomeTileView()
-        view.model = HomeTileViewModel(
+        view.model = HomeTileModel(
             icon: "weight-icon-small",
             title: "Weight",
             color: .weightColor,
@@ -103,7 +132,7 @@ class MainTileView: UIView {
     
     lazy var calorieTile: HomeTileView = {
         let view = HomeTileView()
-        view.model = HomeTileViewModel(
+        view.model = HomeTileModel(
             icon: "calorie-icon",
             title: "Calories",
             color: .calorieColor,
@@ -121,6 +150,7 @@ class MainTileView: UIView {
             waterTile.value = model.water
             weightTile.value = model.weight
             calorieTile.value = model.calories
+            buttonState = model.state
         }
     }
     
@@ -138,16 +168,21 @@ class MainTileView: UIView {
         self.model = model
         super.init(frame: .zero)
         
-        addSubview(lblToday)
-        lblToday.snp.makeConstraints {
+        addSubview(lblStackView)
+        lblStackView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.left.equalToSuperview().offset(15)
+            $0.left.right.equalToSuperview().offset(20)
+            $0.right.equalToSuperview().offset(-20)
+            $0.height.equalTo(50)
         }
         
+        lblStackView.addArrangedSubview(lblToday)
+        lblStackView.addArrangedSubview(btnEditTimer)
+
         addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(lblToday).offset(40)
+            $0.top.equalTo(lblStackView.snp.bottom).offset(15)
             $0.width.equalToSuperview().offset(-30)
         }
         stackView.addArrangedSubview(horizontalStackView)
@@ -156,6 +191,7 @@ class MainTileView: UIView {
         horizontalStackView.addArrangedSubview(waterTile)
         secondHorizontalStackView.addArrangedSubview(weightTile)
         secondHorizontalStackView.addArrangedSubview(calorieTile)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -163,6 +199,11 @@ class MainTileView: UIView {
     }
     
     func takeToTotalFast() {
-        model.callback()
+        model.takeToFast()
     }
+    
+    @objc func presentDayPicker() {
+        model.presentEditPicker()
+    }
+    
 }

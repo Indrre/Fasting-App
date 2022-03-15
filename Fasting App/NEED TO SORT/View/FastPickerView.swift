@@ -56,8 +56,8 @@ class FastPickerView: UIView {
     lazy var picker: UIPickerView = {
         let view = UIPickerView()
         view.tintColor = .stdText
-        view.delegate = self
-        view.dataSource = self
+//        view.delegate = self
+//        view.dataSource = self
         return view
     }()
 
@@ -175,4 +175,5 @@ class FastPickerView: UIView {
 //            dismiss?(TimeInterval(seconds))
 //        }
     }
+
 }

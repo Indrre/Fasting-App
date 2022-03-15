@@ -58,7 +58,6 @@ class ProfileHeaderView: TouchableView {
     }
     
     @objc func labelTapped() {
-        print("DEBUG: TAP TAP TAP!!!")
         model.action?()
     }
     

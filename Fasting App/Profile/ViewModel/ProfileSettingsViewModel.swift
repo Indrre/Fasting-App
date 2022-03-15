@@ -30,13 +30,13 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             fetchUserImage()
             getWeight()
             getHeight()
-            rerefreshController?()
+            refreshController?()
         }
     }
     
     var profileImage: UIImage? {
         didSet {
-            rerefreshController?()
+            refreshController?()
         }
     }
     
@@ -112,7 +112,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     // MARK: Callbacks
     // =================================
     
-    var rerefreshController: (() -> Void)?
+    var refreshController: (() -> Void)?
     var presentActionSheet: ((UIViewController) -> Void)?
     var presentNameEditController: ((UIViewController) -> Void)?
     var presentInageEditController: ((UIViewController) -> Void)?
@@ -243,7 +243,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
                 
                 let values = ["imageURL": urlString]
                 Service.shared.updateUserValues(values: values )
-                self.rerefreshController?()
+                self.refreshController?()
             })
         }
     }
