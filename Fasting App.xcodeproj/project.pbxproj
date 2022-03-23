@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9301218E27E75FCE00C872C4 /* ViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301218D27E75FCB00C872C4 /* ViewCell.swift */; };
 		931C5ECA27A5C2B700752097 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5EC927A5C2B700752097 /* MainViewModel.swift */; };
 		931C5ECC27A5CFE300752097 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5ECB27A5CFE300752097 /* ProfileHeaderView.swift */; };
 		931C5ED027A5EACA00752097 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5ECF27A5EACA00752097 /* ProfileViewController.swift */; };
@@ -73,7 +74,6 @@
 		9381D02F27C58DC100DC3BFB /* TouchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D02E27C58DC100DC3BFB /* TouchableView.swift */; };
 		9381D03127C58E2700DC3BFB /* BackgroundCircles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D03027C58E2700DC3BFB /* BackgroundCircles.swift */; };
 		9381D03427C6710B00DC3BFB /* StartStopButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D03327C6710B00DC3BFB /* StartStopButtonView.swift */; };
-		9381D03627C67C6200DC3BFB /* FastPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D03527C67C6200DC3BFB /* FastPickerView.swift */; };
 		9381D03827C67C8800DC3BFB /* Fast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D03727C67C8800DC3BFB /* Fast.swift */; };
 		9386E31027C810AA008AB597 /* PersonalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E30F27C810AA008AB597 /* PersonalInfo.swift */; };
 		9386E31427C836C2008AB597 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E31327C836C2008AB597 /* PickerView.swift */; };
@@ -87,6 +87,8 @@
 		9386E33127DBE239008AB597 /* HorizontalTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33027DBE239008AB597 /* HorizontalTimerView.swift */; };
 		9386E33327DBF642008AB597 /* FastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33227DBF642008AB597 /* FastViewModel.swift */; };
 		9386E33527DC8F24008AB597 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33427DC8F23008AB597 /* DatePickerView.swift */; };
+		938FD80227E141510064487F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938FD80127E141500064487F /* GraphView.swift */; };
+		938FD80427E151B30064487F /* TimeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938FD80327E151B30064487F /* TimeBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +109,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9301218D27E75FCB00C872C4 /* ViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCell.swift; sourceTree = "<group>"; };
 		931C5EC927A5C2B700752097 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		931C5ECB27A5CFE300752097 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		931C5ECF27A5EACA00752097 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -157,7 +160,6 @@
 		9381D02E27C58DC100DC3BFB /* TouchableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableView.swift; sourceTree = "<group>"; };
 		9381D03027C58E2700DC3BFB /* BackgroundCircles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCircles.swift; sourceTree = "<group>"; };
 		9381D03327C6710B00DC3BFB /* StartStopButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartStopButtonView.swift; sourceTree = "<group>"; };
-		9381D03527C67C6200DC3BFB /* FastPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastPickerView.swift; sourceTree = "<group>"; };
 		9381D03727C67C8800DC3BFB /* Fast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fast.swift; sourceTree = "<group>"; };
 		9386E30F27C810AA008AB597 /* PersonalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfo.swift; sourceTree = "<group>"; };
 		9386E31327C836C2008AB597 /* PickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
@@ -171,6 +173,8 @@
 		9386E33027DBE239008AB597 /* HorizontalTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTimerView.swift; sourceTree = "<group>"; };
 		9386E33227DBF642008AB597 /* FastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastViewModel.swift; sourceTree = "<group>"; };
 		9386E33427DC8F23008AB597 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		938FD80127E141500064487F /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		938FD80327E151B30064487F /* TimeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,29 +231,12 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		931C5ED327A8786E00752097 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				9381D03327C6710B00DC3BFB /* StartStopButtonView.swift */,
-				9381D03527C67C6200DC3BFB /* FastPickerView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		931C5ED427A8788900752097 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				9376E0C027A07D4F00245FDA /* Extensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		931C5EE327AA6DA200752097 /* NEED TO SORT */ = {
-			isa = PBXGroup;
-			children = (
-				931C5ED327A8786E00752097 /* View */,
-			);
-			path = "NEED TO SORT";
 			sourceTree = "<group>";
 		};
 		931C5EE427AA6E0000752097 /* Profile */ = {
@@ -345,7 +332,6 @@
 				9376E0BC27A0727900245FDA /* Model */,
 				938FD7F727DE66980064487F /* Modules */,
 				9376E0BB27A0725900245FDA /* Login */,
-				931C5EE327AA6DA200752097 /* NEED TO SORT */,
 				931C5EE427AA6E0000752097 /* Profile */,
 				9386E32627DBB03F008AB597 /* Fast */,
 				9386E32B27DBD638008AB597 /* FastViewModel */,
@@ -452,9 +438,12 @@
 		9386E32927DBD619008AB597 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9386E32727DBD43F008AB597 /* FastView.swift */,
 				9386E33027DBE239008AB597 /* HorizontalTimerView.swift */,
+				938FD80327E151B30064487F /* TimeBarView.swift */,
+				938FD80127E141500064487F /* GraphView.swift */,
+				9386E32727DBD43F008AB597 /* FastView.swift */,
 				9386E32E27DBDAF3008AB597 /* FastMonthlyBarView.swift */,
+				9301218D27E75FCB00C872C4 /* ViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -499,6 +488,7 @@
 			children = (
 				931C5ECB27A5CFE300752097 /* ProfileHeaderView.swift */,
 				9376E0BE27A0796B00245FDA /* RingView.swift */,
+				9381D03327C6710B00DC3BFB /* StartStopButtonView.swift */,
 				9381D02A27C58CBC00DC3BFB /* MainTileView.swift */,
 			);
 			path = Views;
@@ -739,6 +729,7 @@
 				9386E32827DBD43F008AB597 /* FastView.swift in Sources */,
 				931C5EF427B02CF100752097 /* HeightPickerView.swift in Sources */,
 				9376E082279DBD9500245FDA /* LoginView.swift in Sources */,
+				9301218E27E75FCE00C872C4 /* ViewCell.swift in Sources */,
 				9376E08D279DD97B00245FDA /* Service.swift in Sources */,
 				9386E31627CFB5D4008AB597 /* FastService.swift in Sources */,
 				9381D03127C58E2700DC3BFB /* BackgroundCircles.swift in Sources */,
@@ -758,19 +749,20 @@
 				931C5EE927AAB50C00752097 /* UserInfoReusableView.swift in Sources */,
 				931C5ECC27A5CFE300752097 /* ProfileHeaderView.swift in Sources */,
 				931C5EE227AA672F00752097 /* ModalViewController.swift in Sources */,
+				938FD80227E141510064487F /* GraphView.swift in Sources */,
 				931C5ECA27A5C2B700752097 /* MainViewModel.swift in Sources */,
 				9386E31027C810AA008AB597 /* PersonalInfo.swift in Sources */,
 				9386E31F27D4F735008AB597 /* TemplateService.swift in Sources */,
 				9376E08B279DD95100245FDA /* User.swift in Sources */,
 				9376E0B727A0132C00245FDA /* UserService.swift in Sources */,
 				9386E32327D5585A008AB597 /* LaunchViewController.swift in Sources */,
+				938FD80427E151B30064487F /* TimeBarView.swift in Sources */,
 				9386E31427C836C2008AB597 /* PickerView.swift in Sources */,
 				931C5EF227B02C9F00752097 /* GenderPickerView.swift in Sources */,
 				9386E33327DBF642008AB597 /* FastViewModel.swift in Sources */,
 				9376E033279DB5EF00245FDA /* LoginViewController.swift in Sources */,
 				9376E0B927A01CB300245FDA /* MainViewController.swift in Sources */,
 				9381D03427C6710B00DC3BFB /* StartStopButtonView.swift in Sources */,
-				9381D03627C67C6200DC3BFB /* FastPickerView.swift in Sources */,
 				9386E32F27DBDAF3008AB597 /* FastMonthlyBarView.swift in Sources */,
 				9376E02F279DB5EF00245FDA /* AppDelegate.swift in Sources */,
 				9376E031279DB5EF00245FDA /* SceneDelegate.swift in Sources */,

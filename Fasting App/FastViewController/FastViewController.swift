@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class FastViewController: UIViewController {
     
@@ -26,16 +27,39 @@ class FastViewController: UIViewController {
         return model
     }()
     
+    let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.showsVerticalScrollIndicator = false
+        return view
+    }()
+    
+    // ========================================
+    // MARK: Initialization
+    // ========================================
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         model.viewDidLoad()
+        setup()
+        
         title = "Fast"
-   
+        view.backgroundColor = .stdBackground
+        
         view.addSubview(fastView)
         fastView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.left.right.equalToSuperview().inset(15)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(view.safeAreaLayoutGuide)
         }
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.contentSize = CGSize(
+            width: view.frame.size.width,
+            height: view.frame.size.height
+        )
     }
     
     override public func viewWillAppear(_ animated: Bool) {

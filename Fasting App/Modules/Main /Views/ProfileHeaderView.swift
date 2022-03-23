@@ -84,9 +84,7 @@ class ProfileHeaderView: TouchableView {
         backgroundColor = .clear
         
         setupGreeting()
-        
-        backgroundColor = .clear
-        
+                
         let tap = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
         addGestureRecognizer(tap)
         

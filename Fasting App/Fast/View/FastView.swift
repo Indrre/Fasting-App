@@ -10,8 +10,11 @@ import UIKit
 import SnapKit
 
 struct FastModel {
+    
+    let graphModel: TimeBarModel
     let timerLapsed: TimeInterval?
     let hours: String?
+    
 }
 
 class FastView: UIView {
@@ -21,12 +24,40 @@ class FastView: UIView {
     // ========================================
     
     var timerLapsed: TimeInterval?
+    var hours: String?
     
     lazy var horizontalTimerView: HorizontalTimerView = {
         let view = HorizontalTimerView()
         view.model = HorizontalTimerModel(
             timerLapsed: timerLapsed,
-            hours: "0h")
+            hours: hours)
+        return view
+    }()
+    
+    let lblThisWeek: UILabel = {
+        var label = UILabel()
+        label.font =  UIFont(name: "Montserrat-Light", size: 14)
+        label.textColor = .stdText
+        label.text = "This week"
+        return label
+    }()
+    
+    lazy var weeklyGraphView: GraphView = {
+        let view = GraphView()
+        return view
+    }()
+    
+    var lblTimeLog: UILabel = {
+        var label = UILabel()
+        label.font =  UIFont(name: "Montserrat-ExtraLight", size: 14)
+        label.text = "Time Log"
+        label.textColor = UIColor.stdText
+        return label
+    }()
+    
+    lazy var tableView: UITableView = {
+        let view = UITableView()
+        view.register(ViewCell.self, forCellReuseIdentifier: "FastViewCell")
         return view
     }()
     
@@ -34,6 +65,8 @@ class FastView: UIView {
         didSet {
             horizontalTimerView.timerLapsed = model.timerLapsed
             horizontalTimerView.lblHours.text = model.hours
+            weeklyGraphView.barView.model = model.graphModel
+            tableView.reloadData()
         }
     }
 
@@ -50,18 +83,43 @@ class FastView: UIView {
         addSubview(horizontalTimerView)
         horizontalTimerView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
-            $0.right.left.equalToSuperview().offset(15)
-            $0.height.equalTo(150)
+            $0.right.left.equalToSuperview()
+            $0.height.equalTo(100)
         }
         
+        addSubview(lblThisWeek)
+        lblThisWeek.snp.makeConstraints {
+            $0.top.equalTo(horizontalTimerView.snp.bottom)
+            $0.left.equalToSuperview()
+            $0.height.equalTo(20)
+        }
+        
+        addSubview(weeklyGraphView)
+        weeklyGraphView.snp.makeConstraints {
+            $0.top.equalTo(lblThisWeek.snp.bottom).offset(10)
+            $0.right.left.equalToSuperview()
+            $0.height.equalTo(147)
+        }
+        
+        addSubview(lblTimeLog)
+        lblTimeLog.snp.makeConstraints {
+            $0.top.equalTo(weeklyGraphView.snp.bottom).offset(30)
+            $0.left.equalToSuperview()
+        }
+        
+        addSubview(tableView)
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(lblTimeLog.snp.bottom).offset(30)
+//            $0.height.equalToSuperview()
+            $0.width.centerX.bottom.equalToSuperview()
+        }
+        
+        tableView.rowHeight = 50
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // ========================================
-    // MARK: Helpers
-    // ========================================
-    
 }

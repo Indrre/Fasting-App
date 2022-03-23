@@ -25,7 +25,7 @@ class HorizontalTimerView: UIView {
     
     let lblToday: UILabel = {
         var label = UILabel()
-        label.font =  UIFont(name: "Montserrat-ExtraLight", size: 15)
+        label.font =  UIFont(name: "Montserrat-Light", size: 14)
         label.text = "Today"
         label.textColor = UIColor.stdText
         return label
@@ -47,15 +47,14 @@ class HorizontalTimerView: UIView {
     let timerIcon: UIImageView = {
         let view = UIImageView()
         view.tintColor = .bottomBackground
-        view.image = UIImage(named: "timer-icon")?.withRenderingMode(.alwaysTemplate)
+        view.image = UIImage(named: "timer-icon-large")?.withRenderingMode(.alwaysTemplate)
         view.clipsToBounds = true
         return view
     }()
     
     var lblHours: UILabel = {
         var label = UILabel()
-        label.font =  UIFont(name: "Montserrat-Medium", size: 15)
-        label.text = "16h"
+        label.font =  UIFont(name: "Montserrat-Medium", size: 16)
         label.textColor = UIColor.stdText
         return label
     }()
@@ -89,7 +88,7 @@ class HorizontalTimerView: UIView {
         
         addSubview(lblToday)
         lblToday.snp.makeConstraints {
-            $0.top.left.equalToSuperview().inset(20)
+            $0.top.left.equalToSuperview()
             $0.size.equalTo(50)
         }
         
@@ -122,8 +121,8 @@ class HorizontalTimerView: UIView {
         
         addSubview(timerIcon)
         timerIcon.snp.makeConstraints {
-            $0.bottom.equalTo(lblHours.snp.bottom)
-            $0.right.equalToSuperview().inset(10)
+            $0.right.equalToSuperview().inset(5)
+            $0.bottom.equalTo(timerView)
         }
     }
     

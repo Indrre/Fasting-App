@@ -53,6 +53,14 @@ class MainViewModel {
         }
     }
     
+    var fastTimeSelected: String {
+        if state != .running {
+            return "0h"
+        } else {
+            return "\(Int(FastService.currentFast?.timeLapsed ?? 0) / 60 / 60)h"
+        }
+    }
+    
     var stroke: CGFloat = 0
     var timeSelected: TimeInterval?
     var isAnimated: Bool?
@@ -99,7 +107,7 @@ class MainViewModel {
     
     var mainTileModel: MainTileModel {
         return MainTileModel(
-            fastHours: "\(Int(fast?.timeLapsed ?? 0) / 60 / 60)h",
+            fastHours: fastTimeSelected,
             water: "Water Consumed",
             weight: "Weight value",
             calories: "Calories eated",
@@ -302,6 +310,10 @@ extension MainViewModel: UserServiceObserver {
 }
 
 extension MainViewModel: FastServiceObserver {
+    func fastServiceRefreshedData() {
+//        
+    }
+    
     func fastServiceFastUpdated(_ fast: Fast?) {
         self.fast = fast
     }

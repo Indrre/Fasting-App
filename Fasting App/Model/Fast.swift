@@ -25,6 +25,15 @@ struct Fast {
             self.timeSelected = timeSelected
         }
     
+    init(id: String, data: [String: Any]) {
+        self.id = id
+        self.start = data["start"] as? TimeInterval
+        self.end = data["end"] as? TimeInterval
+        self.timeSelected = data["timeSelected"] as? TimeInterval ?? 0
+    }
+    
+    let data = [Fast]()
+    
 }
 
 extension Fast {

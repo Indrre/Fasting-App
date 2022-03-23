@@ -85,6 +85,13 @@ class MainViewController: UIViewController {
             $0.height.equalTo(70)
         }
         
+        scrollView.addSubview(stackView)
+        stackView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(5)
+            $0.width.equalToSuperview().offset(-30)
+        }
+        
         view.addSubview(scrollView)
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         scrollView.snp.makeConstraints {

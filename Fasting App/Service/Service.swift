@@ -22,8 +22,9 @@ let REF_FASTS = DB_REF.child("fasts")
 
 struct Service {
     
-    static let shared = Service()
+    static var shared = Service()
     var image = UIImage()
+    var userFasts: [Fast]?
     
     func fetchUserData(uid: String, completion: @escaping(User) -> Void) {
         REF_USERS.child(uid).observeSingleEvent(of: .value) { (returningData) in
@@ -47,27 +48,22 @@ struct Service {
         REF_FASTS.child(uid).updateChildValues(values)
     }
     
-    func fetchFasts(
+    mutating func fetchFasts(
         completion: @escaping (([Fast]?, Error?) -> Void)) {
             guard let uid = Auth.auth().currentUser?.uid else { return }
             
             REF_FASTS.child(uid).observeSingleEvent(of: .value) { (returningData) in
                 guard
-                    let dictionary = returningData.value as? [String: Any],
-                    let start = dictionary["start"] as? TimeInterval,
-                    let timeSelected = dictionary["timeSelected"] as? TimeInterval else {
-                        completion(nil, NSError(domain: "", code: 1000, userInfo: ["message": "missing fast"]))
-                        return
-                    }
-
-//                let object = Fast(
-//                    id: id,
-//                    start: start,
-//                    end: dictionary["end"] as? TimeInterval,
-//                    timeSelected: timeSelected
-//                )
-
-//                completion(object, nil)
+                    let dictionary = returningData.value as? [String: Any] else {
+                    return
+                }
+                let array = dictionary.keys.compactMap { key in
+                    return Fast(
+                        id: key,
+                        data: dictionary[key] as? [String: Any] ?? [:]
+                    )
+                }
+                completion(array, nil)
             }
         }
     
@@ -114,5 +110,4 @@ struct Service {
         let path = String(format: "%@/%@", uid, fast.id)
         REF_FASTS.child(path).updateChildValues(params)
     }
-    
 }

@@ -15,9 +15,19 @@ private let kCurrentFastId: String = "com.fastlog.current_fast_id"
 
 protocol FastServiceObserver: AnyObject {
     func fastServiceFastUpdated(_ fast: Fast?)
+    func fastServiceRefreshedData()
 }
 
 class FastService {
+    
+    static var data = [Fast]() {
+        didSet {
+            observers.forEach {
+                $0.observer?.fastServiceRefreshedData()
+            }
+            return data.sort(by: { $0.end ?? .today > $1.end ?? .today })
+        }
+    }
     
     fileprivate struct _FastServiceObserver {
         weak var observer: FastServiceObserver?
@@ -81,6 +91,17 @@ class FastService {
                     debugPrint("DEBUG: Error Fetching Fast: \(String(describing: error))")
                 } else {
                     self.currentFast = fast
+                }
+            }
+    }
+    
+    class func fetchAllFasts() {
+        Service.shared.fetchFasts { fasts, error in
+                if error != nil {
+                    debugPrint("DEBUG: Error Fetching Fasts: \(String(describing: error))")
+                } else {
+                    guard let fasts = fasts else { return}
+                    data = fasts
                 }
             }
     }
