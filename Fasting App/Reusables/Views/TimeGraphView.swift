@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GraphView: TouchableView {
+class TimeGraphView: TouchableView {
     
     // =============================================
     // MARK: Components
@@ -35,7 +35,6 @@ class GraphView: TouchableView {
     lazy var title: UILabel = {
         let view = UILabel()
         view.font =  UIFont(name: "Montserrat-ExtraLight", size: 17)
-        view.text = "Fast"
         view.textAlignment = .center
         view.textColor = UIColor.stdText
         return view

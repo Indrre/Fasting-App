@@ -10,10 +10,10 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
-            let controller = LaunchViewController()
+            let controller = MainViewController()
             let win = UIWindow(windowScene: windowScene)
             win.rootViewController = UINavigationController(
                 rootViewController: controller
@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window = win
             win.makeKeyAndVisible()
             
+            debugPrint("DEBUG: TODAYS DATE \(TimeInterval.today)")
         }
         guard let _ = (scene as? UIWindowScene) else { return }
     }

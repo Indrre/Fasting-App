@@ -44,13 +44,13 @@ class FastViewModel {
         )
     }
     
-    var graphModel: TimeBarModel {
+    var graphModel: FastBarModel {
         let maximumTimeSelected = Float(lastSevenDays.compactMap({ return $0.timeSelected }).max() ?? 0)
         let maximumTimeLapsed = Float(lastSevenDays.compactMap({ return $0.timeLapsed }).max() ?? 0)
         
-        return TimeBarModel(
-            graph: lastSevenDays.compactMap { item in
-                return GraphBarViewModel(
+        return FastBarModel(
+            timerGraph: lastSevenDays.compactMap { item in
+                return TimeGraphBarViewModel(
                     startTime: item.start,
                     endTime: item.end,
                     barValue: Float(item.timeSelected),
@@ -122,7 +122,9 @@ class FastViewModel {
         }
         
         let sum = lastSevenDays.compactMap({ return $0.timeLapsed }).reduce(0, +)
-        average = "\(Int(sum) / Int(timerData.count) / 60 / 60)h"
+        if sum != 0 {
+            average = "\(Int(sum) / Int(timerData.count) / 60 / 60)h"
+        }
     }
     
 }
@@ -161,10 +163,10 @@ extension FastView: UITableViewDelegate, UITableViewDataSource {
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "E, d MMM"
         
-        cell.lblDate.text = dayTimePeriodFormatter.string(from: Date(timeIntervalSince1970: (FastService.data[indexPath.row].end ?? .today)))
+        cell.model = ViewCellModel(
+            date: dayTimePeriodFormatter.string(from: Date(timeIntervalSince1970: (FastService.data[indexPath.row].end ?? .today))),
+            hours: String("\(Int(FastService.data[indexPath.row].timeLapsed / 60 / 60))h"))
         
-        cell.lblValue.text = String("\(Int(FastService.data[indexPath.row].timeLapsed / 60 / 60))h")
-        //
         return cell
     }
     
@@ -180,7 +182,7 @@ extension FastView: UITableViewDelegate, UITableViewDataSource {
             guard let uid = Auth.auth().currentUser?.uid else { return }
             REF_FASTS.child(uid).child(id).removeValue { (error, _) in
                 if error != nil {
-                    debugPrint("DEBUG: Error while trying to delete:  \(String(describing: error))")
+                    debugPrint("DEBUG: Error while trying to delete fast:  \(String(describing: error))")
                 }
             }
             FastService.data.removeAll(where: {$0.id == data.id})
@@ -189,6 +191,7 @@ extension FastView: UITableViewDelegate, UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
             tableView.reloadData()
+        
         }
     }
 }

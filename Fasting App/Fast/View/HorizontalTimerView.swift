@@ -9,11 +9,6 @@ import Foundation
 import UIKit
 import SnapKit
 
-struct HorizontalTimerModel {
-    let timerLapsed: TimeInterval?
-    let hours: String?
-}
-
 class HorizontalTimerView: UIView {
     
     // ========================================
@@ -69,13 +64,6 @@ class HorizontalTimerView: UIView {
     var timerLapsed: TimeInterval? {
         didSet {
             calculateTimerLength(percentage: timerLapsed ?? 0)
-        }
-    }
-    
-    var model: HorizontalTimerModel? {
-        didSet {
-            lblHours.text = model?.hours
-            timerLapsed = model?.timerLapsed
         }
     }
     
@@ -143,16 +131,4 @@ class HorizontalTimerView: UIView {
         timerLapsedViewWidth?.update(offset: width)
         layoutIfNeeded()
     }
-    
-    func checkIfRunning() {
-//        if let _ = FastStore.shared.currentFast?.timeLapsed {
-//            calculateTimerLength()
-//        }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        checkIfRunning()
-    }
-    
 }

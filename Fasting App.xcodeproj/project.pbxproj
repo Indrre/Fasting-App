@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		9301218E27E75FCE00C872C4 /* ViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301218D27E75FCB00C872C4 /* ViewCell.swift */; };
+		9301219027EDF4D000C872C4 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301218F27EDF4CF00C872C4 /* UIViewController+Extensions.swift */; };
+		9301219227EDF53500C872C4 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301219127EDF53500C872C4 /* UIView+Extensions.swift */; };
+		9301219427EDF5B200C872C4 /* ProfilePicker+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301219327EDF5B200C872C4 /* ProfilePicker+Extensions.swift */; };
+		9301219627EDF66E00C872C4 /* CAShapeLayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301219527EDF66E00C872C4 /* CAShapeLayer+Extensions.swift */; };
+		9301219827EDF6C500C872C4 /* ImageService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301219727EDF6C500C872C4 /* ImageService+Extensions.swift */; };
+		9301219A27EDF89100C872C4 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301219927EDF89100C872C4 /* String+Extensions.swift */; };
 		931C5ECA27A5C2B700752097 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5EC927A5C2B700752097 /* MainViewModel.swift */; };
 		931C5ECC27A5CFE300752097 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5ECB27A5CFE300752097 /* ProfileHeaderView.swift */; };
 		931C5ED027A5EACA00752097 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931C5ECF27A5EACA00752097 /* ProfileViewController.swift */; };
@@ -41,7 +47,7 @@
 		9376E052279DB5F000245FDA /* Fasting_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E051279DB5F000245FDA /* Fasting_AppUITestsLaunchTests.swift */; };
 		9376E079279DBB3C00245FDA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9376E078279DBB3C00245FDA /* SnapKit */; };
 		9376E082279DBD9500245FDA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E081279DBD9500245FDA /* LoginView.swift */; };
-		9376E085279DBE7800245FDA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E084279DBE7800245FDA /* Colors.swift */; };
+		9376E085279DBE7800245FDA /* Colors+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E084279DBE7800245FDA /* Colors+Extensions.swift */; };
 		9376E087279DC00A00245FDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9376E086279DC00A00245FDA /* GoogleService-Info.plist */; };
 		9376E08B279DD95100245FDA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E08A279DD95100245FDA /* User.swift */; };
 		9376E08D279DD97B00245FDA /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E08C279DD97B00245FDA /* Service.swift */; };
@@ -67,7 +73,7 @@
 		9376E0B727A0132C00245FDA /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0B627A0132C00245FDA /* UserService.swift */; };
 		9376E0B927A01CB300245FDA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0B827A01CB300245FDA /* MainViewController.swift */; };
 		9376E0BF27A0796B00245FDA /* RingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0BE27A0796B00245FDA /* RingView.swift */; };
-		9376E0C127A07D4F00245FDA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0C027A07D4F00245FDA /* Extensions.swift */; };
+		9376E0C127A07D4F00245FDA /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0C027A07D4F00245FDA /* TimeInterval+Extensions.swift */; };
 		9376E0C627A1B01200245FDA /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9376E0C527A1B01200245FDA /* DatePickerViewController.swift */; };
 		9381D02B27C58CBC00DC3BFB /* MainTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D02A27C58CBC00DC3BFB /* MainTileView.swift */; };
 		9381D02D27C58D8700DC3BFB /* HomeTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381D02C27C58D8700DC3BFB /* HomeTileView.swift */; };
@@ -83,12 +89,34 @@
 		9386E32527D69CD3008AB597 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32427D69CD3008AB597 /* Size.swift */; };
 		9386E32827DBD43F008AB597 /* FastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32727DBD43F008AB597 /* FastView.swift */; };
 		9386E32D27DBD66B008AB597 /* FastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32C27DBD66B008AB597 /* FastViewController.swift */; };
-		9386E32F27DBDAF3008AB597 /* FastMonthlyBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E32E27DBDAF3008AB597 /* FastMonthlyBarView.swift */; };
 		9386E33127DBE239008AB597 /* HorizontalTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33027DBE239008AB597 /* HorizontalTimerView.swift */; };
 		9386E33327DBF642008AB597 /* FastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33227DBF642008AB597 /* FastViewModel.swift */; };
 		9386E33527DC8F24008AB597 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33427DC8F23008AB597 /* DatePickerView.swift */; };
-		938FD80227E141510064487F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938FD80127E141500064487F /* GraphView.swift */; };
+		938FD80227E141510064487F /* TimeGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938FD80127E141500064487F /* TimeGraphView.swift */; };
 		938FD80427E151B30064487F /* TimeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938FD80327E151B30064487F /* TimeBarView.swift */; };
+		93CFCCDC2808CA12009ECD4D /* WaterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCDB2808CA12009ECD4D /* WaterCell.swift */; };
+		93CFCCDE2808CC6C009ECD4D /* DailyDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCDD2808CC6C009ECD4D /* DailyDots.swift */; };
+		93CFCCE0280C27CD009ECD4D /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCDF280C27CD009ECD4D /* Weight.swift */; };
+		93CFCCE2280C29B2009ECD4D /* WeightService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCE1280C29B2009ECD4D /* WeightService.swift */; };
+		93CFCCE7280C2AF0009ECD4D /* WeightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCE6280C2AF0009ECD4D /* WeightViewModel.swift */; };
+		93CFCCE9280C2B0C009ECD4D /* WeightViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCE8280C2B0C009ECD4D /* WeightViewContorller.swift */; };
+		93CFCCF6280C3482009ECD4D /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCF5280C3482009ECD4D /* LineChartView.swift */; };
+		93CFCCF8280C34D1009ECD4D /* DataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCF7280C34D1009ECD4D /* DataSet.swift */; };
+		93CFCCFA280C3592009ECD4D /* CurvedSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCF9280C3592009ECD4D /* CurvedSegment.swift */; };
+		93CFCCFC280C35E6009ECD4D /* WeightMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCFB280C35E6009ECD4D /* WeightMainView.swift */; };
+		93DB94BB28299BEC00CC0693 /* WeightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DB94BA28299BEC00CC0693 /* WeightCell.swift */; };
+		93F1D76A27EEFD5100C6A879 /* WaterMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D76927EEFD5100C6A879 /* WaterMainView.swift */; };
+		93F1D76C27EEFD5E00C6A879 /* WaterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D76B27EEFD5E00C6A879 /* WaterViewModel.swift */; };
+		93F1D76E27EEFD6B00C6A879 /* WaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D76D27EEFD6B00C6A879 /* WaterViewController.swift */; };
+		93F1D77327EF03D800C6A879 /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D77227EF03D800C6A879 /* DotView.swift */; };
+		93F1D77527F04BBF00C6A879 /* Water.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D77427F04BBF00C6A879 /* Water.swift */; };
+		93F1D77827F04D0300C6A879 /* WaterPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D77727F04D0300C6A879 /* WaterPickerView.swift */; };
+		93F1D77A27F04D1200C6A879 /* WaterPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D77927F04D1200C6A879 /* WaterPickerViewModel.swift */; };
+		93F1D77C27F04D2100C6A879 /* WaterPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D77B27F04D2100C6A879 /* WaterPickerViewController.swift */; };
+		93F1D77E27F04D6D00C6A879 /* WaterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D77D27F04D6D00C6A879 /* WaterService.swift */; };
+		93F1D78127F05D8000C6A879 /* WaterDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D78027F05D8000C6A879 /* WaterDotView.swift */; };
+		93FFEDB1281462D10042D25D /* WaterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFEDB0281462D10042D25D /* WaterBarView.swift */; };
+		93FFEDB3281472020042D25D /* WaterGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FFEDB2281472020042D25D /* WaterGraphView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +138,12 @@
 
 /* Begin PBXFileReference section */
 		9301218D27E75FCB00C872C4 /* ViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCell.swift; sourceTree = "<group>"; };
+		9301218F27EDF4CF00C872C4 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		9301219127EDF53500C872C4 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		9301219327EDF5B200C872C4 /* ProfilePicker+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfilePicker+Extensions.swift"; sourceTree = "<group>"; };
+		9301219527EDF66E00C872C4 /* CAShapeLayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAShapeLayer+Extensions.swift"; sourceTree = "<group>"; };
+		9301219727EDF6C500C872C4 /* ImageService+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageService+Extensions.swift"; sourceTree = "<group>"; };
+		9301219927EDF89100C872C4 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		931C5EC927A5C2B700752097 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		931C5ECB27A5CFE300752097 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		931C5ECF27A5EACA00752097 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -145,7 +179,7 @@
 		9376E04F279DB5F000245FDA /* Fasting_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fasting_AppUITests.swift; sourceTree = "<group>"; };
 		9376E051279DB5F000245FDA /* Fasting_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fasting_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9376E081279DBD9500245FDA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		9376E084279DBE7800245FDA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		9376E084279DBE7800245FDA /* Colors+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Extensions.swift"; sourceTree = "<group>"; };
 		9376E086279DC00A00245FDA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9376E089279DD77C00245FDA /* Fasting App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Fasting App.entitlements"; sourceTree = "<group>"; };
 		9376E08A279DD95100245FDA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -153,7 +187,7 @@
 		9376E0B627A0132C00245FDA /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		9376E0B827A01CB300245FDA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9376E0BE27A0796B00245FDA /* RingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingView.swift; sourceTree = "<group>"; };
-		9376E0C027A07D4F00245FDA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		9376E0C027A07D4F00245FDA /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		9376E0C527A1B01200245FDA /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		9381D02A27C58CBC00DC3BFB /* MainTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTileView.swift; sourceTree = "<group>"; };
 		9381D02C27C58D8700DC3BFB /* HomeTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTileView.swift; sourceTree = "<group>"; };
@@ -169,12 +203,34 @@
 		9386E32427D69CD3008AB597 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		9386E32727DBD43F008AB597 /* FastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastView.swift; sourceTree = "<group>"; };
 		9386E32C27DBD66B008AB597 /* FastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastViewController.swift; sourceTree = "<group>"; };
-		9386E32E27DBDAF3008AB597 /* FastMonthlyBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastMonthlyBarView.swift; sourceTree = "<group>"; };
 		9386E33027DBE239008AB597 /* HorizontalTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTimerView.swift; sourceTree = "<group>"; };
 		9386E33227DBF642008AB597 /* FastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastViewModel.swift; sourceTree = "<group>"; };
 		9386E33427DC8F23008AB597 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
-		938FD80127E141500064487F /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		938FD80127E141500064487F /* TimeGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeGraphView.swift; sourceTree = "<group>"; };
 		938FD80327E151B30064487F /* TimeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBarView.swift; sourceTree = "<group>"; };
+		93CFCCDB2808CA12009ECD4D /* WaterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCell.swift; sourceTree = "<group>"; };
+		93CFCCDD2808CC6C009ECD4D /* DailyDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDots.swift; sourceTree = "<group>"; };
+		93CFCCDF280C27CD009ECD4D /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
+		93CFCCE1280C29B2009ECD4D /* WeightService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightService.swift; sourceTree = "<group>"; };
+		93CFCCE6280C2AF0009ECD4D /* WeightViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewModel.swift; sourceTree = "<group>"; };
+		93CFCCE8280C2B0C009ECD4D /* WeightViewContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewContorller.swift; sourceTree = "<group>"; };
+		93CFCCF5280C3482009ECD4D /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
+		93CFCCF7280C34D1009ECD4D /* DataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSet.swift; sourceTree = "<group>"; };
+		93CFCCF9280C3592009ECD4D /* CurvedSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedSegment.swift; sourceTree = "<group>"; };
+		93CFCCFB280C35E6009ECD4D /* WeightMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightMainView.swift; sourceTree = "<group>"; };
+		93DB94BA28299BEC00CC0693 /* WeightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCell.swift; sourceTree = "<group>"; };
+		93F1D76927EEFD5100C6A879 /* WaterMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMainView.swift; sourceTree = "<group>"; };
+		93F1D76B27EEFD5E00C6A879 /* WaterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewModel.swift; sourceTree = "<group>"; };
+		93F1D76D27EEFD6B00C6A879 /* WaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewController.swift; sourceTree = "<group>"; };
+		93F1D77227EF03D800C6A879 /* DotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotView.swift; sourceTree = "<group>"; };
+		93F1D77427F04BBF00C6A879 /* Water.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Water.swift; sourceTree = "<group>"; };
+		93F1D77727F04D0300C6A879 /* WaterPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterPickerView.swift; sourceTree = "<group>"; };
+		93F1D77927F04D1200C6A879 /* WaterPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterPickerViewModel.swift; sourceTree = "<group>"; };
+		93F1D77B27F04D2100C6A879 /* WaterPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterPickerViewController.swift; sourceTree = "<group>"; };
+		93F1D77D27F04D6D00C6A879 /* WaterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterService.swift; sourceTree = "<group>"; };
+		93F1D78027F05D8000C6A879 /* WaterDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterDotView.swift; sourceTree = "<group>"; };
+		93FFEDB0281462D10042D25D /* WaterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterBarView.swift; sourceTree = "<group>"; };
+		93FFEDB2281472020042D25D /* WaterGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterGraphView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,7 +290,13 @@
 		931C5ED427A8788900752097 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				9376E0C027A07D4F00245FDA /* Extensions.swift */,
+				9376E0C027A07D4F00245FDA /* TimeInterval+Extensions.swift */,
+				9301219927EDF89100C872C4 /* String+Extensions.swift */,
+				9301219727EDF6C500C872C4 /* ImageService+Extensions.swift */,
+				9301219527EDF66E00C872C4 /* CAShapeLayer+Extensions.swift */,
+				9301218F27EDF4CF00C872C4 /* UIViewController+Extensions.swift */,
+				9301219127EDF53500C872C4 /* UIView+Extensions.swift */,
+				9301219327EDF5B200C872C4 /* ProfilePicker+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -325,8 +387,8 @@
 		9376E02D279DB5EF00245FDA /* Fasting App */ = {
 			isa = PBXGroup;
 			children = (
-				9376E089279DD77C00245FDA /* Fasting App.entitlements */,
 				9376E0C227A1973500245FDA /* Source */,
+				9376E089279DD77C00245FDA /* Fasting App.entitlements */,
 				9376E0BD27A074DE00245FDA /* Service */,
 				9381D03227C58E5A00DC3BFB /* Reusables */,
 				9376E0BC27A0727900245FDA /* Model */,
@@ -334,8 +396,8 @@
 				9376E0BB27A0725900245FDA /* Login */,
 				931C5EE427AA6E0000752097 /* Profile */,
 				9386E32627DBB03F008AB597 /* Fast */,
-				9386E32B27DBD638008AB597 /* FastViewModel */,
-				9386E32A27DBD622008AB597 /* FastViewController */,
+				93F1D76827EEFCC200C6A879 /* Water */,
+				93CFCCE3280C2AC7009ECD4D /* Weight */,
 				931C5ED427A8788900752097 /* Extensions */,
 				9348083327C43C9400DD61F5 /* Fonts */,
 				9376E083279DBE6D00245FDA /* Assets */,
@@ -365,7 +427,7 @@
 		9376E083279DBE6D00245FDA /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				9376E084279DBE7800245FDA /* Colors.swift */,
+				9376E084279DBE7800245FDA /* Colors+Extensions.swift */,
 				9386E32427D69CD3008AB597 /* Size.swift */,
 			);
 			path = Assets;
@@ -385,7 +447,9 @@
 			isa = PBXGroup;
 			children = (
 				9376E08A279DD95100245FDA /* User.swift */,
+				93F1D77427F04BBF00C6A879 /* Water.swift */,
 				9381D03727C67C8800DC3BFB /* Fast.swift */,
+				93CFCCDF280C27CD009ECD4D /* Weight.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -396,6 +460,8 @@
 				9376E08C279DD97B00245FDA /* Service.swift */,
 				9376E0B627A0132C00245FDA /* UserService.swift */,
 				9386E31527CFB5D3008AB597 /* FastService.swift */,
+				93F1D77D27F04D6D00C6A879 /* WaterService.swift */,
+				93CFCCE1280C29B2009ECD4D /* WeightService.swift */,
 				9386E31E27D4F735008AB597 /* TemplateService.swift */,
 			);
 			path = Service;
@@ -431,6 +497,8 @@
 			isa = PBXGroup;
 			children = (
 				9386E32927DBD619008AB597 /* View */,
+				9386E32B27DBD638008AB597 /* FastViewModel */,
+				9386E32A27DBD622008AB597 /* FastViewController */,
 			);
 			path = Fast;
 			sourceTree = "<group>";
@@ -440,9 +508,7 @@
 			children = (
 				9386E33027DBE239008AB597 /* HorizontalTimerView.swift */,
 				938FD80327E151B30064487F /* TimeBarView.swift */,
-				938FD80127E141500064487F /* GraphView.swift */,
 				9386E32727DBD43F008AB597 /* FastView.swift */,
-				9386E32E27DBDAF3008AB597 /* FastMonthlyBarView.swift */,
 				9301218D27E75FCB00C872C4 /* ViewCell.swift */,
 			);
 			path = View;
@@ -517,6 +583,7 @@
 				9381D02E27C58DC100DC3BFB /* TouchableView.swift */,
 				9381D03027C58E2700DC3BFB /* BackgroundCircles.swift */,
 				9381D02C27C58D8700DC3BFB /* HomeTileView.swift */,
+				938FD80127E141500064487F /* TimeGraphView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -527,6 +594,103 @@
 				931C5EE127AA672F00752097 /* ModalViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		93CFCCE3280C2AC7009ECD4D /* Weight */ = {
+			isa = PBXGroup;
+			children = (
+				93CFCCF4280C346E009ECD4D /* View */,
+				93CFCCF2280C2B78009ECD4D /* ViewModel */,
+				93CFCCF3280C2B86009ECD4D /* Controller */,
+			);
+			path = Weight;
+			sourceTree = "<group>";
+		};
+		93CFCCF2280C2B78009ECD4D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				93CFCCE6280C2AF0009ECD4D /* WeightViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		93CFCCF3280C2B86009ECD4D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				93CFCCE8280C2B0C009ECD4D /* WeightViewContorller.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		93CFCCF4280C346E009ECD4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				93CFCCF5280C3482009ECD4D /* LineChartView.swift */,
+				93CFCCF9280C3592009ECD4D /* CurvedSegment.swift */,
+				93CFCCF7280C34D1009ECD4D /* DataSet.swift */,
+				93CFCCFB280C35E6009ECD4D /* WeightMainView.swift */,
+				93DB94BA28299BEC00CC0693 /* WeightCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		93F1D76827EEFCC200C6A879 /* Water */ = {
+			isa = PBXGroup;
+			children = (
+				93F1D77F27F0591C00C6A879 /* WaterDots */,
+				93F1D77627F04CEB00C6A879 /* WaterPicker */,
+				93F1D76F27EEFD9D00C6A879 /* Views */,
+				93F1D77027EEFDA700C6A879 /* ViewModel */,
+				93F1D77127EEFDE800C6A879 /* ViewController */,
+			);
+			path = Water;
+			sourceTree = "<group>";
+		};
+		93F1D76F27EEFD9D00C6A879 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				93F1D76927EEFD5100C6A879 /* WaterMainView.swift */,
+				93FFEDB0281462D10042D25D /* WaterBarView.swift */,
+				93FFEDB2281472020042D25D /* WaterGraphView.swift */,
+				93CFCCDB2808CA12009ECD4D /* WaterCell.swift */,
+				93CFCCDD2808CC6C009ECD4D /* DailyDots.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		93F1D77027EEFDA700C6A879 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				93F1D76B27EEFD5E00C6A879 /* WaterViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		93F1D77127EEFDE800C6A879 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93F1D76D27EEFD6B00C6A879 /* WaterViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		93F1D77627F04CEB00C6A879 /* WaterPicker */ = {
+			isa = PBXGroup;
+			children = (
+				93F1D77727F04D0300C6A879 /* WaterPickerView.swift */,
+				93F1D77927F04D1200C6A879 /* WaterPickerViewModel.swift */,
+				93F1D77B27F04D2100C6A879 /* WaterPickerViewController.swift */,
+			);
+			path = WaterPicker;
+			sourceTree = "<group>";
+		};
+		93F1D77F27F0591C00C6A879 /* WaterDots */ = {
+			isa = PBXGroup;
+			children = (
+				93F1D77227EF03D800C6A879 /* DotView.swift */,
+				93F1D78027F05D8000C6A879 /* WaterDotView.swift */,
+			);
+			path = WaterDots;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -718,53 +882,81 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93CFCCE2280C29B2009ECD4D /* WeightService.swift in Sources */,
 				9386E32527D69CD3008AB597 /* Size.swift in Sources */,
+				93F1D77C27F04D2100C6A879 /* WaterPickerViewController.swift in Sources */,
+				93F1D77827F04D0300C6A879 /* WaterPickerView.swift in Sources */,
+				9301219427EDF5B200C872C4 /* ProfilePicker+Extensions.swift in Sources */,
 				9381D02F27C58DC100DC3BFB /* TouchableView.swift in Sources */,
 				9376E0C627A1B01200245FDA /* DatePickerViewController.swift in Sources */,
+				93F1D76A27EEFD5100C6A879 /* WaterMainView.swift in Sources */,
 				9381D02B27C58CBC00DC3BFB /* MainTileView.swift in Sources */,
 				931C5ED827A8883A00752097 /* ProfileSettingsViewModel.swift in Sources */,
+				93CFCCFA280C3592009ECD4D /* CurvedSegment.swift in Sources */,
 				9381D03827C67C8800DC3BFB /* Fast.swift in Sources */,
 				9376E0BF27A0796B00245FDA /* RingView.swift in Sources */,
 				931C5EF027B02B2100752097 /* UserSettingsProfilePickerController.swift in Sources */,
 				9386E32827DBD43F008AB597 /* FastView.swift in Sources */,
+				93CFCCE7280C2AF0009ECD4D /* WeightViewModel.swift in Sources */,
 				931C5EF427B02CF100752097 /* HeightPickerView.swift in Sources */,
+				9301219227EDF53500C872C4 /* UIView+Extensions.swift in Sources */,
 				9376E082279DBD9500245FDA /* LoginView.swift in Sources */,
 				9301218E27E75FCE00C872C4 /* ViewCell.swift in Sources */,
 				9376E08D279DD97B00245FDA /* Service.swift in Sources */,
 				9386E31627CFB5D4008AB597 /* FastService.swift in Sources */,
 				9381D03127C58E2700DC3BFB /* BackgroundCircles.swift in Sources */,
 				931C5EDE27AA65D700752097 /* NameEditController.swift in Sources */,
-				9376E0C127A07D4F00245FDA /* Extensions.swift in Sources */,
+				9376E0C127A07D4F00245FDA /* TimeInterval+Extensions.swift in Sources */,
 				931C5ED627A8840400752097 /* ProfileSettingsView.swift in Sources */,
+				93CFCCE0280C27CD009ECD4D /* Weight.swift in Sources */,
+				93F1D77327EF03D800C6A879 /* DotView.swift in Sources */,
+				9301219627EDF66E00C872C4 /* CAShapeLayer+Extensions.swift in Sources */,
+				9301219827EDF6C500C872C4 /* ImageService+Extensions.swift in Sources */,
 				931C5EEE27B0296400752097 /* ActivityPickerView.swift in Sources */,
 				9386E33127DBE239008AB597 /* HorizontalTimerView.swift in Sources */,
+				93CFCCF8280C34D1009ECD4D /* DataSet.swift in Sources */,
+				93CFCCFC280C35E6009ECD4D /* WeightMainView.swift in Sources */,
+				93CFCCF6280C3482009ECD4D /* LineChartView.swift in Sources */,
+				93CFCCE9280C2B0C009ECD4D /* WeightViewContorller.swift in Sources */,
 				9386E32D27DBD66B008AB597 /* FastViewController.swift in Sources */,
 				9381D02D27C58D8700DC3BFB /* HomeTileView.swift in Sources */,
-				9376E085279DBE7800245FDA /* Colors.swift in Sources */,
+				9376E085279DBE7800245FDA /* Colors+Extensions.swift in Sources */,
+				93DB94BB28299BEC00CC0693 /* WeightCell.swift in Sources */,
+				9301219A27EDF89100C872C4 /* String+Extensions.swift in Sources */,
 				931C5EE027AA662500752097 /* NameEditView.swift in Sources */,
 				931C5EF627B02D4A00752097 /* WeightPickerView.swift in Sources */,
+				93F1D76C27EEFD5E00C6A879 /* WaterViewModel.swift in Sources */,
 				9386E33527DC8F24008AB597 /* DatePickerView.swift in Sources */,
 				931C5EF827B02D7100752097 /* AgePickerView.swift in Sources */,
+				93F1D78127F05D8000C6A879 /* WaterDotView.swift in Sources */,
 				931C5ED027A5EACA00752097 /* ProfileViewController.swift in Sources */,
+				9301219027EDF4D000C872C4 /* UIViewController+Extensions.swift in Sources */,
+				93F1D77A27F04D1200C6A879 /* WaterPickerViewModel.swift in Sources */,
+				93F1D77527F04BBF00C6A879 /* Water.swift in Sources */,
 				931C5EE927AAB50C00752097 /* UserInfoReusableView.swift in Sources */,
 				931C5ECC27A5CFE300752097 /* ProfileHeaderView.swift in Sources */,
 				931C5EE227AA672F00752097 /* ModalViewController.swift in Sources */,
-				938FD80227E141510064487F /* GraphView.swift in Sources */,
+				93CFCCDC2808CA12009ECD4D /* WaterCell.swift in Sources */,
+				938FD80227E141510064487F /* TimeGraphView.swift in Sources */,
 				931C5ECA27A5C2B700752097 /* MainViewModel.swift in Sources */,
 				9386E31027C810AA008AB597 /* PersonalInfo.swift in Sources */,
 				9386E31F27D4F735008AB597 /* TemplateService.swift in Sources */,
 				9376E08B279DD95100245FDA /* User.swift in Sources */,
+				93CFCCDE2808CC6C009ECD4D /* DailyDots.swift in Sources */,
 				9376E0B727A0132C00245FDA /* UserService.swift in Sources */,
 				9386E32327D5585A008AB597 /* LaunchViewController.swift in Sources */,
+				93FFEDB3281472020042D25D /* WaterGraphView.swift in Sources */,
 				938FD80427E151B30064487F /* TimeBarView.swift in Sources */,
 				9386E31427C836C2008AB597 /* PickerView.swift in Sources */,
+				93FFEDB1281462D10042D25D /* WaterBarView.swift in Sources */,
 				931C5EF227B02C9F00752097 /* GenderPickerView.swift in Sources */,
 				9386E33327DBF642008AB597 /* FastViewModel.swift in Sources */,
+				93F1D77E27F04D6D00C6A879 /* WaterService.swift in Sources */,
 				9376E033279DB5EF00245FDA /* LoginViewController.swift in Sources */,
 				9376E0B927A01CB300245FDA /* MainViewController.swift in Sources */,
 				9381D03427C6710B00DC3BFB /* StartStopButtonView.swift in Sources */,
-				9386E32F27DBDAF3008AB597 /* FastMonthlyBarView.swift in Sources */,
 				9376E02F279DB5EF00245FDA /* AppDelegate.swift in Sources */,
+				93F1D76E27EEFD6B00C6A879 /* WaterViewController.swift in Sources */,
 				9376E031279DB5EF00245FDA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

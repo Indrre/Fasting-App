@@ -141,11 +141,3 @@ class ProfileHeaderView: TouchableView {
         lblGreeting.text = timeOfTheDay
     }
 }
-
-extension String {
-    
-       static let goodMorning: String = "Good Morning"
-       static let goodAfternoon: String = "Good Afternoon"
-       static let goodEvening: String = "Good Evening"
-       static let defaultGreeting: String = "Hi"
-}

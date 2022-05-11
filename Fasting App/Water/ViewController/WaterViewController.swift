@@ -1,41 +1,43 @@
 //
-//  FastViewController.swift
+//  WaterViewController.swift
 //  Fasting App
 //
-//  Created by indre zibolyte on 11/03/2022.
+//  Created by indre zibolyte on 26/03/2022.
 //
 
 import Foundation
 import UIKit
-import Firebase
+import FirebaseAuth
 
-class FastViewController: UIViewController {
+class WaterViewController: UIViewController {
     
     // =============================================
     // MARK: Properties
     // =============================================
-    
-    lazy var fastView: FastView = {
-        return FastView(model: model.fastModel)
+        
+    lazy var waterView: WaterMainView = {
+        let view = WaterMainView(model: model.waterModel)
+        return view
     }()
-    
-    lazy var model: FastViewModel = {
-        let model = FastViewModel()
+
+    lazy var model: WaterViewModel = {
+        let model = WaterViewModel()
         model.refreshController = { [ weak self ] in
             self?.setup()
+        }
+        model.presentPickerController = { [weak self] controller in
+            self?.present(
+                controller,
+                animated: true,
+                completion: nil
+            )
         }
         return model
     }()
     
-    let scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.showsVerticalScrollIndicator = false
-        return view
-    }()
-    
-    // ========================================
+    // =============================================
     // MARK: Initialization
-    // ========================================
+    // =============================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,23 +45,16 @@ class FastViewController: UIViewController {
         model.viewDidLoad()
         setup()
         
-        title = "Fast"
-        view.backgroundColor = .stdBackground
-        
-        view.addSubview(fastView)
-        fastView.snp.makeConstraints {
+        view.addSubview(waterView)
+        waterView.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(15)
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(view.safeAreaLayoutGuide)
         }
-    }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrollView.contentSize = CGSize(
-            width: view.frame.size.width,
-            height: view.frame.size.height
-        )
+        title = "Water"
+        view.backgroundColor = .stdBackground
+        
     }
     
     override public func viewWillAppear(_ animated: Bool) {
@@ -71,12 +66,12 @@ class FastViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .stdText
         setLargeTitleDisplayMode(.always)
     }
-
+    
     // =============================================
     // MARK: Helpers
     // =============================================
     
     func setup() {
-        fastView.model = model.fastModel
+        waterView.model = model.waterModel
     }
 }

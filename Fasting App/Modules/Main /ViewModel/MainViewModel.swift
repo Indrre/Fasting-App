@@ -41,6 +41,17 @@ class MainViewModel {
         }
     }
     
+    var waterLabel: String {
+        let count = WaterService.currentWater.count ?? 0
+        if count > 1 {
+            return "\(count) glasses"
+        } else {
+            return "\(count) glass"
+        }
+    }
+    
+    
+    
     var timerLabel = "" {
         didSet {
             refreshController?()
@@ -60,7 +71,7 @@ class MainViewModel {
             return "\(Int(FastService.currentFast?.timeLapsed ?? 0) / 60 / 60)h"
         }
     }
-    
+        
     var stroke: CGFloat = 0
     var timeSelected: TimeInterval?
     var isAnimated: Bool?
@@ -108,15 +119,22 @@ class MainViewModel {
     var mainTileModel: MainTileModel {
         return MainTileModel(
             fastHours: fastTimeSelected,
-            water: "Water Consumed",
+            water: waterLabel,
             weight: "Weight value",
             calories: "Calories eated",
             takeToFast: { [ weak self ] in
                 self?.presentFastController()
             },
+            takeToWater: { [ weak self ] in
+                self?.presentWaterViewController()
+            },
+            takeToWeight: { [ weak self ] in
+                self?.presentWeightViewController()
+            },
             presentEditPicker: { [ weak self] in
                 self?.openPicker(.edit)
-            }, state: state
+            },
+            state: state
         )
     }
     
@@ -137,6 +155,7 @@ class MainViewModel {
         FastService.startObservingFast(self)
         UserService.refreshUser()
         FastService.start()
+        WaterService.start()
         updateLabel()
     }
     
@@ -194,6 +213,16 @@ class MainViewModel {
     
     @objc func presentFastController() {
         let controller = FastViewController()
+        pushController?(controller)
+    }
+    
+    func presentWaterViewController() {
+        let controller = WaterViewController()
+        pushController?(controller)
+    }
+    
+    func presentWeightViewController() {
+        let controller = WeightViewContorller()
         pushController?(controller)
     }
     
@@ -311,7 +340,6 @@ extension MainViewModel: UserServiceObserver {
 
 extension MainViewModel: FastServiceObserver {
     func fastServiceRefreshedData() {
-//        
     }
     
     func fastServiceFastUpdated(_ fast: Fast?) {

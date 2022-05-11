@@ -1,31 +1,30 @@
 //
-//  TimeBarView.swift
+//  WaterBarView.swift
 //  Fasting App
 //
-//  Created by indre zibolyte on 15/03/2022.
+//  Created by indre zibolyte on 23/04/2022.
 //
 
 import Foundation
 import UIKit
 
-struct FastBarModel {
+struct WaterBarModel {
     
-    let timerGraph: [TimeGraphBarViewModel]
-    let maximumTimeLapsed: Float
-    let averageHours: String
+    let waterGraph: [WaterGraphBarViewModel]
+    let maximumWaterBar: Float
+    let averageWater: String
     
 }
 
-struct TimeGraphBarViewModel {
+struct WaterGraphBarViewModel {
     
-    let startTime: TimeInterval?
-    let endTime: TimeInterval?
+    let date: TimeInterval?
     let barValue: Float
     let maxValue: Float
     
 }
 
-class TimeBarView: UIView {
+class WaterBarView: UIView {
     
     // ========================================
     // MARK: Properties
@@ -37,17 +36,7 @@ class TimeBarView: UIView {
     // MARK: Components
     // ========================================
     
-    let selectionStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.distribution = .fillEqually
-        view.alignment = .fill
-        view.spacing = 10
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let fastStackView: UIStackView = {
+    let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
         view.distribution = .fillEqually
@@ -72,7 +61,7 @@ class TimeBarView: UIView {
         return view
     }()
     
-    var model: FastBarModel? {
+    var model: WaterBarModel? {
         didSet {
             updateViews()
         }
@@ -85,25 +74,25 @@ class TimeBarView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
 
-        addSubview(selectionStackView)
-        selectionStackView.snp.makeConstraints {
+        addSubview(stackView)
+        stackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(20)
             $0.height.equalTo(stackViewHeight)
         }
         
-        addSubview(fastStackView)
-        fastStackView.snp.makeConstraints {
+        addSubview(stackView)
+        stackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(20)
-            $0.height.equalTo(selectionStackView)
+            $0.height.equalTo(stackView)
         }
         
         addSubview(averageView)
         averageView.snp.makeConstraints {
             $0.height.equalTo(1.5)
-            $0.leading.equalTo(selectionStackView)
-            $0.trailing.equalTo(selectionStackView).offset(150)
+            $0.leading.equalTo(stackView)
+            $0.trailing.equalTo(stackView).offset(150)
             $0.centerY.equalToSuperview()
         }
         
@@ -124,41 +113,29 @@ class TimeBarView: UIView {
     // MARK: Helpers
     // ========================================
     
-    func createTimeSelectedBars() {
-        model?.timerGraph.forEach { item in
-            selectionStackView.addArrangedSubview(
-                createFastBar(
+    func createWaterBars() {
+        model?.waterGraph.forEach { item in
+            stackView.addArrangedSubview(
+                createWaterBar(
                     graph: item,
-                    maxNum: model?.maximumTimeLapsed ?? 0
+                    maxNum: model?.maximumWaterBar ?? 0
                 )
             )
         }
     }
     
-    func createTimeLapsedBars() {
-        model?.timerGraph.forEach { item in
-            fastStackView.addArrangedSubview(
-                createFastBar(
-                    graph: item,
-                    maxNum: model?.maximumTimeLapsed ?? 0,
-                    isTimeLapsed: true
-                )
-            )
-        }
-    }
-    
-    func createFastBar(
-        graph: TimeGraphBarViewModel,
-        maxNum: Float,
-        isTimeLapsed: Bool = false) -> UIView {
+    func createWaterBar(
+        graph: WaterGraphBarViewModel,
+        maxNum: Float) -> UIView {
             let container = UIView()
             let lblDay = UILabel()
-            lblDay.text = (graph.endTime ?? .today).dayCharacter.lowercased()
+            lblDay.text = (graph.date ?? .today).dayCharacter.lowercased()
             lblDay.font = UIFont.systemFont(ofSize: 10)
             lblDay.textAlignment = .center
             lblDay.textColor = .stdText
+            
             let bar = UIView()
-            let barColor: UIColor? = isTimeLapsed ? .fastColor : .fastSelectedColor
+            let barColor: UIColor? = .waterColor
             bar.backgroundColor = barColor
             bar.layer.cornerRadius = 5
             
@@ -166,54 +143,35 @@ class TimeBarView: UIView {
             hack.backgroundColor = barColor
             
             container.addSubview(lblDay)
-            
             lblDay.snp.makeConstraints {
                 $0.leading.trailing.bottom.equalToSuperview()
             }
-            
-            var barValue = graph.barValue
-            if isTimeLapsed {
-                if let end = graph.endTime {
-                    barValue = Float(end - (graph.startTime ?? 0))
-                } else {
-                    barValue = Float(Date().timeIntervalSince1970 - (graph.startTime ?? 0))
-                }
-            }
-            
-            let percentage = barValue == 0 && maxNum == 0 ? 0 : CGFloat(barValue/maxNum)
-            var barHeight = stackViewHeight * percentage
-            
-            if (barValue == maxNum && percentage > 0) || barHeight > stackViewHeight {
-                barHeight = stackViewHeight
-            }
-            
+
+            let ratio = graph.barValue/(maxNum > 0 ? maxNum : 1)
+            let height = stackViewHeight*CGFloat(ratio)
+
             container.addSubview(bar)
             bar.snp.makeConstraints {
                 $0.leading.trailing.equalToSuperview()
-                $0.height.equalTo(barHeight == 0 ? 1 : barHeight)
+                $0.height.equalTo(height == 0 ? 1 : height)
                 $0.width.equalTo(10)
                 $0.bottom.equalTo(lblDay.snp.top).offset(-5)
             }
-            
+
             container.addSubview(hack)
             hack.snp.makeConstraints {
-                $0.height.equalTo(barHeight == 0 ? 0 : 4)
+                $0.height.equalTo(height == 0 ? 0 : 4)
                 $0.leading.trailing.bottom.equalTo(bar)
             }
             return container
         }
         
     func updateViews() {
-        lblAverage.text = model?.averageHours
-        selectionStackView.subviews.forEach { (view) in
-            view.removeFromSuperview()
-        }
-        fastStackView.subviews.forEach { (view) in
+        lblAverage.text = model?.averageWater
+        stackView.subviews.forEach { (view) in
             view.removeFromSuperview()
         }
         
-        createTimeSelectedBars()
-        createTimeLapsedBars()
+        createWaterBars()
     }
-    
 }

@@ -1,5 +1,5 @@
 //
-//  Colors.swift
+//  Colors+Extensions.swift
 //  Fasting App
 //
 //  Created by indre zibolyte on 23/01/2022.

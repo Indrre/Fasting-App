@@ -1,142 +1,16 @@
 //
-//  Extensions.swift
+//  ProfilePicker+Extensions.swift
 //  Fasting App
 //
-//  Created by indre zibolyte on 25/01/2022.
+//  Created by indre zibolyte on 25/03/2022.
 //
 
+import Foundation
 import UIKit
-import SDWebImage
 
-extension UIView {
-    
-    func addShadow(color: UIColor? = UIColor.black.withAlphaComponent(0.3)) {
-        layer.shadowColor = color?.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = .zero
-        layer.shadowRadius = 15
-    }
-    
-    func addShadow() {
-        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-        layer.shadowOpacity = 0.2
-        layer.shadowOffset = .zero
-        layer.shadowRadius = 20
-    }
-    
-    func setBackgroundGradient(topColor: UIColor, bottomColor: UIColor) {
-        let layer0 = CAGradientLayer()
-        layer0.colors = [
-          topColor.cgColor,
-          bottomColor.withAlphaComponent(0).cgColor,
-          topColor.cgColor
-        ]
-        layer0.locations = [0, 1]
-        layer0.startPoint = CGPoint(x: 0.15, y: 0.5)
-        layer0.endPoint = CGPoint(x: 0.95, y: 0.5)
-        layer0.transform = CATransform3DMakeAffineTransform(
-            CGAffineTransform(
-                a: 0,
-                b: 0.72,
-                c: -0.72,
-                d: 0,
-                tx: 1.86,
-                ty: 0)
-        )
-        layer0.bounds = bounds.insetBy(
-            dx: -0.5*frame.size.width,
-            dy: -0.5*bounds.size.height
-        )
-        layer0.position = center
-        layer.addSublayer(layer0)
-    }
-}
-
-extension CAShapeLayer {
-
-    class func create(strokeColor: UIColor, fillColor: UIColor, radius: CGFloat) -> CAShapeLayer {
-        let circularPath = UIBezierPath(
-            arcCenter: CGPoint(x: radius, y: radius),
-            radius: radius,
-            startAngle: -(.pi / 2),
-            endAngle: 1.5 * .pi,
-            clockwise: true
-        )
-        
-        let layer = CAShapeLayer()
-        layer.path = circularPath.cgPath
-        layer.strokeColor = strokeColor.cgColor
-        layer.lineWidth = 20
-        layer.fillColor = fillColor.cgColor
-        layer.lineCap = .round
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = CGSize(width: 0.0, height: 0.1)
-        
-        return layer
-    }
-    
-}
-
-class ImageService {
-    
-    let manager = SDWebImageManager()
-    
-    static let shared = ImageService()
-    
-    static func fetchImage(
-        urlString: String,
-        completion: @escaping ((UIImage?, Error?) -> Void)) {
-        
-        guard let url = URL(string: urlString) else { return }
-        
-        DispatchQueue.global().async {
-            shared.manager.loadImage(
-                with: url,
-                options: [],
-                progress: nil) { (image, _, error, _, _, _) in
-                
-                DispatchQueue.main.async {
-                    completion(image, error)
-                }
-            }
-        }
-    }
-    
-}
-
-extension UIImageView {
-    
-    func fetchImage(url: String) {
-        ImageService.fetchImage(urlString: url) { [weak self] (image, _) in
-            self?.image = image
-        }
-    }
-    
-}
-
-extension UIViewController {
-    
-    func setLargeTitleDisplayMode(_ largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode) {
-        switch largeTitleDisplayMode {
-        case .automatic:
-            guard let navigationController = navigationController else { break }
-            if let index = navigationController.children.firstIndex(of: self) {
-                setLargeTitleDisplayMode(index == 0 ? .always : .never)
-            } else {
-                setLargeTitleDisplayMode(.always)
-            }
-        case .always:
-            navigationItem.largeTitleDisplayMode = largeTitleDisplayMode
-            // Even when .never, needs to be true otherwise animation will be broken on iOS11, 12, 13
-            navigationController?.navigationBar.prefersLargeTitles = true
-        case .never:
-            navigationController?.navigationBar.prefersLargeTitles = false
-        @unknown default:
-            assertionFailure("\(#function): Missing handler for \(largeTitleDisplayMode)")
-        }
-    }
-    
-}
+// =================================
+// MARK: Age Picker
+// =================================
 
 extension AgePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -155,8 +29,11 @@ extension AgePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         age = ageArray[row]
     }
-    
 }
+
+// =================================
+// MARK: Weight Picker
+// =================================
 
 extension WeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -185,7 +62,7 @@ extension WeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
             } else if component == 2 {
                 return 1 // pound header
             } else {
-                return 15 // inches
+                return 14 // pounds
             }
         }
     }
@@ -208,7 +85,7 @@ extension WeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
             } else if componentKG == 1 {
                 return String(format: "%d", stoneArray[row]) // value
             } else if componentKG == 2 {
-                return "lbs:" // header
+                return "lb:" // header
             } else if componentKG == 3 {
                 return String(format: "%d", kgArray[row]) // value
             }
@@ -235,9 +112,14 @@ extension WeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
             }
             totalGramsEntered = 0
             totalPoundsEntered = stones + pounds
+            debugPrint("@@@ Stones \(stones) + punds \(pounds)")
         }
     }
 }
+
+// =================================
+// MARK: Height Picker
+// =================================
 
 extension HeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -315,6 +197,10 @@ extension HeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     
 }
 
+// =================================
+// MARK: Gender Picker
+// =================================
+
 extension GenderPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -334,6 +220,10 @@ extension GenderPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     }
 }
 
+// =================================
+// MARK: Activity Picker
+// =================================
+
 extension ActivityPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -351,56 +241,5 @@ extension ActivityPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         activity = activityArray[row]
         
-    }
-}
-
-extension UIViewController {
-    func setBackground() {
-        
-        let layer = CAGradientLayer()
-        guard
-            let mainColor = UIColor.stdBackground,
-            let topColor = UIColor.topBackground else { return }
-        
-        layer.frame = view.bounds
-        layer.colors = [mainColor.cgColor, topColor.cgColor]
-        layer.startPoint = CGPoint(x: 0, y: 0)
-        layer.endPoint = CGPoint(x: 1, y: 1)
-        view.layer.insertSublayer(layer, at: 0)
-    }
-}
-
-import Foundation
-
-extension TimeInterval {
-    
-    var timeString: String {
-        let hours = Int(self) / 3600
-        let minutes = Int(self) / 60 % 60
-        let seconds = Int(self) % 60
-        return String(format: "%02i:%02i:%02i", hours, minutes, seconds)
-    }
-    
-    var dayCharacter: String {
-        let date = Date(timeIntervalSince1970: self)
-        let day = Calendar.current.component(.weekday, from: date)
-        switch day {
-        case 1: return "S"
-        case 2: return "M"
-        case 3: return "T"
-        case 4: return "W"
-        case 5: return "T"
-        case 6: return "F"
-        case 7: return "S"
-        default: return ""
-        }
-    }
-    
-}
-
-public extension TimeInterval {
-    
-    static var today: TimeInterval {
-        return Calendar.current.startOfDay(for: Date()).timeIntervalSince1970
     }
 }

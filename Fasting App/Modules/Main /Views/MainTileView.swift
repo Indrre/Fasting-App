@@ -14,6 +14,8 @@ struct MainTileModel {
     var weight: String
     var calories: String
     let takeToFast: (() -> Void?)
+    let takeToWater: (() -> Void?)
+    let takeToWeight: (() -> Void?)
     let presentEditPicker: (() -> Void?)
     let state: State
 }
@@ -96,7 +98,7 @@ class MainTileView: UIView {
             color: .fastColor,
             value: "0h",
             action: { [weak self] in
-                self?.takeToTotalFast()
+                self?.presentFastController()
             }
         )
         return view
@@ -110,7 +112,7 @@ class MainTileView: UIView {
             color: .waterColor,
             value: "Test",
             action: { [weak self] in
-//                self?.takeToWater()
+                self?.presentWaterController()
             }
         )
         return view
@@ -124,7 +126,7 @@ class MainTileView: UIView {
             color: .weightColor,
             value: "Test",
             action: { [weak self] in
-//                self?.takeToWeight()
+                self?.presentWeightController()
             }
         )
         return view
@@ -138,7 +140,7 @@ class MainTileView: UIView {
             color: .calorieColor,
             value: "357kcal",
             action: { [weak self] in
-//                self?.takeToCalories()
+//                self?.presentWeightController()
             }
         )
         return view
@@ -198,8 +200,16 @@ class MainTileView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func takeToTotalFast() {
+    func presentFastController() {
         model.takeToFast()
+    }
+    
+    func presentWaterController() {
+        model.takeToWater()
+    }
+    
+    func presentWeightController() {
+        model.takeToWeight()
     }
     
     @objc func presentDayPicker() {

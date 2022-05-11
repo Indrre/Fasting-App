@@ -11,7 +11,7 @@ import SnapKit
 
 struct FastModel {
     
-    let graphModel: TimeBarModel
+    let graphModel: FastBarModel
     let timerLapsed: TimeInterval?
     let hours: String?
     
@@ -28,9 +28,6 @@ class FastView: UIView {
     
     lazy var horizontalTimerView: HorizontalTimerView = {
         let view = HorizontalTimerView()
-        view.model = HorizontalTimerModel(
-            timerLapsed: timerLapsed,
-            hours: hours)
         return view
     }()
     
@@ -42,8 +39,8 @@ class FastView: UIView {
         return label
     }()
     
-    lazy var weeklyGraphView: GraphView = {
-        let view = GraphView()
+    lazy var weeklyGraphView: TimeGraphView = {
+        let view = TimeGraphView()
         return view
     }()
     
@@ -110,7 +107,6 @@ class FastView: UIView {
         addSubview(tableView)
         tableView.snp.makeConstraints {
             $0.top.equalTo(lblTimeLog.snp.bottom).offset(30)
-//            $0.height.equalToSuperview()
             $0.width.centerX.bottom.equalToSuperview()
         }
         

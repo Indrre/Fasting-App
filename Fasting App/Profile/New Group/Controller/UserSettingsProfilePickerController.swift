@@ -74,7 +74,6 @@ class UserSettingsProfilePickerController: ModalViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .clear
     }
     
     // =============================================

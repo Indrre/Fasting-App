@@ -28,8 +28,14 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     var user: User? {
         didSet {
             fetchUserImage()
-            getWeight()
             getHeight()
+            refreshController?()
+        }
+    }
+        
+    var currentWeight: Weight? {
+        didSet {
+            getWeight()
             refreshController?()
         }
     }
@@ -45,7 +51,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             profileImage: profileImage,
             name: user?.fullName ?? "",
             age: String(user?.age ?? 18),
-            weight: String(weight ?? "0.0") + (user?.weightUnit ?? "0.0"),
+            weight: weight,
             height: String(height  ?? "0") + (user?.heightMsureUnit ?? "0"),
             gender: user?.gender ?? "Female",
             activity: user?.activity ?? "Inactive ",
@@ -68,7 +74,10 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
                 self?.saveAge(age: age)
             }
         )
+
     }
+    
+//     Need to sort out the source of weith as this was moved from user to seperate weight ptoperty
     
     var weightModel: WeightPickerModel {
         return WeightPickerModel(
@@ -125,6 +134,8 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     // =============================================
     
     func viewDidLoad() {
+        WeightService.start()
+        WeightService.startObservingWeight(self)
         getWeight()
         getHeight()
         UserService.startObservingUser(self)
@@ -145,11 +156,22 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     }
     
     func saveWeight(mesureUnits: String, value: Double) {
-        let values = [
-            "weightUnit": mesureUnits,
-            "weight": value] as [String: Any]
-        Service.shared.updateUserValues(values: values as [String: Any])
-        UserService.refreshUser()
+        
+        var weight = WeightService.currentWeight
+                
+        if mesureUnits == "st" {
+            let count = value * 453.592
+            
+            debugPrint("count: \(count)")
+
+            weight.count = Int(count)
+        } else {
+            weight.count = Int(value)
+        }
+        weight.unit = mesureUnits
+        weight.date = .today
+        Service.shared.updateUserWeight(weight)
+        WeightService.start()
     }
     
     func saveHeight(mesureUnits: String, heightFirstUnit: Double, heightSecondUnit: Double) {
@@ -177,14 +199,26 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     }
     
     func getWeight() {
-        guard let weightUnit = user?.weightUnit else { return }
-        guard let userWeight = user?.weight else { return }
+        let currentWeight = WeightService.currentWeight
+        guard let weightUnit = currentWeight.unit else { return }
+        guard let userWeight = currentWeight.count else { return }
+        
         if weightUnit == "kg" {
-            weight = String(userWeight / 1000)
+            let calculations = Double(userWeight) / Double(1000)
+            
+            let label = String(format: "%.1f", calculations)
+            weight = "\(label)kg"
         } else {
-            let weigntInt = userWeight
-            let stone = weigntInt / 14
-            weight = String("\(stone)")
+            
+            var pounds = (Double(userWeight) * 0.00220462)
+            var numberOfStones = 0.0
+            while pounds > 14 {
+                pounds -= 14
+               numberOfStones += 1
+            }
+            
+            let numbetOfPounds = pounds.rounded()
+            weight = "\(Int(numberOfStones))st \(Int(numbetOfPounds))lb"
         }
     }
     
@@ -311,5 +345,15 @@ extension ProfileSettingViewModel: UserServiceObserver {
 
     func userServiceUserUpdated(_ user: User?) {
         self.user = user
+    }
+}
+
+extension ProfileSettingViewModel: WeightServiceObserver {
+    func weightServiceWeightUpdated(_ weight: Weight?) {
+        self.currentWeight = weight
+    }
+    
+    func weightServiceRefreshedData() {
+        refreshController?()
     }
 }
