@@ -20,7 +20,7 @@ class UserSettingsProfilePickerController: ModalViewController {
     
     lazy var model: ProfileSettingViewModel = {
         let model = ProfileSettingViewModel()
-        model.rerefreshController = { [weak self] in
+        model.refreshController = { [weak self] in
             self?.setup()
         }
         model.presentController = { [weak self] type in
@@ -74,7 +74,6 @@ class UserSettingsProfilePickerController: ModalViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .clear
     }
     
     // =============================================

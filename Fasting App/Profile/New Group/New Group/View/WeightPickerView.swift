@@ -56,7 +56,6 @@ class WeightPickerView: UIView {
     var kgArray = Array(0...300)
     var gramsArray = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900]
     var stoneArray = Array(0...99)
-    var poundArray = Array(0...14)
     
     lazy var mesureUnitControl: UISegmentedControl = {
         let view = UISegmentedControl(items: units.compactMap({ $0.rawValue }))
@@ -195,7 +194,7 @@ class WeightPickerView: UIView {
         if selectedUnit == .kilograms {
             selectedUnit = units[0]
         } else {
-            totalPoundsEntered = Int(Double(totalPoundsEntered * 454))
+            totalPoundsEntered = Int(Double(totalPoundsEntered) * 454)
         }
         delegate?.modalClose()
     }

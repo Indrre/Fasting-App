@@ -3,4 +3,38 @@
    uuid = "B980E0E0-00ED-4559-8E9B-09FD1935D702"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A29B411B-B4B0-40D5-8BD7-7EB39AB3E70C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fasting App/Reusables/Views/GraphView.swift"
+            startingColumnNumber = "23"
+            endingColumnNumber = "23"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "barView"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4AA56FDC-87B5-4A97-B0CA-9B263877FBC0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fasting App/Profile/New Group/New Group/View/AgePickerView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "model"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

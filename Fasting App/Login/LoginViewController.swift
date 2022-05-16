@@ -11,7 +11,7 @@ import AuthenticationServices
 import FirebaseAuth
 import CryptoKit
 
-class LoginViewController: ViewController {
+class LoginViewController: UIViewController {
     
     // =============================================
     // MARK: - Properties

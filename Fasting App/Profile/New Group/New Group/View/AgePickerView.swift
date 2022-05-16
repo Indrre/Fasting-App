@@ -10,7 +10,7 @@ import UIKit
 
 struct AgePickerModel {
     
-    let value: Int?
+    var value: Int?
 //    let dataSource: UIPickerViewDataSource
 //    let delegate: UIPickerViewDelegate
     let callback: ((_ age: Int) -> Void?)
@@ -25,7 +25,7 @@ class AgePickerView: UIView {
     
     weak var delegate: ModalViewControllerDelegate?
     
-    var age: Int = 18
+    var age: Int = 3
     
     var ageArray = Array(18...100)
     
@@ -78,7 +78,8 @@ class AgePickerView: UIView {
     
     var model: AgePickerModel {
         didSet {
-            age = model.value ?? 18
+            age = model.value ?? 0
+            debugPrint("DEBUG: AGE \(age)")
         }
     }
     
@@ -129,7 +130,7 @@ class AgePickerView: UIView {
         
         agePicker.reloadAllComponents()
         agePicker.selectRow(
-            ageArray.firstIndex(of: age) ?? 0,
+            ageArray.firstIndex(of: model.value ?? 0) ?? 0,
             inComponent: 0,
             animated: true
         )

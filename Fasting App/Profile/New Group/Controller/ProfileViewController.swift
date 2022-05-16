@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController {
     
     lazy var model: ProfileSettingViewModel = {
         let model = ProfileSettingViewModel()
-        model.rerefreshController = { [weak self] in
+        model.refreshController = { [weak self] in
             self?.setup()
         }
         model.presentActionSheet = { [weak self] controller in

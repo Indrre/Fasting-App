@@ -25,6 +25,15 @@ struct Fast {
             self.timeSelected = timeSelected
         }
     
+    init(id: String, data: [String: Any]) {
+        self.id = id
+        self.start = data["start"] as? TimeInterval
+        self.end = data["end"] as? TimeInterval
+        self.timeSelected = data["timeSelected"] as? TimeInterval ?? 0
+    }
+    
+    let data = [Fast]()
+    
 }
 
 extension Fast {
@@ -42,7 +51,6 @@ extension Fast {
     }
     
     var timeLapsed: TimeInterval {
-        // If user has added end time return the difference
         if let end = end {
             return end - (start ?? 0)
         }

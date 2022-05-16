@@ -12,11 +12,11 @@ import FirebaseAuth
 struct ProfileSettingsModel {
     var profileImage: UIImage?
     var name: String
-    var lblAgeValue: String?
-    var lblWeightValue: String?
-    var lblHeightValue: String?
-    var lblGenderValue: String?
-    var lblActivityValue: String?
+    var age: String?
+    var weight: String?
+    var height: String?
+    var gender: String?
+    var activity: String?
     let callback: (() -> Void?)
     let presentController: ((_ type: PersonalInfo) -> Void)?
     let signOut: (() -> Void?)
@@ -114,11 +114,11 @@ class ProfileSettingsView: UIView {
             lblName.text = model.name
             imageView.image = model.profileImage
             
-            optionValues[.age] = model.lblAgeValue
-            optionValues[.weight] = model.lblWeightValue
-            optionValues[.height] = model.lblHeightValue
-            optionValues[.gender] = model.lblGenderValue
-            optionValues[.activity] = model.lblActivityValue
+            optionValues[.age] = model.age
+            optionValues[.weight] = model.weight
+            optionValues[.height] = model.height
+            optionValues[.gender] = model.gender
+            optionValues[.activity] = model.activity
             refreshOptions()
         }
     }
@@ -206,6 +206,5 @@ class ProfileSettingsView: UIView {
     
     @objc func signOut() {
         model.signOut()
-        print("SIGNING OUT!!!")
     }
 }
