@@ -148,18 +148,18 @@ extension WaterViewModel: WaterServiceObserver {
 extension WaterMainView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return WaterService.data.count - 1
+        return WaterService.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "WaterCell", for: indexPath) as? WaterCell else { fatalError("unable to create cells") }
         cell.textLabel?.font = UIFont(name: "Montserrat-ExtraLight", size: 2)
-
+        cell.selectionStyle = .none
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "E, d MMM"
     
-        let currentModel = WaterService.data[indexPath.row + 1] 
+        let currentModel = WaterService.data[indexPath.row] 
         cell.model = WaterViewCellViewModel(
             waterCount: currentModel.count ?? 0,
             dateString: dayTimePeriodFormatter.string(from: Date(timeIntervalSince1970: (currentModel.date ?? TimeInterval.today))),

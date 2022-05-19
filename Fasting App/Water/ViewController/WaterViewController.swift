@@ -14,6 +14,19 @@ class WaterViewController: UIViewController {
     // =============================================
     // MARK: Properties
     // =============================================
+    
+    let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.showsVerticalScrollIndicator = false
+        return view
+    }()
+    
+    let stackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 20
+        return view
+    }()
         
     lazy var waterView: WaterMainView = {
         let view = WaterMainView(model: model.waterModel)
@@ -45,15 +58,15 @@ class WaterViewController: UIViewController {
         model.viewDidLoad()
         setup()
         
-        view.addSubview(waterView)
-        waterView.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(15)
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(view.safeAreaLayoutGuide)
-        }
-    
         title = "Water"
         view.backgroundColor = .stdBackground
+        
+        view.addSubview(waterView)
+        waterView.snp.makeConstraints {
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().inset(20)
+        }
         
     }
     

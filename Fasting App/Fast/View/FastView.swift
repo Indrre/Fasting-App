@@ -110,9 +110,11 @@ class FastView: UIView {
             $0.width.centerX.bottom.equalToSuperview()
         }
         
-        tableView.rowHeight = 50
+        tableView.rowHeight = 60
         tableView.delegate = self
+        tableView.backgroundColor = .clear
         tableView.dataSource = self
+        
     }
     
     required init?(coder: NSCoder) {

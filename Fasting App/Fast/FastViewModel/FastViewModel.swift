@@ -159,7 +159,8 @@ extension FastView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FastViewCell", for: indexPath) as? ViewCell else { fatalError("unable to create cells") }
         cell.textLabel?.font = UIFont(name: "Montserrat-ExtraLight", size: 2)
-        
+        cell.selectionStyle = .none
+
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "E, d MMM"
         

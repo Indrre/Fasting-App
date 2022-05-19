@@ -31,5 +31,4 @@ struct Weight {
           self.unit = data["unit"] as? String
       }
      let data = [Weight]()
-    
 }

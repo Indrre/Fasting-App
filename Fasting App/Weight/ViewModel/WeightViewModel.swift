@@ -46,8 +46,6 @@ class WeightViewModel {
             },
             loadGraph: { [weak self ] in
                 self?.loadGraph()
-            }, setLabel: { [ weak self ] set in
-                self?.setDataset(set: set)
             },
             dataSet: dataSet ?? [])
     }
@@ -75,16 +73,6 @@ class WeightViewModel {
         dataSet = graphData.compactMap({
             return Dataset(value: Double($0.count ?? 0), timestamp: Int($0.date ?? TimeInterval.today))
         })
-    }
-    
-    func setDataset(set: Dataset) { // set graph result label
-//        let string = currentWeight
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "d MMM"
-//        graphLabel = String(dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(set.timestamp))) +  " "  + string! )
-//        debugPrint("graphLabel \(graphLabel)")
-//        debugPrint("currentWeight \(currentWeight)")
     }
     
     func presentWeightPicker() {
@@ -137,20 +125,21 @@ extension WeightViewModel: WeightServiceObserver {
 extension WeightMainView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (model?.data.count ?? 0) - 1
+        return model?.data.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "WeightCell", for: indexPath) as? WeightCell else { fatalError("unable to create cells") }
         cell.textLabel?.font = UIFont(name: "Montserrat-ExtraLight", size: 2)
+        cell.selectionStyle = .none
 
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "E, d MMM"
         
         let weight = WeightService.currentWeight
         
-        let data = model?.data[indexPath.row + 1]
+        let data = model?.data[indexPath.row]
         if weight.unit == "kg" {
             let calculations = Double(data?.count ?? 0) / Double(1000)
             
@@ -196,20 +185,6 @@ extension WeightMainView: UITableViewDelegate, UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
             tableView.reloadData()
-            
-            
-            
-            
-            
-            
-            
-//            let dataSet = model?.data[indexPath.row]
-//            if let idx = WeightStore.shared.data.firstIndex(where: { $0.date == dataSet.date }) {
-//                WeightStore.shared.data.remove(at: idx)
-//            }
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//            tableView.endUpdates()
-//            reload()
         }
     }
 }

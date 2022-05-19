@@ -81,8 +81,6 @@ class WeightService {
                 debugPrint("DEBUG: Error Fetching weight data: \(String(describing: error))")
             } else {
                 self.currentWeight = weight!
-                debugPrint("DEBUG: currentWeight \(currentWeight)")
-
             }
         }
     }

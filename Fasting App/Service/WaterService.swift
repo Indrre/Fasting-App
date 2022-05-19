@@ -83,7 +83,6 @@ class WaterService {
                 debugPrint("DEBUG: Error Fetching current water: - \(String(describing: error))")
             } else {
                 self.currentWater = water!
-                debugPrint("DEBUG: Current Water - start \(currentWater)")
             }
         }
     }
@@ -108,7 +107,11 @@ class WaterService {
 // ToDo:
 
 // preload pickers
+// RingView
 // Water views does not refresh
-// background gradient
+// Weight views does not refresh
 // light / dark mode
 // Touchable view - rich to give a new coude to top bouncing
+
+// background gradient
+

@@ -105,6 +105,7 @@
 		93CFCCFA280C3592009ECD4D /* CurvedSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCF9280C3592009ECD4D /* CurvedSegment.swift */; };
 		93CFCCFC280C35E6009ECD4D /* WeightMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CFCCFB280C35E6009ECD4D /* WeightMainView.swift */; };
 		93DB94BB28299BEC00CC0693 /* WeightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DB94BA28299BEC00CC0693 /* WeightCell.swift */; };
+		93DB94BD282D9BC700CC0693 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DB94BC282D9BC700CC0693 /* ViewController.swift */; };
 		93F1D76A27EEFD5100C6A879 /* WaterMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D76927EEFD5100C6A879 /* WaterMainView.swift */; };
 		93F1D76C27EEFD5E00C6A879 /* WaterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D76B27EEFD5E00C6A879 /* WaterViewModel.swift */; };
 		93F1D76E27EEFD6B00C6A879 /* WaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1D76D27EEFD6B00C6A879 /* WaterViewController.swift */; };
@@ -219,6 +220,7 @@
 		93CFCCF9280C3592009ECD4D /* CurvedSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedSegment.swift; sourceTree = "<group>"; };
 		93CFCCFB280C35E6009ECD4D /* WeightMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightMainView.swift; sourceTree = "<group>"; };
 		93DB94BA28299BEC00CC0693 /* WeightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCell.swift; sourceTree = "<group>"; };
+		93DB94BC282D9BC700CC0693 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		93F1D76927EEFD5100C6A879 /* WaterMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMainView.swift; sourceTree = "<group>"; };
 		93F1D76B27EEFD5E00C6A879 /* WaterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewModel.swift; sourceTree = "<group>"; };
 		93F1D76D27EEFD6B00C6A879 /* WaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewController.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				9301218F27EDF4CF00C872C4 /* UIViewController+Extensions.swift */,
 				9301219127EDF53500C872C4 /* UIView+Extensions.swift */,
 				9301219327EDF5B200C872C4 /* ProfilePicker+Extensions.swift */,
+				93DB94BC282D9BC700CC0693 /* ViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -886,6 +889,7 @@
 				9386E32527D69CD3008AB597 /* Size.swift in Sources */,
 				93F1D77C27F04D2100C6A879 /* WaterPickerViewController.swift in Sources */,
 				93F1D77827F04D0300C6A879 /* WaterPickerView.swift in Sources */,
+				93DB94BD282D9BC700CC0693 /* ViewController.swift in Sources */,
 				9301219427EDF5B200C872C4 /* ProfilePicker+Extensions.swift in Sources */,
 				9381D02F27C58DC100DC3BFB /* TouchableView.swift in Sources */,
 				9376E0C627A1B01200245FDA /* DatePickerViewController.swift in Sources */,

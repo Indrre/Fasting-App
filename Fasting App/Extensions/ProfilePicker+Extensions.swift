@@ -112,7 +112,6 @@ extension WeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
             }
             totalGramsEntered = 0
             totalPoundsEntered = stones + pounds
-            debugPrint("@@@ Stones \(stones) + punds \(pounds)")
         }
     }
 }

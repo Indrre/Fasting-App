@@ -162,8 +162,6 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         if mesureUnits == "st" {
             let count = value * 453.592
             
-            debugPrint("count: \(count)")
-
             weight.count = Int(count)
         } else {
             weight.count = Int(value)

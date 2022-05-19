@@ -79,7 +79,6 @@ class AgePickerView: UIView {
     var model: AgePickerModel {
         didSet {
             age = model.value ?? 0
-            debugPrint("DEBUG: AGE \(age)")
         }
     }
     

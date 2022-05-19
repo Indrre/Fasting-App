@@ -180,7 +180,7 @@ class MainTileView: UIView {
         
         lblStackView.addArrangedSubview(lblToday)
         lblStackView.addArrangedSubview(btnEditTimer)
-
+        
         addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()

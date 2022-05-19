@@ -20,8 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             )
             window = win
             win.makeKeyAndVisible()
-            
-            debugPrint("DEBUG: TODAYS DATE \(TimeInterval.today)")
         }
         guard let _ = (scene as? UIWindowScene) else { return }
     }

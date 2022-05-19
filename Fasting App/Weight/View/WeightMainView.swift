@@ -13,7 +13,6 @@ struct WeightModel {
     var data: [Weight]
     var callBack: (() -> Void?)
     let loadGraph: (() -> Void?)
-    let setLabel: ((_ set: Dataset) -> Void?)
     var dataSet: [Dataset]
 }
 
@@ -24,7 +23,8 @@ class WeightMainView: UIView {
     // ========================================
     
     var count: String?
-    
+    var currentWeight: String?
+
     var lblToday: UILabel = {
         var label = UILabel()
         label.font =  UIFont(name: "Montserrat-ExtraLight", size: 17)
@@ -205,9 +205,7 @@ class WeightMainView: UIView {
         dateFormatter.dateFormat = "d MMM"
         lblResults.text = String(dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(set.timestamp))) +  " "  + string )
     }
-    
-    var currentWeight: String?
-    
+        
     func displayFor(value: Dataset) -> String {
         let weight = WeightService.currentWeight
         let weightUnit = weight.unit
@@ -229,8 +227,6 @@ class WeightMainView: UIView {
             let numbetOfPounds = pounds.rounded()
             currentWeight = "\(Int(numberOfStones))st \(Int(numbetOfPounds))lb"
         }
-        debugPrint("VALUE \(currentWeight)")
-
         return currentWeight ?? ""
     }
 }

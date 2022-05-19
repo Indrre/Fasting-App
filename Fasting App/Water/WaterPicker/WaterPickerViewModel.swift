@@ -54,8 +54,6 @@ class WaterPickerViewModel {
         WaterService.startObservingWater(self)
         WaterService.start()
         refreshController?()
-        
-        debugPrint("DEBUG: \(water?.count ?? 0)")
     }
     
     func incrementWater() {
@@ -74,7 +72,6 @@ class WaterPickerViewModel {
     }
     
     func saveWater() {
-        debugPrint("DEBUG: Saving water!")
     var water = WaterService.currentWater
         water.count = newWater
         water.date = .today

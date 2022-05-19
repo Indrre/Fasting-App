@@ -19,7 +19,20 @@ class MainViewModel {
     // =============================================
     // MARK: Properties
     // =============================================
-        
+    
+    var stroke: CGFloat = 0
+    var timeSelected: TimeInterval?
+    var isAnimated: Bool?
+    var startTime: TimeInterval?
+    var timeLapsed: Float = 0
+    var timer: Timer?
+    var profileImage: UIImage?
+    var endDate: TimeInterval?
+    var selectedHours: Int?
+    var selectedDays: Int?
+    var lblWeight: String?
+
+    
     var user: User? {
         didSet {
             fetchUserImage()
@@ -41,6 +54,15 @@ class MainViewModel {
         }
     }
     
+    var weightLabel: String? {
+        
+        let weight = WeightService.currentWeight
+        return  "\(setWeightLabel(weight: weight))"
+        
+    }
+    
+
+    
     var waterLabel: String {
         let count = WaterService.currentWater.count ?? 0
         if count > 1 {
@@ -49,8 +71,6 @@ class MainViewModel {
             return "\(count) glass"
         }
     }
-    
-    
     
     var timerLabel = "" {
         didSet {
@@ -68,20 +88,9 @@ class MainViewModel {
         if state != .running {
             return "0h"
         } else {
-            return "\(Int(FastService.currentFast?.timeLapsed ?? 0) / 60 / 60)h"
+            return "\(Int(FastService.currentFast?.timeLapsed ?? 0) / 60 / 60) h"
         }
     }
-        
-    var stroke: CGFloat = 0
-    var timeSelected: TimeInterval?
-    var isAnimated: Bool?
-    var startTime: TimeInterval?
-    var timeLapsed: Float = 0
-    var timer: Timer?
-    var profileImage: UIImage?
-    var endDate: TimeInterval?
-    var selectedHours: Int?
-    var selectedDays: Int?
     
     var fastTimer: TimeInterval {
         return FastService.currentFast?.timeLapsed ?? 0
@@ -120,7 +129,7 @@ class MainViewModel {
         return MainTileModel(
             fastHours: fastTimeSelected,
             water: waterLabel,
-            weight: "Weight value",
+            weight: weightLabel ?? "Nothing to display",
             calories: "Calories eated",
             takeToFast: { [ weak self ] in
                 self?.presentFastController()
@@ -145,7 +154,7 @@ class MainViewModel {
     var presentController: ((UIViewController) -> Void)?
     var pushController: ((UIViewController) -> Void)?
     var refreshController: (() -> Void)?
-
+    
     // =============================================
     // MARK: Helpers
     // =============================================
@@ -156,7 +165,9 @@ class MainViewModel {
         UserService.refreshUser()
         FastService.start()
         WaterService.start()
+        WeightService.start()
         updateLabel()
+        debugPrint("weightLabel \(WeightService.currentWeight.count)")
     }
     
     func fetchUserImage() {
@@ -268,7 +279,7 @@ class MainViewModel {
     
     func handleStopStart(state: State) {
         self.state = state
-            if state == .running {
+        if state == .running {
             openPicker(.end)
             updateLabel()
         } else {
@@ -326,6 +337,30 @@ class MainViewModel {
         fast.updateStart(interval: start)
         FastService.updateFast(fast)
     }
+        
+    func setWeightLabel(weight: Weight) -> String {
+        
+        let weightUnit = weight.unit
+        let userWeight = weight.count
+        if weightUnit == "kg" {
+            let calculations = Double(userWeight ?? 0) / Double(1000)
+            
+            let label = String(format: "%.1f", calculations)
+            lblWeight = "\(label)kg"
+        } else {
+            
+            var pounds = (Double(userWeight ?? 0) * 0.00220462)
+            var numberOfStones = 0.0
+            while pounds > 14 {
+                pounds -= 14
+                numberOfStones += 1
+            }
+            
+            let numbetOfPounds = pounds.rounded()
+            lblWeight = "\(Int(numberOfStones))st \(Int(numbetOfPounds))lb"
+        }
+        return lblWeight ?? "String"
+    }
 }
 
 // =================================
@@ -356,20 +391,20 @@ extension DatePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 4 // 2 headers and 2 values
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if component == 0 {
-           return 1 // "Days" Header
+            return 1 // "Days" Header
         } else if component == 1 {
-           return 32 // Number of days
+            return 32 // Number of days
         } else if component == 2 {
-           return 1 // "Hours" Header
+            return 1 // "Hours" Header
         } else {
-           return 25 // Number of hours
+            return 25 // Number of hours
         }
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 1 {
             selectedDays = row
@@ -377,7 +412,7 @@ extension DatePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
             selectedHours = row
         }
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         var pickerLabel: UILabel? = (view as? UILabel)
         if pickerLabel == nil {
@@ -385,7 +420,7 @@ extension DatePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
             pickerLabel?.font = UIFont(name: "Montserrat-Light", size: 18)
             pickerLabel?.textAlignment = .center
         }
-
+        
         if component == 0 {
             pickerLabel?.text = "Days:" // header
         } else if component == 1 {

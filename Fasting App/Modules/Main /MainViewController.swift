@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class MainViewController: UIViewController {
+class MainViewController: ViewController {
     
     // =============================================
     // MARK: Components
@@ -68,11 +68,11 @@ class MainViewController: UIViewController {
     // =============================================
     // MARK: Lifecycle
     // =============================================
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         model.viewDidLoad()
-        view.backgroundColor = .stdBackground
+
         setBackground()
         self.navigationItem.setHidesBackButton(true, animated: true)
         
@@ -85,13 +85,6 @@ class MainViewController: UIViewController {
             $0.height.equalTo(70)
         }
         
-        scrollView.addSubview(stackView)
-        stackView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(5)
-            $0.width.equalToSuperview().offset(-30)
-        }
-        
         view.addSubview(scrollView)
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         scrollView.snp.makeConstraints {
@@ -102,7 +95,7 @@ class MainViewController: UIViewController {
         
         scrollView.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.size.equalTo(scrollView)
+            $0.size.equalToSuperview()
         }
         
         let timerContainer = UIView()
@@ -117,8 +110,9 @@ class MainViewController: UIViewController {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(view)
         }
-        
+                
         stackView.addArrangedSubview(mainTileView)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -130,7 +124,7 @@ class MainViewController: UIViewController {
         super.viewDidLayoutSubviews()
         stackView.layoutIfNeeded()
         scrollView.contentSize = CGSize(
-            width: view.frame.size.width,
+            width: scrollView.frame.size.width,
             height: stackView.frame.size.height
         )
     }
