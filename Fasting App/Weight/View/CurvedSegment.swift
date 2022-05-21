@@ -59,9 +59,9 @@ public class CurveAlgorithm {
         return path
     }
     
-    //==========================================
+    // ==========================================
     // MARK: Private Helpers
-    //==========================================
+    // ==========================================
     
     private func controlPointsFrom(points: [CGPoint]) -> [CurvedSegment] {
         var result: [CurvedSegment] = []

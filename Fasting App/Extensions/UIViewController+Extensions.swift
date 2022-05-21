@@ -9,22 +9,6 @@ import Foundation
 import UIKit
 import SDWebImage
 
-//extension UIViewController {
-//    func setBackground() {
-//        
-//        let layer = CAGradientLayer()
-//        guard
-//            let mainColor = UIColor.stdBackground,
-//            let topColor = UIColor.topBackground else { return }
-//        
-//        layer.frame = view.bounds
-//        layer.colors = [mainColor.cgColor, topColor.cgColor]
-//        layer.startPoint = CGPoint(x: 0, y: 0)
-//        layer.endPoint = CGPoint(x: 1, y: 1)
-//        view.layer.insertSublayer(layer, at: 0)
-//    }
-//}
-
 extension UIViewController {
     
     func setLargeTitleDisplayMode(_ largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode) {

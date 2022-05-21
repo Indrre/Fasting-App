@@ -38,7 +38,7 @@ public class LineChart: UIView {
     // MARK: Settings
     // ==========================================
     
-    // Mark: Padding
+    // MARK: Padding
     private var lineGap: CGFloat {
         return bounds.width/CGFloat(dataSet?.count ?? 0)
     }
@@ -354,14 +354,14 @@ public class LineChart: UIView {
                 lineLayer.fillColor = UIColor.clear.cgColor
                 lineLayer.strokeColor = #colorLiteral(red: 0.2784313725, green: 0.5411764706, blue: 0.7333333333, alpha: 1).cgColor
                 lineLayer.lineWidth = 0.5
-                if (value > 0.0 && value < 1.0) {
+                if value > 0.0 && value < 1.0 {
                     lineLayer.lineDashPattern = [4, 4]
                 }
                 
                 gridLayer.addSublayer(lineLayer)
                 
-                var minMaxGap:CGFloat = 0
-                var lineValue:Int = 0
+                var minMaxGap: CGFloat = 0
+                var lineValue: Int = 0
                 if let max = dataSet.max()?.value,
                    let min = dataSet.min()?.value {
                     minMaxGap = CGFloat(max - min) * topHorizontalLine

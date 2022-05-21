@@ -40,7 +40,7 @@ class WaterDotView: UIView {
         editButton.titleLabel?.font = UIFont(name: "Montserrat-Light", size: 17)
         editButton.setTitleColor(.stdText, for: .normal)
         editButton.setTitle("Edit Water", for: .normal)
-        editButton.addTarget(self, action: #selector(editButtonPressed), for: .touchUpInside)
+        editButton.addTarget((Any).self, action: #selector(editButtonPressed), for: .touchUpInside)
         return editButton
     }()
 

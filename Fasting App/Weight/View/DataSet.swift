@@ -21,11 +21,11 @@ public struct Dataset {
 
 extension Dataset: Comparable {
     
-    public static func <(lhs: Dataset, rhs: Dataset) -> Bool {
+    public static func < (lhs: Dataset, rhs: Dataset) -> Bool {
         return lhs.value < rhs.value
     }
     
-    public static func ==(lhs: Dataset, rhs: Dataset) -> Bool {
+    public static func == (lhs: Dataset, rhs: Dataset) -> Bool {
         return lhs.value == rhs.value
     }
     

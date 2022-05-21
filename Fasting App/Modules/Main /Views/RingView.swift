@@ -14,7 +14,7 @@ struct RingViewModel {
     let animatedColor: UIColor?
     let timer: String?
     let fast: String?
-    var timeSelected: TimeInterval?
+    let timeSelected: TimeInterval?
     let state: State
     let timeLapsed: Float
     let stroke: CGFloat?

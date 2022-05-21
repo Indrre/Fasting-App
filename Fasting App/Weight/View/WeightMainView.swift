@@ -124,6 +124,19 @@ class WeightMainView: UIView {
         
         model.loadGraph()
         
+        configure()
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // =============================================
+    // MARK: Helpers
+    // =============================================
+    
+    func configure() {
         addSubview(lblToday)
         lblToday.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).offset(10)
@@ -182,16 +195,7 @@ class WeightMainView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
-        
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // =============================================
-    // MARK: Helpers
-    // =============================================
     
     @objc func editButtonPressed() {
         model?.callBack()

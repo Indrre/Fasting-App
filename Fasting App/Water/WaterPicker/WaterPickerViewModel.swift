@@ -92,9 +92,3 @@ extension WaterPickerViewModel: WaterServiceObserver {
         self.water = water
     }
 }
-
-// Do do:
-
-// check ofline fireBase storage ?? done - to chack f it's working
-// tableview of water log
-

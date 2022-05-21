@@ -74,10 +74,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
                 self?.saveAge(age: age)
             }
         )
-
     }
-    
-//     Need to sort out the source of weith as this was moved from user to seperate weight ptoperty
     
     var weightModel: WeightPickerModel {
         return WeightPickerModel(
@@ -158,7 +155,6 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     func saveWeight(mesureUnits: String, value: Double) {
         
         var weight = WeightService.currentWeight
-                
         if mesureUnits == "st" {
             let count = value * 453.592
             
@@ -214,7 +210,6 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
                 pounds -= 14
                numberOfStones += 1
             }
-            
             let numbetOfPounds = pounds.rounded()
             weight = "\(Int(numberOfStones))st \(Int(numbetOfPounds))lb"
         }

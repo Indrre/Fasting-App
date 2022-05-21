@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window = win
             win.makeKeyAndVisible()
         }
-        guard let _ = (scene as? UIWindowScene) else { return }
+//        guard let _ = (scene as? UIWindowScene) else { return }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -44,6 +44,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        var currentWater = WaterService.currentWater
+        currentWater.date = .today
+        
+        var currentWeight = WeightService.currentWeight
+        currentWeight.date = .today
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

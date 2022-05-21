@@ -32,7 +32,6 @@ class MainViewModel {
     var selectedDays: Int?
     var lblWeight: String?
 
-    
     var user: User? {
         didSet {
             fetchUserImage()
@@ -60,8 +59,6 @@ class MainViewModel {
         return  "\(setWeightLabel(weight: weight))"
         
     }
-    
-
     
     var waterLabel: String {
         let count = WaterService.currentWater.count ?? 0
@@ -167,7 +164,6 @@ class MainViewModel {
         WaterService.start()
         WeightService.start()
         updateLabel()
-        debugPrint("weightLabel \(WeightService.currentWeight.count)")
     }
     
     func fetchUserImage() {
