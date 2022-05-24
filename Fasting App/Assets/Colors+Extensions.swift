@@ -11,7 +11,6 @@ import UIKit
 extension UIColor {
     
     static let stdBackground: UIColor? = UIColor(named: "background")
-    static let background: UIColor? = UIColor(named: "main-background")
     static let topBackground: UIColor? = UIColor(named: "gradient-top")
     static let bottomBackground: UIColor? = UIColor(named: "gradient-bottom")
     static let ringTrackColor: UIColor? = UIColor(named: "ring-track")
@@ -23,7 +22,7 @@ extension UIColor {
     static let infoLineColor: UIColor? = UIColor(named: "info-line-color")
     static let homeIndicatorColor: UIColor? = UIColor(named: "gradient-bottom")
     static let ringBackground: UIColor? = UIColor(named: "ring-background")
-
+    
     static let waterColor = UIColor(red: 0.427, green: 0.643, blue: 0.839, alpha: 1)
     static let waterColorLight = UIColor(red: 0.427, green: 0.643, blue: 0.839, alpha: 0.5)
     static let waterControlDark = UIColor(red: 0.192, green: 0.192, blue: 0.192, alpha: 1)

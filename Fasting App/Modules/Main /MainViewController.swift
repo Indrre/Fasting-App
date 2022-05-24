@@ -39,7 +39,7 @@ class MainViewController: ViewController {
         view.spacing = 40
         return view
     }()
-    
+        
     // =============================================
     // MARK: Properties
     // =============================================
@@ -68,7 +68,7 @@ class MainViewController: ViewController {
     // =============================================
     // MARK: Lifecycle
     // =============================================
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         model.viewDidLoad()
@@ -85,6 +85,8 @@ class MainViewController: ViewController {
             $0.height.equalTo(70)
         }
         
+        //        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
+
         view.addSubview(scrollView)
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         scrollView.snp.makeConstraints {
@@ -112,19 +114,13 @@ class MainViewController: ViewController {
         }
                 
         stackView.addArrangedSubview(mainTileView)
-
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         stackView.layoutIfNeeded()
         scrollView.contentSize = CGSize(
-            width: scrollView.frame.size.width,
+            width: view.frame.size.width,
             height: stackView.frame.size.height
         )
     }

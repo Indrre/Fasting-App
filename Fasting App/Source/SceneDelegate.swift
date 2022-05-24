@@ -44,11 +44,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-        var currentWater = WaterService.currentWater
-        currentWater.date = .today
         
+        var currentWater = WaterService.currentWater
+        currentWater.date = 1653500895
+
         var currentWeight = WeightService.currentWeight
-        currentWeight.date = .today
+        currentWeight.date = 1653500895
+        
+        func updateWater(_ water: Water) {
+            currentWater = water
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

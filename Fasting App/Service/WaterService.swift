@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import SwiftUI
 
 protocol WaterServiceObserver: AnyObject {
     func waterServiceWaterUpdated(_ water: Water?)
@@ -106,11 +107,14 @@ class WaterService {
 
 // ToDo:
 
-// preload pickers
-// RingView
 // Water views does not refresh
 // Weight views does not refresh
+
+// ScrollView for all the views
+
+// preload pickers
+// RingView
+// backgroubd
 // light / dark mode
 // Touchable view - rich to give a new coude to top bouncing
-// check ofline fireBase storage ?? done - to chack f it's working
 // background gradient

@@ -137,6 +137,8 @@ class RingView: UIView {
         self.model = model
         super.init(frame: .zero)
         
+        
+        
         backgroundColor = UIColor.black.withAlphaComponent(0.1)
         ringView.layer.borderColor = UIColor.ringColor!.cgColor
         

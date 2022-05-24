@@ -813,6 +813,7 @@
 				9376E08E279DE2EF00245FDA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				9376E0B5279DE33E00245FDA /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */,
 				931C5EEA27AC7E5500752097 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				9368E664283D78EB0088BB62 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */,
 			);
 			productRefGroup = 9376E02C279DB5EF00245FDA /* Products */;
 			projectDirPath = "";
@@ -1292,6 +1293,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.0;
+			};
+		};
+		9368E664283D78EB0088BB62 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/microsoft/appcenter-sdk-apple";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
 			};
 		};
 		9376E077279DBB3C00245FDA /* XCRemoteSwiftPackageReference "SnapKit" */ = {
