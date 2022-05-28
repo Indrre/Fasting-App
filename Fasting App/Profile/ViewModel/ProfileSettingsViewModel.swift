@@ -40,7 +40,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         }
     }
     
-    var profileImage: UIImage? {
+    var profileImage: UIImage? =  UIImage(named: "profile-pic") {
         didSet {
             refreshController?()
         }

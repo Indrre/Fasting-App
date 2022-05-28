@@ -26,7 +26,7 @@ class MainViewModel {
     var startTime: TimeInterval?
     var timeLapsed: Float = 0
     var timer: Timer?
-    var profileImage: UIImage?
+    var profileImage: UIImage? = UIImage(named: "profile-pic")
     var endDate: TimeInterval?
     var selectedHours: Int?
     var selectedDays: Int?

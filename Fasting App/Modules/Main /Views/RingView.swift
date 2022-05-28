@@ -137,8 +137,6 @@ class RingView: UIView {
         self.model = model
         super.init(frame: .zero)
         
-        
-        
         backgroundColor = UIColor.black.withAlphaComponent(0.1)
         ringView.layer.borderColor = UIColor.ringColor!.cgColor
         
@@ -152,6 +150,9 @@ class RingView: UIView {
             $0.center.equalToSuperview()
         }
         lblContainerStackView.addArrangedSubview(lblTimer)
+        lblTimer.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+        }
         lblContainerStackView.addArrangedSubview(lblFast)
         
         addSubview(ringView)

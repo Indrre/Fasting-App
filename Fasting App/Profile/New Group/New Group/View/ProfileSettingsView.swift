@@ -170,6 +170,7 @@ class ProfileSettingsView: UIView {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().offset(10)
             $0.width.equalToSuperview().offset(-30)
+            $0.bottom.equalToSuperview()
         }
         
         stackView.addArrangedSubview(optionStackView)

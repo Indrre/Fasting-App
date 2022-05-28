@@ -36,10 +36,10 @@ class MainViewController: ViewController {
     let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 40
+        view.spacing = 20
         return view
     }()
-        
+    
     // =============================================
     // MARK: Properties
     // =============================================
@@ -73,10 +73,19 @@ class MainViewController: ViewController {
         super.viewDidLoad()
         model.viewDidLoad()
 
-        setBackground()
+//        setBackground()
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         setup()
+        
+    }
+    
+    override func loadView() {
+        super.loadView()
+        
+        stackView.subviews.forEach { (view) in
+            view.removeFromSuperview()
+        }
         
         view.addSubview(profileHeaderView)
         profileHeaderView.snp.makeConstraints {
@@ -85,8 +94,6 @@ class MainViewController: ViewController {
             $0.height.equalTo(70)
         }
         
-        //        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
-
         view.addSubview(scrollView)
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         scrollView.snp.makeConstraints {
@@ -97,20 +104,21 @@ class MainViewController: ViewController {
         
         scrollView.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.size.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.width.equalToSuperview()
         }
         
         let timerContainer = UIView()
         stackView.addArrangedSubview(timerContainer)
         timerContainer.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(50)
+            $0.size.equalTo(view.snp.width)
         }
+        
         timerContainer.addSubview(fastRingView)
         fastRingView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.size.equalTo(view.snp.width).multipliedBy(0.7)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(view)
+            $0.size.equalTo(timerContainer.snp.width).multipliedBy(0.7)
+            $0.center.equalToSuperview()
         }
                 
         stackView.addArrangedSubview(mainTileView)
@@ -153,5 +161,7 @@ class MainViewController: ViewController {
         profileHeaderView.model = model.profileHeaderModel
         fastRingView.model = model.ringModel
         mainTileView.model = model.mainTileModel
+        
+        view.layoutIfNeeded()
     }
 }

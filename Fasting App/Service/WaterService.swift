@@ -105,14 +105,10 @@ class WaterService {
     }
 }
 
-
-
 // ToDo:
 
 // Water views does not refresh
 // Weight views does not refresh
-
-// ScrollView for all the views
 
 // preload pickers
 // RingView
@@ -120,3 +116,4 @@ class WaterService {
 // light / dark mode
 // Touchable view - rich to give a new coude to top bouncing
 // background gradient
+// Notifications

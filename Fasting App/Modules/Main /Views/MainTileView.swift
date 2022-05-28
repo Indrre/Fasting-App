@@ -75,8 +75,6 @@ class MainTileView: UIView {
         view.distribution = .fillEqually
         view.spacing = 20
         view.clipsToBounds = false
-        view.addArrangedSubview(fastTile)
-        view.addArrangedSubview(waterTile)
         return view
     }()
     
@@ -85,8 +83,6 @@ class MainTileView: UIView {
         view.axis = .horizontal
         view.distribution = .fillEqually
         view.spacing = 20
-        view.addArrangedSubview(weightTile)
-        view.addArrangedSubview(calorieTile)
         return view
     }()
     
@@ -173,9 +169,7 @@ class MainTileView: UIView {
         addSubview(lblStackView)
         lblStackView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.left.right.equalToSuperview().offset(20)
-            $0.right.equalToSuperview().offset(-20)
-            $0.height.equalTo(50)
+            $0.left.right.equalToSuperview().inset(20)
         }
         
         lblStackView.addArrangedSubview(lblToday)
@@ -183,16 +177,16 @@ class MainTileView: UIView {
         
         addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview()
             $0.top.equalTo(lblStackView.snp.bottom).offset(15)
-            $0.width.equalToSuperview().offset(-30)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         stackView.addArrangedSubview(horizontalStackView)
         stackView.addArrangedSubview(secondHorizontalStackView)
         horizontalStackView.addArrangedSubview(fastTile)
         horizontalStackView.addArrangedSubview(waterTile)
         secondHorizontalStackView.addArrangedSubview(weightTile)
-        secondHorizontalStackView.addArrangedSubview(calorieTile)
+//        secondHorizontalStackView.addArrangedSubview(calorieTile)
         
     }
     
