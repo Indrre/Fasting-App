@@ -146,7 +146,7 @@ class ActivityPickerView: UIView {
             activity = "Inactive"
         } else if activity == activityArray[1] {
             activity = "Moderate"
-        } else {
+        } else if activity == activityArray[2] {
             activity = "Active"
         }
         

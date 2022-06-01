@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = nil
-        view.backgroundColor = .stdBackground
+        view.backgroundColor = .loginBackground
         configureLogin()
         self.navigationItem.setHidesBackButton(true, animated: true)
     }

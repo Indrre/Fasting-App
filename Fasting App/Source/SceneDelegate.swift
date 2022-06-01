@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
-            let controller = LoginViewController()
+            let controller = MainViewController()
             let win = UIWindow(windowScene: windowScene)
             win.rootViewController = UINavigationController(
                 rootViewController: controller

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class WeightViewContorller: UIViewController {
+class WeightViewContorller: ViewController {
     
     // =============================================
     // MARK: Properties

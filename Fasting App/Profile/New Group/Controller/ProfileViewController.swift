@@ -9,7 +9,7 @@ import Foundation
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: ViewController {
     
     // =============================================
     // MARK: Components

@@ -22,6 +22,7 @@ struct DatePickerViewModel {
     let selectedDaysHours: ((_ selectedHours: Int, _ selectedDays: Int) -> Void)
     let selectedStart: ((_ start: TimeInterval?) -> Void)
     let selectedEnd: ((_ end: TimeInterval?) -> Void)
+    var newStartDate: ((_ newStart: TimeInterval?) -> Void)
     let save: (() -> Void)
 }
 
@@ -33,7 +34,7 @@ class DatePickerView: UIView {
     
     var selectedHours = 0
     var selectedDays = 0
-      
+    var newStartDate: Date?
     // =============================================
     // MARK: Callbacks
     // =============================================
@@ -96,8 +97,15 @@ class DatePickerView: UIView {
         datePicker.tag = Includes.start.rawValue
         datePicker.tintColor = .stdText
         datePicker.datePickerMode = .dateAndTime
+        datePicker.addTarget(self, action: #selector(startDateChanged), for: .valueChanged)
+
         return datePicker
     }()
+    
+    @objc func startDateChanged(sender: UIDatePicker) {
+//        newStartDate = Date(timeIntervalSince1970: sender)
+//        startDatePicker.date = Date(startDatePicker.date.timeIntervalSince1970)
+    }
     
     lazy var endDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -269,6 +277,7 @@ class DatePickerView: UIView {
                     model.selectedStart(startDatePicker.date.timeIntervalSince1970)
                 }
             case .end:
+                // update this
                 model.selectedStart(startDatePicker.date.timeIntervalSince1970)
                 model.selectedEnd(endDatePicker.date.timeIntervalSince1970)
                 model.save()

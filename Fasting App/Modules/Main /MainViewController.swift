@@ -72,8 +72,7 @@ class MainViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         model.viewDidLoad()
-
-//        setBackground()
+        
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         setup()

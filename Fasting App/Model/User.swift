@@ -36,7 +36,7 @@ struct User {
         self.heightSecondUnit = dictionary["heightSecondUnit"] as? Double ?? 0
         self.heightMsureUnit = dictionary["heightUnit"] as? String ?? "m"
         self.gender = dictionary["gender"] as? String ?? "Female"
-        self.activity = dictionary["activity"] as? String ?? "Inactive (less than 30 mins)"
+        self.activity = dictionary["activity"] as? String ?? "Inactive"
         self.timeSelected = dictionary["timeSelected"] as? Int
 
     }

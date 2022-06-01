@@ -23,17 +23,10 @@ class LoginView: UIView {
         return view
     }()
     
-    var launchIcon: UIImageView = {
-        let view = UIImageView()
-        
-        view.image = UIImage(systemName: "water-icon")
-        return view
-    }()
-    
     lazy var fastLogIcon: UIImageView = {
         let view = UIImageView()
         view.tintColor = .stdText
-        view.image = UIImage(named: "icon")
+        view.image = UIImage(named: "launch-icon")
         view.clipsToBounds = true
         return view
     }()
@@ -57,6 +50,7 @@ class LoginView: UIView {
             $0.centerX.equalToSuperview()
             $0.size.equalTo(200)
         }
+        setBackgroundGradient(topColor: .red, bottomColor: .blue)
     }
     
     required init?(coder: NSCoder) {

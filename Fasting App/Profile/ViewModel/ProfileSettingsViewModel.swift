@@ -24,7 +24,8 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     var heightUnit: String?
     var gender: String?
     var activity: String?
-    
+    var newAge: Int?
+        
     var user: User? {
         didSet {
             fetchUserImage()
@@ -50,7 +51,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         return ProfileSettingsModel(
             profileImage: profileImage,
             name: user?.fullName ?? "",
-            age: String(user?.age ?? 18),
+            age: String(user?.age ?? 19),
             weight: weight,
             height: String(height  ?? "0") + (user?.heightMsureUnit ?? "0"),
             gender: user?.gender ?? "Female",

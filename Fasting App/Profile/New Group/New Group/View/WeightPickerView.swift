@@ -115,6 +115,7 @@ class WeightPickerView: UIView {
     var model: WeightPickerModel {
         didSet {
             weight = model.weight
+            
         }
     }
     
@@ -172,6 +173,8 @@ class WeightPickerView: UIView {
 
         mesureUnitControl.selectedSegmentIndex = Unit.allCases.firstIndex(of: selectedUnit) ?? 0
         weightPicker.reloadAllComponents()
+        
+        debugPrint("mesureUnit \(model.mesureUnit)")
     }
     
     required init?(coder: NSCoder) {

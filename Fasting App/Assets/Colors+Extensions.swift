@@ -22,6 +22,10 @@ extension UIColor {
     static let infoLineColor: UIColor? = UIColor(named: "info-line-color")
     static let homeIndicatorColor: UIColor? = UIColor(named: "gradient-bottom")
     static let ringBackground: UIColor? = UIColor(named: "ring-background")
+    static let loginBackground: UIColor? = UIColor(named: "login-background")
+    
+    static let topBackground2: UIColor? = UIColor(named: "gradient-top-1")
+    static let bottomBackground2: UIColor? = UIColor(named: "gradient-bottom-1")
     
     static let waterColor = UIColor(red: 0.427, green: 0.643, blue: 0.839, alpha: 1)
     static let waterColorLight = UIColor(red: 0.427, green: 0.643, blue: 0.839, alpha: 0.5)

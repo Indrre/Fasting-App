@@ -25,7 +25,7 @@ class AgePickerView: UIView {
     
     weak var delegate: ModalViewControllerDelegate?
     
-    var age: Int = 3
+    var age: Int = 18
     
     var ageArray = Array(18...100)
     

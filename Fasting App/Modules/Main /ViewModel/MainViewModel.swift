@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseStorage
+import UserNotifications
 
 class MainViewModel {
     
@@ -31,6 +32,9 @@ class MainViewModel {
     var selectedHours: Int?
     var selectedDays: Int?
     var lblWeight: String?
+    
+    let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+    var timeLapsedToNotification: TimeInterval = 0
 
     var user: User? {
         didSet {
@@ -43,6 +47,7 @@ class MainViewModel {
         didSet {
             checkState()
             updateLabel()
+            setupNotifications()
             refreshController?()
         }
     }
@@ -85,6 +90,7 @@ class MainViewModel {
         if state != .running {
             return "0h"
         } else {
+            
             return "\(Int(FastService.currentFast?.timeLapsed ?? 0) / 60 / 60) h"
         }
     }
@@ -164,6 +170,7 @@ class MainViewModel {
         WaterService.start()
         WeightService.start()
         updateLabel()
+        
     }
     
     func fetchUserImage() {
@@ -187,7 +194,7 @@ class MainViewModel {
             includes.append(.end)
         default: break
         }
-        
+
         let controller = DatePickerViewController(
             model: DatePickerViewModel(
                 title: title,
@@ -200,12 +207,19 @@ class MainViewModel {
                 },
                 selectedStart: { [weak self] start in
                     self?.updateStart(start ?? 0)
+                    debugPrint("@@@ updateStart")
                 },
                 selectedEnd: { [weak self] end in
                     self?.endDate = end
+                    debugPrint("@@@ endDate")
+                },
+                newStartDate: { [ weak self ] newStart in
+                    self?.updateNewStart(newStart: newStart!)
+                    debugPrint("@@@ updateNewStart")
                 },
                 save: { [ weak self] in
                     self?.endFast()
+                    debugPrint("@@@ endFast eave fasr")
                 }
             )
         )
@@ -283,6 +297,10 @@ class MainViewModel {
         }
     }
     
+    func updateNewStart(newStart: TimeInterval) {
+        debugPrint("newStart in viemodel \(newStart)")
+    }
+    
     func startFast() {
         let fast = FastService.currentFast
         if fast == nil {
@@ -356,6 +374,50 @@ class MainViewModel {
             lblWeight = "\(Int(numberOfStones))st \(Int(numbetOfPounds))lb"
         }
         return lblWeight ?? "String"
+    }
+    
+    func setupNotifications() {
+        debugPrint("NOTIFICATIONS")
+        // 1. Ask for permission
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: options) { (granted, error) in }
+        
+        // 2. Create Notification content
+        let content = UNMutableNotificationContent()
+        content.title = "Whoop whoop!"
+        content.subtitle = "You have reached your Fasting goal!"
+        //        content.body = "You can eat now! Whoop Whoop"
+        content.badge = 0
+        content.sound = UNNotificationSound.default
+        
+        // 3. Create notification trigger
+        if FastService.currentFast == nil {
+            debugPrint("NOTIFICATIONS ?\(FastService.currentFast)")
+            return
+        } else {
+            
+            let timeLapsed = FastService.currentFast!.timeLapsed
+            let timeSelected = FastService.currentFast!.timeSelected
+            timeLapsedToNotification = timeSelected - timeLapsed
+            debugPrint("NOTIFICATIONS{ !\(timeLapsedToNotification)")
+        }
+        
+        let date = Date().addingTimeInterval(timeLapsedToNotification)
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        // 4. Create request
+        guard let fastId = FastService.currentFast?.id else { return }
+        print("fastId \(fastId)")
+        let request = UNNotificationRequest(identifier: fastId, content: content, trigger: trigger)
+        
+        // 5. Register the request
+        center.add(request) { (error) in
+            print("sending request")
+            if error != nil {
+                print("Notification error \(String(describing: error))")
+            }
+        }
     }
 }
 

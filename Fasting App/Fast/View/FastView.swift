@@ -74,9 +74,7 @@ class FastView: UIView {
     init(model: FastModel) {
         self.model = model
         super.init(frame: .zero)
-        
-        backgroundColor = .stdBackground
-        
+                
         addSubview(horizontalTimerView)
         horizontalTimerView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)

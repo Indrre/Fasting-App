@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Firebase
 
-class FastViewController: UIViewController {
+class FastViewController: ViewController {
     
     // =============================================
     // MARK: Properties

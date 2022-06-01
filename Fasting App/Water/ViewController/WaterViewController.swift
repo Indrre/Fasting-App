@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
-class WaterViewController: UIViewController {
+class WaterViewController: ViewController {
     
     // =============================================
     // MARK: Properties

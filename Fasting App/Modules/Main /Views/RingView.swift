@@ -53,6 +53,14 @@ class RingView: UIView {
     // MARK: Properties
     // =============================================
     
+    var trackLayer: CAShapeLayer?
+    var timeRing: CAShapeLayer?
+    var timer: Timer?
+    var timeLapsed: Float?
+    var stroke: CGFloat?
+    var timeSelected: Int = 0
+    let sender = "FastSelection"
+    
     var model: RingViewModel {
         didSet {
             lblFast.text = model.fast
@@ -71,15 +79,7 @@ class RingView: UIView {
             }
         }
     }
-    
-    var trackLayer: CAShapeLayer?
-    var timeRing: CAShapeLayer?
-    var timer: Timer?
-    var timeLapsed: Float?
-    var stroke: CGFloat?
-    var timeSelected: Int = 0
-    let sender = "FastSelection"
-    
+
     let ringView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -150,9 +150,7 @@ class RingView: UIView {
             $0.center.equalToSuperview()
         }
         lblContainerStackView.addArrangedSubview(lblTimer)
-        lblTimer.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-        }
+      
         lblContainerStackView.addArrangedSubview(lblFast)
         
         addSubview(ringView)

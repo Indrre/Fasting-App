@@ -107,13 +107,15 @@ class WaterService {
 
 // ToDo:
 
+// Fix End edit date picker
+
+
 // Water views does not refresh
 // Weight views does not refresh
 
 // preload pickers
-// RingView
-// backgroubd
-// light / dark mode
+
+
+// RingView animates 3 times
+
 // Touchable view - rich to give a new coude to top bouncing
-// background gradient
-// Notifications

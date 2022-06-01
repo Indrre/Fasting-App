@@ -36,14 +36,21 @@ class ViewController: UIViewController {
 
     func setBackground() {
         guard
-            let mainColor = UIColor.stdBackground,
-            let topColor = UIColor.topBackground else { return }
+            let mainColor = UIColor.topBackground2,
+            let topColor = UIColor.bottomBackground2  else { return }
 
         layer.frame = view.bounds
-        layer.colors = [mainColor.cgColor, topColor.cgColor]
+        layer.colors =  [mainColor.cgColor, topColor.cgColor]// [UIColor.red.cgColor, UIColor.blue.cgColor]
         layer.startPoint = CGPoint(x: 0, y: 0)
         layer.endPoint = CGPoint(x: 1, y: 1)
         view.layer.insertSublayer(layer, at: 0)
+        
+//        let layer = CAGradientLayer()
+//        layer.frame = view.bounds
+//        layer.colors = [UIColor.red.cgColor, UIColor.blue.cgColor]
+//        layer.startPoint = CGPoint(x: 0, y: 0)
+//        layer.endPoint = CGPoint(x: 1, y: 1)
+//        view.layer.insertSublayer(layer, at: 0)
     }
 
 }

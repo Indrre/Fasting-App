@@ -108,7 +108,6 @@ class WeightMainView: UIView {
     var model: WeightModel? {
         didSet {
             lblWeight.text = model?.weight
-//            lblResults.text = model?.result
             graphView.dataSet = model?.dataSet
             tableView.reloadData()
         }
@@ -123,7 +122,7 @@ class WeightMainView: UIView {
         super.init(frame: .zero)
         
         model.loadGraph()
-        
+        addShadow()
         configure()
         
     }
@@ -169,7 +168,7 @@ class WeightMainView: UIView {
         addSubview(graphView)
         graphView.snp.makeConstraints {
             $0.top.equalTo(lblBMI.snp.bottom).offset(10)
-            $0.height.equalTo(170)
+            $0.height.equalTo(147)
             $0.width.equalToSuperview()
         }
         
