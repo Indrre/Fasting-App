@@ -11,8 +11,6 @@ import UIKit
 struct AgePickerModel {
     
     var value: Int?
-//    let dataSource: UIPickerViewDataSource
-//    let delegate: UIPickerViewDelegate
     let callback: ((_ age: Int) -> Void?)
     
 }
@@ -78,7 +76,12 @@ class AgePickerView: UIView {
     
     var model: AgePickerModel {
         didSet {
-            age = model.value ?? 0
+            age = model.value ?? 18
+            agePicker.selectRow(
+                ageArray.firstIndex(of: model.value ?? 0) ?? 0,
+                inComponent: 0,
+                animated: true
+            )
         }
     }
     
@@ -128,11 +131,6 @@ class AgePickerView: UIView {
         }
         
         agePicker.reloadAllComponents()
-        agePicker.selectRow(
-            ageArray.firstIndex(of: model.value ?? 0) ?? 0,
-            inComponent: 0,
-            animated: true
-        )
     }
 
     required init?(coder: NSCoder) {

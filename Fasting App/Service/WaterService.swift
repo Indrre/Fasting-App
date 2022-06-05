@@ -109,12 +109,8 @@ class WaterService {
 
 // Fix End edit date picker
 
-
 // Water views does not refresh
 // Weight views does not refresh
-
-// preload pickers
-
 
 // RingView animates 3 times
 

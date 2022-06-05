@@ -13,25 +13,6 @@ class UserSettingsProfilePickerController: ModalViewController {
     // =============================================
     // MARK: Components
     // =============================================
-    
-    lazy var profileSettingsView: ProfileSettingsView = {
-        return ProfileSettingsView(model: model.profileSettingsModel)
-    }()
-    
-    lazy var model: ProfileSettingViewModel = {
-        let model = ProfileSettingViewModel()
-        model.refreshController = { [weak self] in
-            self?.setup()
-        }
-        model.presentController = { [weak self] type in
-            self?.setupPickerView(type: type)
-        }
-    return model
-}()
-    
-    // =============================================
-    // MARK: Components
-    // =============================================
 
     lazy var agePicker: AgePickerView = {
         let view = AgePickerView(model: model.ageViewModel)
@@ -68,12 +49,22 @@ class UserSettingsProfilePickerController: ModalViewController {
         return view
     }()
     
+    lazy var model: PickerViewModel = {
+        let model = PickerViewModel()
+        model.refreshController = { [weak self] in
+            self?.setup()
+        }
+        return model
+    }()
+    
     // =======================================
     // MARK: Initialization
     // =======================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        model.viewDidLoad()
+       
     }
     
     // =============================================
@@ -81,7 +72,11 @@ class UserSettingsProfilePickerController: ModalViewController {
     // =============================================
     
     func setup() {
-        profileSettingsView.model = model.profileSettingsModel
+        agePicker.model = model.ageViewModel
+        weightPicker.model = model.weightModel
+        heightPicker.model = model.heightModel
+        genderPicker.model = model.genderModel
+        activityPicker.model = model.activityModel
     }
 }
 

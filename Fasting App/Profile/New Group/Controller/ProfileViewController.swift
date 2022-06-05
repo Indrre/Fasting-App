@@ -71,9 +71,7 @@ class ProfileViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         model.viewDidLoad()
-        
-        view.backgroundColor = .stdBackground
-
+                
         view.addSubview(profileSettingsView)
         profileSettingsView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)

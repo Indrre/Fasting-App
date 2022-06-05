@@ -137,6 +137,8 @@ class ProfileSettingsView: UIView {
         self.model = model
         super.init(frame: .zero)
         
+        imageView.addShadow()
+        
         addSubview(imageView)
         imageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()

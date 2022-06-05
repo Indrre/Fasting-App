@@ -21,7 +21,7 @@ class ActivityPickerView: UIView {
     
     weak var delegate: ModalViewControllerDelegate?
     
-    var activity: String = "Inactive"
+    var activity: String = "Inactive (less than 30 mins)"
         
     var activityArray = ["Inactive (less than 30 mins)", "Moderate (between 30-60 mins)", "Active (between 60-150 mins)"]
     
@@ -74,7 +74,19 @@ class ActivityPickerView: UIView {
     
     var model: ActivityPickerModel {
         didSet {
-            activity = model.activity ?? "Inactive (less than 30 mins)"
+            if model.activity == "Inactive" {
+                activity = activityArray[0]
+            } else if model.activity == "Moderate" {
+                activity = activityArray[1]
+            } else {
+                activity = activityArray[2]
+            }
+            activityPicker.selectRow(
+                activityArray.firstIndex(of: activity) ?? 0,
+                inComponent: 0,
+                animated: true
+            )
+            activityPicker.reloadAllComponents()
         }
     }
     
@@ -142,12 +154,12 @@ class ActivityPickerView: UIView {
     
     @objc func saveButtonPressed() {
         
-        if activity == activityArray[0] {
-            activity = "Inactive"
-        } else if activity == activityArray[1] {
+         if activity == activityArray[1] {
             activity = "Moderate"
         } else if activity == activityArray[2] {
             activity = "Active"
+        } else {
+            activity = "Inactive"
         }
         
         model.callback(activity)

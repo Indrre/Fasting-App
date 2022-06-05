@@ -207,19 +207,15 @@ class MainViewModel {
                 },
                 selectedStart: { [weak self] start in
                     self?.updateStart(start ?? 0)
-                    debugPrint("@@@ updateStart")
                 },
                 selectedEnd: { [weak self] end in
                     self?.endDate = end
-                    debugPrint("@@@ endDate")
                 },
                 newStartDate: { [ weak self ] newStart in
                     self?.updateNewStart(newStart: newStart!)
-                    debugPrint("@@@ updateNewStart")
                 },
                 save: { [ weak self] in
                     self?.endFast()
-                    debugPrint("@@@ endFast eave fasr")
                 }
             )
         )
@@ -298,7 +294,6 @@ class MainViewModel {
     }
     
     func updateNewStart(newStart: TimeInterval) {
-        debugPrint("newStart in viemodel \(newStart)")
     }
     
     func startFast() {
@@ -377,7 +372,6 @@ class MainViewModel {
     }
     
     func setupNotifications() {
-        debugPrint("NOTIFICATIONS")
         // 1. Ask for permission
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: options) { (granted, error) in }
@@ -392,14 +386,11 @@ class MainViewModel {
         
         // 3. Create notification trigger
         if FastService.currentFast == nil {
-            debugPrint("NOTIFICATIONS ?\(FastService.currentFast)")
             return
         } else {
-            
             let timeLapsed = FastService.currentFast!.timeLapsed
             let timeSelected = FastService.currentFast!.timeSelected
             timeLapsedToNotification = timeSelected - timeLapsed
-            debugPrint("NOTIFICATIONS{ !\(timeLapsedToNotification)")
         }
         
         let date = Date().addingTimeInterval(timeLapsedToNotification)
@@ -408,14 +399,12 @@ class MainViewModel {
         
         // 4. Create request
         guard let fastId = FastService.currentFast?.id else { return }
-        print("fastId \(fastId)")
         let request = UNNotificationRequest(identifier: fastId, content: content, trigger: trigger)
         
         // 5. Register the request
         center.add(request) { (error) in
-            print("sending request")
             if error != nil {
-                print("Notification error \(String(describing: error))")
+                debugPrint("DEBUG: Notification error \(String(describing: error))")
             }
         }
     }

@@ -119,14 +119,14 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             guard let nonce = currentNonce else {
-                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+                fatalError("DEBUG: Invalid state: A login callback was received, but no login request was sent.")
             }
             guard let appleIDToken = appleIDCredential.identityToken else {
-                debugPrint("Unable to fetch identity token")
+                debugPrint("DEBUG: Unable to fetch identity token")
                 return
             }
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                debugPrint("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                debugPrint("DEBUG: Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                 return
             }
             // Initialize a Firebase credential.
@@ -153,7 +153,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
 func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
     // Handle error.
-    debugPrint("Sign in with Apple errored: \(error)")
+    debugPrint("DEBUG: Sign in with Apple errored: \(error)")
 }
 
 // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce

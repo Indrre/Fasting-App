@@ -214,7 +214,6 @@ class RingView: UIView {
             fillColor: UIColor.clear,
             radius: radius
         )
-        addShadow()
         
         layer.addSublayer(trackLayer!)
         

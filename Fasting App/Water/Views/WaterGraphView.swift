@@ -16,9 +16,7 @@ class WaterGraphView: TouchableView {
     
     let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .stdBackground
         view.layer.cornerRadius = 20
-        view.addShadow()
         return view
     }()
     

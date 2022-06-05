@@ -10,8 +10,9 @@ import UIKit
 
 struct HeightPickerModel {
     var mesureUnit: String?
-    var value: String?
-    let callback: ((_ mesureUnits: String?, _ heightFirstValue: Double, _ heightSecondCalue: Double) -> Void?)
+    var firstHeightUnit: Int?
+    var secondHeightUnit: Int?
+    let callback: ((_ mesureUnits: String?, _ heightFirstValue: Int, _ heightSecondCalue: Int) -> Void?)
 }
 
 class HeightPickerView: UIView {
@@ -26,12 +27,16 @@ class HeightPickerView: UIView {
     var centimeters: Int?
     var feet: Int?
     var inches: Int?
-    var totalHeight: Double?
     var height: String?
-    var firstUnit: Double?
-    var secondUnit: Double?
+    var firstUnit: Int?
+    var secondUnit: Int?
     var units = ["metrics", "imperial"]
     var selectedUnits = "metrics"
+    
+    var meterArray = [0, 1, 2]
+    var cmArray = Array(0...99)
+    var feetArray = Array(0...9)
+    var inchArray = Array(0...11)
     
     lazy var mesureUnitControl: UISegmentedControl = {
         let view = UISegmentedControl(items: units)
@@ -90,9 +95,49 @@ class HeightPickerView: UIView {
     
     var model: HeightPickerModel {
         didSet {
-//            selectedUnits = model.mesureUnit ?? "metrics"
-            height = model.value ?? "0.00"
+            selectedUnits = model.mesureUnit ?? "metrics"
+            firstUnit = model.firstHeightUnit
+            secondUnit = model.secondHeightUnit
+            if model.mesureUnit == "m" {
+                selectedUnits = units[0]
+            } else {
+                selectedUnits = units[1]
+            }
+            mesureUnitControl.selectedSegmentIndex = units.firstIndex(of: selectedUnits) ?? 0
+            
+            loadPicker()
+            
+            heightPicker.reloadAllComponents()
         }
+    }
+    
+    func loadPicker() {
+        if selectedUnits == units[0] {
+            heightPicker.selectRow(
+                meterArray.firstIndex(of: model.firstHeightUnit ?? 0) ?? 0,
+                inComponent: 1,
+                animated: true
+            )
+            
+            heightPicker.selectRow(
+                cmArray.firstIndex(of: model.secondHeightUnit ?? 0) ?? 0,
+                inComponent: 3,
+                animated: true
+            )
+        } else {
+            heightPicker.selectRow(
+                feetArray.firstIndex(of: model.firstHeightUnit ?? 0) ?? 0,
+                inComponent: 1,
+                animated: true
+            )
+            
+            heightPicker.selectRow(
+                inchArray.firstIndex(of: model.secondHeightUnit ?? 0) ?? 0,
+                inComponent: 3,
+                animated: true
+            )
+        }
+        heightPicker.reloadAllComponents()
     }
     
     // =============================================
@@ -179,16 +224,14 @@ class HeightPickerView: UIView {
             selectedUnits = "imperial"
             heightPicker.reloadAllComponents()
         }
-        heightPicker.selectRow(0, inComponent: 1, animated: true)
-        heightPicker.selectRow(0, inComponent: 3, animated: true)
+        loadPicker()
     }
     
     func calculateHeight() {
         if selectedUnits == "metrics" {
-            totalHeight = Double((meters ?? 0) * 100 + (centimeters ?? 0))
-            model.callback("m", totalHeight!, 0)
+            model.callback("m", meters ?? 0, centimeters ?? 0)
         } else {
-            model.callback("feet", Double(feet ?? 0), Double(inches ?? 0))
+            model.callback("feet", (feet ?? 0), (inches ?? 0))
         }
     }
 }

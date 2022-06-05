@@ -43,7 +43,7 @@ class GenderPickerView: UIView {
         return label
     }()
     
-    lazy var agePicker: UIPickerView = {
+    lazy var genderPicker: UIPickerView = {
         let view = UIPickerView()
         view.tintColor = .stdText
         view.delegate = self
@@ -73,7 +73,12 @@ class GenderPickerView: UIView {
     
     var model: GenderPickerModel {
         didSet {
-            gender = model.gender ?? "Female"
+            gender = model.gender ?? "Other"
+            genderPicker.selectRow(
+                genderArray.firstIndex(of: model.gender ?? "Other") ?? 2,
+                inComponent: 0,
+                animated: true
+            )
         }
     }
     
@@ -101,8 +106,8 @@ class GenderPickerView: UIView {
             $0.centerX.width.equalToSuperview()
         }
 
-        addSubview(agePicker)
-        agePicker.snp.makeConstraints {
+        addSubview(genderPicker)
+        genderPicker.snp.makeConstraints {
             $0.height.equalTo(100)
             $0.top.equalTo(topLabel.snp.bottom).offset(10)
             $0.left.right.equalToSuperview().inset(15)
@@ -112,7 +117,7 @@ class GenderPickerView: UIView {
         selectButton.snp.makeConstraints {
             $0.height.equalTo(50)
             $0.left.right.equalToSuperview().inset(15)
-            $0.top.equalTo(agePicker.snp.bottom).offset(30)
+            $0.top.equalTo(genderPicker.snp.bottom).offset(30)
         }
         
         addSubview(cancelButton)
@@ -122,7 +127,7 @@ class GenderPickerView: UIView {
             $0.top.equalTo(selectButton.snp.bottom)
         }
         
-        agePicker.reloadAllComponents()
+        genderPicker.reloadAllComponents()
     }
 
     required init?(coder: NSCoder) {

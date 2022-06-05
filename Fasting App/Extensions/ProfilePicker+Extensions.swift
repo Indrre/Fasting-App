@@ -87,7 +87,7 @@ extension WeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
             } else if componentKG == 2 {
                 return "lb:" // header
             } else if componentKG == 3 {
-                return String(format: "%d", kgArray[row]) // value
+                return String(format: "%d", poundArray[row]) // value
             }
         }
         return nil
@@ -98,7 +98,7 @@ extension WeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         switch selectedUnit {
         case .kilograms:
             if component == 1 {
-                kilograms = row * 1000
+                kilograms = kgArray[row] * 1000
             } else {
                 grams = row  * 100
             }
@@ -178,18 +178,19 @@ extension HeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         if selectedUnits == "metrics" {
             if component == 1 {
                 meters = row
-                firstUnit = Double(meters ?? 0)
+                firstUnit = Int(meters ?? 0)
             } else {
                 centimeters = row
-                secondUnit = Double(centimeters ?? 0)
+                secondUnit = Int(centimeters ?? 0)
+
             }
         } else {
             if component == 1 {
                 feet = row
-                firstUnit = Double(feet ?? 0)
+                firstUnit = Int(feet ?? 0)
             } else {
                 inches = row
-                secondUnit = Double(inches ?? 0)
+                secondUnit = Int(inches ?? 0)
             }
         }
     }

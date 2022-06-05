@@ -37,6 +37,7 @@ class WaterViewModel {
     
     var waterModel: WaterModel {
         return WaterModel(
+            waterData: waterData,
             dotCount: count,
             label: label,
             presentPicker: {  [ weak self ] in
@@ -145,49 +146,3 @@ extension WaterViewModel: WaterServiceObserver {
     }
 }
 
-extension WaterMainView: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return WaterService.data.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "WaterCell", for: indexPath) as? WaterCell else { fatalError("unable to create cells") }
-        cell.textLabel?.font = UIFont(name: "Montserrat-ExtraLight", size: 2)
-        cell.selectionStyle = .none
-        let dayTimePeriodFormatter = DateFormatter()
-        dayTimePeriodFormatter.dateFormat = "E, d MMM"
-    
-        let currentModel = WaterService.data[indexPath.row] 
-        cell.model = WaterViewCellViewModel(
-            waterCount: currentModel.count ?? 0,
-            dateString: dayTimePeriodFormatter.string(from: Date(timeIntervalSince1970: (currentModel.date ?? TimeInterval.today))),
-            totalCount: "\((currentModel.count ?? 0) * 250)ml"
-        )
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableView.beginUpdates()
-            let data = WaterService.data[indexPath.row]
-            let id = data.id
-            guard let uid = Auth.auth().currentUser?.uid else { return }
-            REF_WATER.child(uid).child(id).removeValue { (error, _) in
-                if error != nil {
-                    debugPrint("DEBUG: Error while trying to delete water:  \(String(describing: error))")
-                }
-            }
-            WaterService.data.removeAll(where: {$0.id == data.id})
-            
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
-            tableView.reloadData()
-        }
-    }
-}

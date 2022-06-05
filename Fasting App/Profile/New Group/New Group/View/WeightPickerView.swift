@@ -9,8 +9,9 @@ import Foundation
 import UIKit
 
 struct WeightPickerModel {
-    var mesureUnit: String?
-    var weight: String?
+    var mesureUnit: Unit?
+    var firstWeightUnit: Int?
+    var secondWeightUnit: Int?
     let callback: ((_ mesureUnits: String?, _ weight: Double) -> Void?)
 }
 
@@ -37,13 +38,15 @@ class WeightPickerView: UIView {
     // =============================================
     
     weak var delegate: ModalViewControllerDelegate?
-    var weight: String?
+    var firstWeightUnit: Int?
+    var secondWeightUnit: Int?
     var kilograms = 0
     var grams = 0
     var stones = 0
     var pounds = 0
     var totalGramsEntered = 0
     var totalPoundsEntered = 0
+    var weightUnit: String?
     
     var units: [Unit] = [.kilograms, .stones]
     
@@ -56,6 +59,7 @@ class WeightPickerView: UIView {
     var kgArray = Array(0...300)
     var gramsArray = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900]
     var stoneArray = Array(0...99)
+    var poundArray = Array(0...13)
     
     lazy var mesureUnitControl: UISegmentedControl = {
         let view = UISegmentedControl(items: units.compactMap({ $0.rawValue }))
@@ -114,8 +118,12 @@ class WeightPickerView: UIView {
     
     var model: WeightPickerModel {
         didSet {
-            weight = model.weight
-            
+            selectedUnit = model.mesureUnit ?? .kilograms
+            firstWeightUnit = model.firstWeightUnit
+            secondWeightUnit = model.secondWeightUnit
+            mesureUnitControl.selectedSegmentIndex = Unit.allCases.firstIndex(of: selectedUnit) ?? 0
+            loadPicker()
+            weightPicker.reloadAllComponents()
         }
     }
     
@@ -170,11 +178,9 @@ class WeightPickerView: UIView {
             $0.size.equalTo(selectButton)
             $0.top.equalTo(selectButton.snp.bottom).offset(5)
         }
-
+        
         mesureUnitControl.selectedSegmentIndex = Unit.allCases.firstIndex(of: selectedUnit) ?? 0
         weightPicker.reloadAllComponents()
-        
-        debugPrint("mesureUnit \(model.mesureUnit)")
     }
     
     required init?(coder: NSCoder) {
@@ -189,8 +195,25 @@ class WeightPickerView: UIView {
         
         if selectedUnit == .kilograms {
             
+            if kilograms == 0 {
+                kilograms = Int(firstWeightUnit!) * 1000
+                totalGramsEntered = kilograms + grams
+            }
+            if grams == 0 {
+                grams = Int(secondWeightUnit!)
+                totalGramsEntered = kilograms + grams
+            }
+            
             model.callback("kg", Double(totalGramsEntered))
         } else {
+            if stones == 0 {
+                stones = Int(firstWeightUnit!) * 14
+                totalPoundsEntered = stones + pounds
+            }
+            if pounds == 0 {
+                pounds = Int(secondWeightUnit!)
+                totalPoundsEntered = stones + pounds
+            }
             model.callback("st", Double(totalPoundsEntered))
         }
         
@@ -208,8 +231,35 @@ class WeightPickerView: UIView {
     
     @objc func mesureUnitChanged(sender: UISegmentedControl) {
         selectedUnit = units[sender.selectedSegmentIndex]
-
-        weightPicker.selectRow(0, inComponent: 1, animated: true)
-        weightPicker.selectRow(0, inComponent: 3, animated: true)
+        loadPicker()
+    }
+    
+    func loadPicker() {
+        if selectedUnit == .kilograms {
+            weightPicker.selectRow(
+                kgArray.firstIndex(of: model.firstWeightUnit ?? 0) ?? 0,
+                inComponent: 1,
+                animated: true
+            )
+            
+            weightPicker.selectRow(
+                gramsArray.firstIndex(of: model.secondWeightUnit ?? 0) ?? 0,
+                inComponent: 3,
+                animated: true
+            )
+        } else {
+            weightPicker.selectRow(
+                stoneArray.firstIndex(of: model.firstWeightUnit ?? 0) ?? 0,
+                inComponent: 1,
+                animated: true
+            )
+            
+            weightPicker.selectRow(
+                poundArray.firstIndex(of: model.secondWeightUnit ?? 0) ?? 0,
+                inComponent: 3,
+                animated: true
+            )
+        }
+        weightPicker.reloadAllComponents()
     }
 }

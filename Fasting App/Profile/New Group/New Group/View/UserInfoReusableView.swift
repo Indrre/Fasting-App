@@ -82,6 +82,8 @@ class UserInfoReusableView: UIView {
     init() {
         super.init(frame: .zero)
         
+        addShadow()
+        
         addSubview(lblName)
         lblName.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(15)

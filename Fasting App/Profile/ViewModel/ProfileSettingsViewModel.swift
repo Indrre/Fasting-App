@@ -68,53 +68,6 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         )
     }
     
-    var ageViewModel: AgePickerModel {
-        return AgePickerModel(
-            value: user?.age,
-            callback: { [weak self] age in
-                self?.saveAge(age: age)
-            }
-        )
-    }
-    
-    var weightModel: WeightPickerModel {
-        return WeightPickerModel(
-            mesureUnit: user?.weightUnit,
-            weight: weight,
-            callback: { [weak self] mesureUnit, weight in
-                self?.saveWeight(mesureUnits: mesureUnit!, value: weight)
-            }
-        )
-    }
-    
-    var heightModel: HeightPickerModel {
-        return HeightPickerModel(
-            mesureUnit: user?.weightUnit,
-            value: height,
-            callback: { [weak self] mesureUnit, firstUnit, secondUnit in
-                self?.saveHeight(mesureUnits: mesureUnit!, heightFirstUnit: firstUnit, heightSecondUnit: secondUnit)
-            }
-        )
-    }
-    
-    var genderModel: GenderPickerModel {
-        return GenderPickerModel(
-            gender: gender,
-            callback: { [weak self] gender in
-                self?.saveGender(gender: gender)
-            }
-        )
-    }
-    
-    var activityModel: ActivityPickerModel {
-        return ActivityPickerModel(
-            activity: activity,
-            callback: { [weak self] activity in
-                self?.saveActivity(activity: activity)
-            }
-        )
-    }
-    
     // =================================
     // MARK: Callbacks
     // =================================
@@ -222,7 +175,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         guard let userheightSecondUnit = user?.heightSecondUnit else { return }
         
         if heightMesureUnit == "m" {
-            height = String(userheightFirstUnit / 100)
+            height = "\(Int(userheightFirstUnit)).\(Int(userheightSecondUnit))"
         } else {
             height = "\(Int(userheightFirstUnit)).\(Int(userheightSecondUnit))"
         }
@@ -259,7 +212,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         let userID = user?.uid
         imageStorage.child("\(String(describing: userID))/file.png").putData(imageData, metadata: nil) { _, error in
             guard error == nil else {
-                debugPrint("Failed to upload image")
+                debugPrint("DEBUG: Failed to upload image")
                 return
             }
             
