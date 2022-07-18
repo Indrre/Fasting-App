@@ -23,7 +23,6 @@ class PickerViewModel {
     var heightUnit: String?
     var gender: String?
     var activity: String?
-    //    var newAge: Int?
     
     var user: User? {
         didSet {
@@ -32,6 +31,11 @@ class PickerViewModel {
             getWeight()
             refreshController?()
         }
+    }
+    
+    var data: [Weight] {
+        return WeightService.data
+            .sorted(by: { $0.date! > $1.date! })
     }
     
     var ageViewModel: AgePickerModel {
@@ -106,7 +110,6 @@ class PickerViewModel {
     }
     
     func saveWeight(mesureUnits: String, value: Double) {
-        
         var weight = WeightService.currentWeight
         if mesureUnits == "st" {
             let count = value * 453.592
@@ -146,9 +149,19 @@ class PickerViewModel {
     }
     
     func getWeight() {
-        let currentWeight = WeightService.currentWeight
-        guard let unit = currentWeight.unit else { return }
-        guard let userWeight = currentWeight.count else { return }
+        
+        var currentWeight: Weight?
+        
+        if WeightService.currentWeight.count != 0 {
+            currentWeight = WeightService.currentWeight
+        } else {
+            if  data.count != 0 {
+                currentWeight = data[0]
+            }
+        }
+        
+        guard let unit = currentWeight?.unit else { return }
+        guard let userWeight = currentWeight?.count else { return }
         
         if unit == "kg" {
             weightUnit = Unit.kilograms
@@ -168,10 +181,6 @@ class PickerViewModel {
             secondWeightUnit = Int(numberOfPounds)
         }
     }
-    
-//    func getHeight() {
-//        let
-//    }
 }
 
 // =================================

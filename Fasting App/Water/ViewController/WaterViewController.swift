@@ -58,6 +58,9 @@ class WaterViewController: ViewController {
         model.viewDidLoad()
         setup()
         
+        var names = [String]()
+        names.reserveCapacity(2)
+        
         title = "Water"
         view.backgroundColor = .stdBackground
         
@@ -67,7 +70,6 @@ class WaterViewController: ViewController {
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().inset(20)
         }
-        
     }
     
     override public func viewWillAppear(_ animated: Bool) {

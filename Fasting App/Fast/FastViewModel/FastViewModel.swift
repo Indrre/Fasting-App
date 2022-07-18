@@ -20,9 +20,12 @@ class FastViewModel {
     var days: [Date] = []
     var lastSevenDays: [Fast] = []
     var average: String = ""
+    let fastId = FastService.currentFast?.id
     
     var timerData: [Fast] {
-        return FastService.data
+        var data = FastService.data
+        data.removeAll(where: {$0.start == nil})
+        return data
     }
     
     var timerLapsed: TimeInterval?
@@ -30,9 +33,17 @@ class FastViewModel {
     
     var fastTimerData: Fast? {
         didSet {
-            timerLapsed = (TimeInterval(fastTimerData?.timeLapsed ?? 0) / TimeInterval(fastTimerData?.timeSelected ?? 0))
-            hours = "\(Int(fastTimerData?.timeLapsed ?? 0) / 60 / 60)h"
-            refreshController?()
+            let fast = FastService.currentFast
+            if fast == nil {
+                timerLapsed = nil
+                hours = nil
+                refreshController?()
+            }
+            if fast?.start != nil {
+                timerLapsed = (TimeInterval(fastTimerData?.timeLapsed ?? 0) / TimeInterval(fastTimerData?.timeSelected ?? 0))
+                hours = "\(Int(fastTimerData?.timeLapsed ?? 0) / 60 / 60)h"
+                refreshController?()
+            }
         }
     }
     
@@ -40,14 +51,15 @@ class FastViewModel {
         return FastModel(
             graphModel: graphModel,
             timerLapsed: timerLapsed,
-            hours: hours
+            hours: hours,
+            fastId: fastId
         )
     }
     
     var graphModel: FastBarModel {
         let maximumTimeSelected = Float(lastSevenDays.compactMap({ return $0.timeSelected }).max() ?? 0)
         let maximumTimeLapsed = Float(lastSevenDays.compactMap({ return $0.timeLapsed }).max() ?? 0)
-        
+
         return FastBarModel(
             timerGraph: lastSevenDays.compactMap { item in
                 return TimeGraphBarViewModel(
@@ -107,7 +119,7 @@ class FastViewModel {
                     )
                 }
             )
-            
+
             if let entry = entry {
                 lastSevenDays.append(entry)
             } else {
@@ -120,13 +132,13 @@ class FastViewModel {
                 )
             }
         }
-        
+
         let sum = lastSevenDays.compactMap({ return $0.timeLapsed }).reduce(0, +)
+
         if sum != 0 {
-            average = "\(Int(sum) / Int(timerData.count) / 60 / 60)h"
+            average = "\(Int(sum) / 7 / 60 / 60)h average"
         }
     }
-    
 }
 
 // =================================
@@ -164,9 +176,12 @@ extension FastView: UITableViewDelegate, UITableViewDataSource {
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "E, d MMM"
         
+        var data = FastService.data
+        data.removeAll(where: {$0.start == nil})
+        
         cell.model = ViewCellModel(
-            date: dayTimePeriodFormatter.string(from: Date(timeIntervalSince1970: (FastService.data[indexPath.row].end ?? .today))),
-            hours: String("\(Int(FastService.data[indexPath.row].timeLapsed / 60 / 60))h"))
+            date: dayTimePeriodFormatter.string(from: Date(timeIntervalSince1970: (data[indexPath.row].end ?? .today))),
+            hours: String("\(Int(data[indexPath.row].timeLapsed / 60 / 60))h"))
         
         return cell
     }
@@ -187,12 +202,16 @@ extension FastView: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             FastService.data.removeAll(where: {$0.id == data.id})
-            FastService.fetchAllFasts()
+            
+            var fast = FastService.currentFast
+            if model.fastId == data.id {
+                fast?.start = 0
+                FastService.updateFast(fast!)
+            }
             
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
             tableView.reloadData()
-        
         }
     }
 }

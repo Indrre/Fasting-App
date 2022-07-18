@@ -40,7 +40,6 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             refreshController?()
         }
     }
-    
     var profileImage: UIImage? =  UIImage(named: "profile-pic") {
         didSet {
             refreshController?()
@@ -75,7 +74,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     var refreshController: (() -> Void)?
     var presentActionSheet: ((UIViewController) -> Void)?
     var presentNameEditController: ((UIViewController) -> Void)?
-    var presentInageEditController: ((UIViewController) -> Void)?
+    var presentImageEditController: ((UIViewController) -> Void)?
     var presentPickerController: ((UIViewController) -> Void)?
     var presentController: ((_ type: PersonalInfo) -> Void)?
     var presentLogin: ((UIViewController) -> Void)?
@@ -200,7 +199,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
-        presentInageEditController?(imagePicker)
+        presentImageEditController?(imagePicker)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
@@ -226,6 +225,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
                 Service.shared.updateUserValues(values: values )
                 self.refreshController?()
             })
+            UserService.refreshUser()
         }
     }
     

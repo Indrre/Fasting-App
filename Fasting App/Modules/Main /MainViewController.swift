@@ -36,7 +36,7 @@ class MainViewController: ViewController {
     let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 20
+//        view.spacing = 10
         return view
     }()
     
@@ -72,19 +72,11 @@ class MainViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         model.viewDidLoad()
-        
+ 
         self.navigationItem.setHidesBackButton(true, animated: true)
-        
-        setup()
-        
     }
-    
     override func loadView() {
         super.loadView()
-        
-        stackView.subviews.forEach { (view) in
-            view.removeFromSuperview()
-        }
         
         view.addSubview(profileHeaderView)
         profileHeaderView.snp.makeConstraints {
@@ -108,6 +100,15 @@ class MainViewController: ViewController {
             $0.width.equalToSuperview()
         }
         
+        setRingView()
+        stackView.addArrangedSubview(mainTileView)
+    }
+    
+    func setRingView() {
+        stackView.subviews.forEach { (view) in
+            view.removeFromSuperview()
+        }
+        
         let timerContainer = UIView()
         stackView.addArrangedSubview(timerContainer)
         timerContainer.snp.makeConstraints {
@@ -116,11 +117,9 @@ class MainViewController: ViewController {
         
         timerContainer.addSubview(fastRingView)
         fastRingView.snp.makeConstraints {
-            $0.size.equalTo(timerContainer.snp.width).multipliedBy(0.7)
+            $0.size.equalTo(timerContainer.snp.width).multipliedBy(0.85)
             $0.center.equalToSuperview()
         }
-                
-        stackView.addArrangedSubview(mainTileView)
     }
     
     override func viewDidLayoutSubviews() {
@@ -131,21 +130,28 @@ class MainViewController: ViewController {
             height: stackView.frame.size.height
         )
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if #available(iOS 13.0, *) {
-            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-                fastRingView.layer.borderColor = UIColor.stdBackground!.cgColor
-                view.addShadow(color: UIColor.black.withAlphaComponent(0.8))
-                fastRingView.layer.borderWidth = 20
-            }
-        }
-    }
+//    
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//        if #available(iOS 13.0, *) {
+//            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+////                fastRingView.layer.borderColor = UIColor.stdBackground!.cgColor
+//                view.addShadow(color: UIColor.black.withAlphaComponent(0.8))
+////                fastRingView.layer.borderWidth = 20
+//            }
+//        }
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setLargeTitleDisplayMode(.never)
+        view.layoutIfNeeded()
+        
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+        setupRings()
     }
     
     deinit {
@@ -161,6 +167,11 @@ class MainViewController: ViewController {
         fastRingView.model = model.ringModel
         mainTileView.model = model.mainTileModel
         
-        view.layoutIfNeeded()
+        setupRings()
+    }
+    
+    func setupRings() {
+        fastRingView.layoutIfNeeded()
+        fastRingView.initialSetupDone = false
     }
 }

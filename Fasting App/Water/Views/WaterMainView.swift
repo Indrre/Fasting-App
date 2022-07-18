@@ -18,7 +18,6 @@ struct WaterModel {
     let presentPicker: (() -> Void?)
     let graphModel: WaterBarModel
     var refreshController: (() -> Void)?
-    
 }
 
 class WaterMainView: UIView {
@@ -34,7 +33,8 @@ class WaterMainView: UIView {
             presentPicker: { [ weak self ] in
                 self?.presentWaterPicker()
             },
-            dotCount: model.dotCount)
+            dotCount: model.dotCount
+        )
         return view
     }()
     
@@ -104,7 +104,10 @@ class WaterMainView: UIView {
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-    
+        
+        if model.waterData.count == 0 {
+            model.presentPicker()
+        }  
   }
     
     required init?(coder: NSCoder) {
@@ -144,6 +147,7 @@ extension WaterMainView: UITableViewDelegate, UITableViewDataSource {
             dateString: dayTimePeriodFormatter.string(from: Date(timeIntervalSince1970: (currentModel.date ?? TimeInterval.today))),
             totalCount: "\((currentModel.count ?? 0) * 250)ml"
         )
+        
         return cell
     }
     
@@ -167,7 +171,10 @@ extension WaterMainView: UITableViewDelegate, UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
             tableView.reloadData()
-            model.refreshController?()
+            
+            if WaterService.currentWater.id == data.id {
+                WaterService.currentWater.count = 0
+            }
         }
     }
 }

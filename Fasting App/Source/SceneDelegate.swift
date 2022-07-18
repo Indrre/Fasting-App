@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             let controller = MainViewController()
+//            let controller = LoginViewController()
             let win = UIWindow(windowScene: windowScene)
             win.rootViewController = UINavigationController(
                 rootViewController: controller
@@ -21,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window = win
             win.makeKeyAndVisible()
         }
-//        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let _ = (scene as? UIWindowScene) else { return }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -45,15 +46,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         
-        var currentWater = WaterService.currentWater
-        currentWater.date = 1653500895
-
-        var currentWeight = WeightService.currentWeight
-        currentWeight.date = 1653500895
+        let water = WaterViewController()
+        water.setup()
         
-        func updateWater(_ water: Water) {
-            currentWater = water
-        }
+        let weight = WeightViewContorller()
+        weight.setup()
+        
+        // Check if the main view tiles are updating on a new day
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

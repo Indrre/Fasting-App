@@ -23,22 +23,43 @@ class MainViewModel {
     
     var stroke: CGFloat = 0
     var timeSelected: TimeInterval?
-    var isAnimated: Bool?
-    var startTime: TimeInterval?
     var timeLapsed: Float = 0
     var timer: Timer?
-    var profileImage: UIImage? = UIImage(named: "profile-pic")
     var endDate: TimeInterval?
     var selectedHours: Int?
     var selectedDays: Int?
-    var lblWeight: String?
-    
     let options: UNAuthorizationOptions = [.alert, .sound, .badge]
     var timeLapsedToNotification: TimeInterval = 0
+    var waterLabel: String?
+    var weightLabel: String?
+    var lblWeight: String?
+    var newStart: TimeInterval?
+    var newEnd: TimeInterval?
+    
+    var subtitleLabel: String?
+        
+    var profileImage: UIImage? = UIImage(named: "profile-pic") {
+        didSet {
+            refreshController?()
+        }
+    }
 
+    var fastLabel: String? {
+        didSet {
+            refreshController?()
+        }
+    }
+    
+    var timerLabel: String? {
+        didSet {
+            refreshController?()
+        }
+    }
+    
     var user: User? {
         didSet {
             fetchUserImage()
+            updateLabel()
             refreshController?()
         }
     }
@@ -48,40 +69,52 @@ class MainViewModel {
             checkState()
             updateLabel()
             setupNotifications()
+
+            if FastService.currentFast == nil {
+                cancelFast()
+                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            }
+
             refreshController?()
+
         }
     }
     
-    var fastLabel: String? {
+    func cancelFast() {
+        timer?.invalidate()
+        state = .stopped
+        refreshController?()
+    }
+    
+    var water: Water? {
         didSet {
+            setupLabels()
             refreshController?()
         }
     }
     
-    var weightLabel: String? {
+    var weight: Weight? {
+        didSet {
+            setupLabels()
+            refreshController?()
+        }
+    }
+    
+    func setupLabels() {
+        let count = WaterService.currentWater.count ?? 0
+        if count < 1 || count > 1 {
+            waterLabel = "\(count) glasses"
+        } else {
+            waterLabel = "\(count) glass"
+        }
         
         let weight = WeightService.currentWeight
-        return  "\(setWeightLabel(weight: weight))"
-        
-    }
-    
-    var waterLabel: String {
-        let count = WaterService.currentWater.count ?? 0
-        if count > 1 {
-            return "\(count) glasses"
-        } else {
-            return "\(count) glass"
-        }
-    }
-    
-    var timerLabel = "" {
-        didSet {
-            refreshController?()
-        }
+        weightLabel = "\(setWeightLabel(weight: weight))"
     }
     
     var state: State = .stopped {
         didSet {
+            setStroke()
             refreshController?()
         }
     }
@@ -90,13 +123,12 @@ class MainViewModel {
         if state != .running {
             return "0h"
         } else {
-            
             return "\(Int(FastService.currentFast?.timeLapsed ?? 0) / 60 / 60) h"
         }
     }
     
-    var fastTimer: TimeInterval {
-        return FastService.currentFast?.timeLapsed ?? 0
+    var fastTimer: TimeInterval? {
+        return FastService.currentFast?.timeLapsed
     }
     
     var profileHeaderModel: ProfileHeaderModel {
@@ -127,12 +159,12 @@ class MainViewModel {
             }
         )
     }
-    
+
     var mainTileModel: MainTileModel {
         return MainTileModel(
             fastHours: fastTimeSelected,
-            water: waterLabel,
-            weight: weightLabel ?? "Nothing to display",
+            water: waterLabel ?? "0 glasses",
+            weight: weightLabel ?? "0",
             calories: "Calories eated",
             takeToFast: { [ weak self ] in
                 self?.presentFastController()
@@ -147,6 +179,23 @@ class MainViewModel {
                 self?.openPicker(.edit)
             },
             state: state
+        )
+    }
+    
+    var fastCompletionStateLabel: String {
+        var timeLapsed: TimeInterval?
+        if newStart == nil {
+            newStart = fast?.start
+        }
+        if newEnd == nil {
+            newEnd = NSDate().timeIntervalSince1970
+        }
+        timeLapsed = TimeInterval(newEnd!) - TimeInterval(newStart!)
+        
+        return String(
+            format: "You have fasted for %d of your %d hour fast!",
+            Int((timeLapsed ?? 0) / 60 / 60),
+            Int((fast?.timeSelected ?? 0) / 60 / 60)
         )
     }
     
@@ -165,12 +214,13 @@ class MainViewModel {
     func viewDidLoad() {
         UserService.startObservingUser(self)
         FastService.startObservingFast(self)
+        WaterService.startObservingWater(self)
+        WeightService.startObservingWeight(self)
         UserService.refreshUser()
         FastService.start()
         WaterService.start()
         WeightService.start()
         updateLabel()
-        
     }
     
     func fetchUserImage() {
@@ -190,11 +240,10 @@ class MainViewModel {
             subtitle = "Update your fast start"
         case .end:
             title = "Fast Complete"
-            subtitle = "You have completed \(Int(fast!.timeLapsed / 60 / 60)) of your \(Int(fast!.timeSelected / 60 / 60)) hour fast, congratulations! Do you want to save your fast?"
+            subtitle = fastCompletionStateLabel
             includes.append(.end)
         default: break
         }
-
         let controller = DatePickerViewController(
             model: DatePickerViewModel(
                 title: title,
@@ -202,17 +251,28 @@ class MainViewModel {
                 startDate: fast?.start,
                 endDate: fast?.end ?? 0,
                 includes: includes,
-                selectedDaysHours: { [weak self] selectedHours, selectedDays in
+                selectedDaysHours: { [ weak self ] selectedHours, selectedDays in
                     self?.saveSelectedInterval(selectedHours: selectedHours, selectedDays: selectedDays)
                 },
-                selectedStart: { [weak self] start in
+                selectedStart: { [ weak self ] start in
                     self?.updateStart(start ?? 0)
                 },
-                selectedEnd: { [weak self] end in
+                selectedEnd: { [ weak self ] end in
                     self?.endDate = end
                 },
-                newStartDate: { [ weak self ] newStart in
-                    self?.updateNewStart(newStart: newStart!)
+                dateUpdated: { [weak self] type, date, completion in
+                    switch type {
+                    case .end:
+                        self?.updateSubtitleWithEndDate(
+                            date: date,
+                            completion: completion
+                        )
+                    case .start:
+                        self?.updateSubtitleWithStartDate(
+                            date: date,
+                            completion: completion
+                        )
+                    }
                 },
                 save: { [ weak self] in
                     self?.endFast()
@@ -222,6 +282,20 @@ class MainViewModel {
         controller.modalPresentationStyle = .overFullScreen
         presentController?(controller)
     }
+    
+    func updateSubtitleWithStartDate(
+        date: TimeInterval,
+        completion: (String) -> Void) {
+            newStart = date
+            completion(fastCompletionStateLabel)
+        }
+
+    func updateSubtitleWithEndDate(
+        date: TimeInterval,
+        completion: (String) -> Void) {
+            newEnd = date
+            completion(fastCompletionStateLabel)
+        }
     
     @objc func presentProfileController() {
         let controller = ProfileViewController()
@@ -273,27 +347,26 @@ class MainViewModel {
     func updateLabel() {
         if state == .running {
             startTimer()
-            fastLabel = String(format: "%d", Int(fast!.timeSelected) / 60 / 60) + "" + "hours"
+            fastLabel = String(format: "%d", Int(fast?.timeSelected ?? 0 ) / 60 / 60) + "" + "hours"
         } else if fast?.timeSelected != nil {
             timerLabel = "Start Fast"
-            fastLabel = String(format: "%d", Int(fast!.timeSelected) / 60 / 60) + "" + "hours"
+            fastLabel = String(format: "%d", Int(fast?.timeSelected ?? 0 ) / 60 / 60) + "" + "hours"
         } else {
             timerLabel = "Select Fast"
             fastLabel = ""
         }
     }
-    
+        
     func handleStopStart(state: State) {
-        self.state = state
+        if self.state != state {
+            self.state = state
+        }
         if state == .running {
             openPicker(.end)
             updateLabel()
         } else {
             startFast()
         }
-    }
-    
-    func updateNewStart(newStart: TimeInterval) {
     }
     
     func startFast() {
@@ -324,21 +397,36 @@ class MainViewModel {
     
     @objc func updateCounter() {
         if let fast = FastService.currentFast {
-            DispatchQueue.main.async {
-                self.timerLabel = fast.timeLapsed.timeString
-                self.isAnimated = true
-                let stroke = CGFloat(((self.fastTimer) / ((self.fast?.timeSelected) ?? 0)) )
-                self.stroke = Double(stroke)
-            }
+            setStroke()
+            timerLabel = fast.timeLapsed.timeString
         }
     }
     
+    func setStroke() {
+        guard
+            let fastTime = fastTimer,
+            let timeSelected = fast?.timeSelected else {
+            stroke = 0
+            return
+        }
+        
+        if fast?.start != nil {
+            var value = CGFloat(fastTime) / CGFloat(timeSelected)
+            if value > 1 {
+                value = 1
+            }
+            stroke = CGFloat(value)
+        }
+    }
+        
     func endFast() {
         timer?.invalidate()
         guard var fast = FastService.currentFast else { return }
-        fast.updateEnd(interval: endDate!)
+        fast.updateEnd(interval: endDate ?? .today)
         FastService.updateFast(fast)
         self.state = .stopped
+        newStart = nil
+        newEnd = nil
     }
     
     func updateStart(_ start: TimeInterval) {
@@ -346,7 +434,7 @@ class MainViewModel {
         fast.updateStart(interval: start)
         FastService.updateFast(fast)
     }
-        
+    
     func setWeightLabel(weight: Weight) -> String {
         
         let weightUnit = weight.unit
@@ -380,7 +468,6 @@ class MainViewModel {
         let content = UNMutableNotificationContent()
         content.title = "Whoop whoop!"
         content.subtitle = "You have reached your Fasting goal!"
-        //        content.body = "You can eat now! Whoop Whoop"
         content.badge = 0
         content.sound = UNNotificationSound.default
         
@@ -392,7 +479,6 @@ class MainViewModel {
             let timeSelected = FastService.currentFast!.timeSelected
             timeLapsedToNotification = timeSelected - timeLapsed
         }
-        
         let date = Date().addingTimeInterval(timeLapsedToNotification)
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
@@ -417,15 +503,40 @@ class MainViewModel {
 extension MainViewModel: UserServiceObserver {
     func userServiceUserUpdated(_ user: User?) {
         self.user = user
+        refreshController?()
     }
 }
 
 extension MainViewModel: FastServiceObserver {
     func fastServiceRefreshedData() {
+        refreshController?()
     }
     
     func fastServiceFastUpdated(_ fast: Fast?) {
         self.fast = fast
+        refreshController?()
+    }
+}
+
+extension MainViewModel: WaterServiceObserver {
+    func waterServiceWaterUpdated(_ water: Water?) {
+        self.water = water
+        refreshController?()
+    }
+    
+    func waterServiceRefreshedData() {
+        refreshController?()
+    }
+}
+
+extension MainViewModel: WeightServiceObserver {
+    func weightServiceWeightUpdated(_ weight: Weight?) {
+        self.weight = weight
+        refreshController?()
+    }
+    
+    func weightServiceRefreshedData() {
+        refreshController?()
     }
 }
 

@@ -88,7 +88,7 @@ class TouchableView: UIView {
     }
 }
 
-//class TouchableView: UIView {
+// class TouchableView: UIView {
 //
 //    // ==========================================
 //    // MARK: Properties
@@ -101,6 +101,8 @@ class TouchableView: UIView {
 //    // ==========================================
 //
 //    var callback: ((UIView) -> Void)?
+//    var callback: (() -> Void)?
+
 //
 //    // ==========================================
 //    // MARK: Initialization
@@ -161,13 +163,13 @@ class TouchableView: UIView {
 //        )
 //    }
 //
-//}
+// }
 
-//// ==========================================
-//// MARK: UITouchDelegate
-//// ==========================================
+// // ==========================================
+// // MARK: UITouchDelegate
+// // ==========================================
 //
-//extension TouchableView {
+// extension TouchableView {
 //    
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        touched()
@@ -198,5 +200,5 @@ class TouchableView: UIView {
 //        released()
 //    }
 //    
-//}
+// }
 //

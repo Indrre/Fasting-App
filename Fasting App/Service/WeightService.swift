@@ -20,7 +20,6 @@ class WeightService {
             observers.forEach {
                 $0.observer?.weightServiceRefreshedData()
             }
-            return data.sort(by: { $0.date ?? .today > $1.date ?? .today })
         }
     }
     
@@ -79,8 +78,8 @@ class WeightService {
         Service.shared.fetchWeight(id: "\(Int(TimeInterval.today))") { weight, error in
             if error != nil {
                 debugPrint("DEBUG: Error Fetching weight data: \(String(describing: error))")
-            } else {
-                self.currentWeight = weight!
+            } else if let weight = weight {
+                self.currentWeight = weight
             }
         }
     }

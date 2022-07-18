@@ -14,7 +14,7 @@ struct FastModel {
     let graphModel: FastBarModel
     let timerLapsed: TimeInterval?
     let hours: String?
-    
+    let fastId: String?
 }
 
 class FastView: UIView {
@@ -22,7 +22,7 @@ class FastView: UIView {
     // ========================================
     // MARK: Properties
     // ========================================
-    
+        
     var timerLapsed: TimeInterval?
     var hours: String?
     

@@ -83,7 +83,8 @@ class WaterService {
             if error != nil {
                 debugPrint("DEBUG: Error Fetching current water: - \(String(describing: error))")
             } else {
-                self.currentWater = water!
+                guard let water = water else { return }
+                self.currentWater = water
             }
         }
     }
@@ -107,11 +108,15 @@ class WaterService {
 
 // ToDo:
 
-// Fix End edit date picker
 
-// Water views does not refresh
-// Weight views does not refresh
+// Touchable view - init()
 
-// RingView animates 3 times
+//
 
-// Touchable view - rich to give a new coude to top bouncing
+//
+
+// ui does not refresh on a new day
+
+// Fast bars are incorrect?
+
+// Refactor TableViews

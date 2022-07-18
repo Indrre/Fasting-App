@@ -200,7 +200,7 @@ class WeightPickerView: UIView {
                 totalGramsEntered = kilograms + grams
             }
             if grams == 0 {
-                grams = Int(secondWeightUnit!)
+                grams = Int(secondWeightUnit ?? 0)
                 totalGramsEntered = kilograms + grams
             }
             
@@ -235,6 +235,7 @@ class WeightPickerView: UIView {
     }
     
     func loadPicker() {
+        
         if selectedUnit == .kilograms {
             weightPicker.selectRow(
                 kgArray.firstIndex(of: model.firstWeightUnit ?? 0) ?? 0,
@@ -253,7 +254,7 @@ class WeightPickerView: UIView {
                 inComponent: 1,
                 animated: true
             )
-            
+            debugPrint("DRBUG: model.firstWeightUnit \(model.firstWeightUnit)")
             weightPicker.selectRow(
                 poundArray.firstIndex(of: model.secondWeightUnit ?? 0) ?? 0,
                 inComponent: 3,

@@ -43,7 +43,7 @@ class ProfileViewController: ViewController {
                 completion: nil
             )
         }
-        model.presentInageEditController = { [weak self] controller in
+        model.presentImageEditController = { [weak self] controller in
             controller.modalPresentationStyle = .overFullScreen
             self?.present(
                 controller,

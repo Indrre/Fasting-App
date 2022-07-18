@@ -31,9 +31,6 @@ struct Fast {
         self.end = data["end"] as? TimeInterval
         self.timeSelected = data["timeSelected"] as? TimeInterval ?? 0
     }
-    
-    let data = [Fast]()
-    
 }
 
 extension Fast {
@@ -51,9 +48,12 @@ extension Fast {
     }
     
     var timeLapsed: TimeInterval {
-        if let end = end {
-            return end - (start ?? 0)
+        if start != nil {
+            if let end = end {
+                return end - (start!)
+            }
+            return Date().timeIntervalSince1970 - (start!)
         }
-        return Date().timeIntervalSince1970 - (start ?? 0)
+        return 0
     }
 }

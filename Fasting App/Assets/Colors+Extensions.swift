@@ -40,3 +40,19 @@ extension UIColor {
     static let lightCalorieColor = UIColor(red: 0.957, green: 0.494, blue: 0.325, alpha: 0.5)
     static let weightColor =  UIColor(red: 0.957, green: 0.742, blue: 0.325, alpha: 1)
 }
+
+extension UIColor {
+    static var myControlBackground: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { (traits) -> UIColor in
+                // Return one of two colors depending on light or dark mode
+                return traits.userInterfaceStyle == .dark ?
+                UIColor(red: 0.255, green: 0.255, blue: 0.255, alpha: 0.766) :
+                    UIColor(red: 0.804, green: 0.804, blue: 0.804, alpha: 1)
+            }
+        } else {
+            // Same old color used for iOS 12 and earlier
+            return UIColor(red: 0.804, green: 0.804, blue: 0.804, alpha: 1)
+        }
+    }
+}

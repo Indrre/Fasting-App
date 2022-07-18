@@ -77,6 +77,7 @@ struct Service {
         
         let path = String(format: "%@/%@", uid, water.id)
         REF_WATER.child(path).updateChildValues(params)
+        WaterService.fetchAllWater()
     }
     
     mutating func fetchAllWater(
@@ -179,6 +180,7 @@ struct Service {
         
         let path = String(format: "%@/%@", uid, weight.id)
         REF_WEIGHT.child(path).updateChildValues(params)
+        WeightService.fetchAllWeight()
     }
     
     func fetchWeight(id: String, completion: @escaping ((Weight?, Error?) -> Void)) {

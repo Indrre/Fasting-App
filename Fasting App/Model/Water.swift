@@ -14,7 +14,7 @@ struct Water {
     var count: Int?
     
    init(
-    id: String = "\(Int(TimeInterval.today))",
+    id: String = "\(Int(TimeInterval.today))", // "\(1657702382)", 
     date: TimeInterval? = nil,
     count: Int? = nil) {
         self.id = id
@@ -39,11 +39,13 @@ extension Water {
     }
     
     mutating func increase() {
-        count! += 1
+        guard var count = count else { return }
+        count += 1
     }
     
     mutating func decrease() {
-        count! -= 1
+        guard var count = count else { return }
+        count -= 1
     }
     
     mutating func replace(count: Int) {

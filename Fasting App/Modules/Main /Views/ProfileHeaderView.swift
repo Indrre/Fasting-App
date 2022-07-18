@@ -21,7 +21,7 @@ class ProfileHeaderView: TouchableView {
     // MARK: Properties
     // =============================================
     
-    let imageSize: CGFloat = 60
+    let imageSize: CGFloat = 50
     
     let lblName: UILabel = {
         let view = UILabel()
@@ -45,7 +45,6 @@ class ProfileHeaderView: TouchableView {
     
     lazy var imageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "profile-pic")
         view.clipsToBounds = true
         return view
     }()

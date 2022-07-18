@@ -48,10 +48,10 @@
     {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/firebase/firebase-ios-sdk.git",
+      "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
-        "revision" : "111d8d6ad1a1afd6c8e9561d26e55ab1e74fcb42",
-        "version" : "8.15.0"
+        "branch" : "master",
+        "revision" : "d5637c4cd7f03b4f4d2c9cfe5d9cf0734de7ff21"
       }
     },
     {
@@ -60,7 +60,7 @@
       "location" : "https://github.com/firebase/FirebaseUI-iOS",
       "state" : {
         "branch" : "master",
-        "revision" : "6c2993a144ac768ce9118c7feb3416960c36f194"
+        "revision" : "e8f746b488ae86075a832df19cffbdb9db23d0f2"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleAppMeasurement.git",
       "state" : {
-        "revision" : "ef819db8c58657a6ca367322e73f3b6322afe0a2",
-        "version" : "8.15.0"
+        "revision" : "192cce3e0486aecfdb61102a9c694c78dc89dc48",
+        "version" : "9.1.0"
       }
     },
     {
@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleSignIn-iOS",
       "state" : {
-        "revision" : "21b8c78b6a10613cbaad3ca14052254a32af1c85",
-        "version" : "6.2.1"
+        "revision" : "9450e779619fc184d360c9f7ce61023587f7e1f4",
+        "version" : "6.2.2"
       }
     },
     {
@@ -140,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/nanopb.git",
       "state" : {
-        "revision" : "7ee9ef9f627d85cbe1b8c4f49a3ed26eed216c77",
-        "version" : "2.30908.0"
+        "revision" : "819d0a2173aff699fb8c364b6fb906f7cdb1a692",
+        "version" : "2.30909.0"
       }
     },
     {
@@ -149,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/microsoft/PLCrashReporter.git",
       "state" : {
-        "revision" : "6b27393cad517c067dceea85fadf050e70c4ceaa",
-        "version" : "1.10.1"
+        "revision" : "81cdec2b3827feb03286cb297f4c501a8eb98df1",
+        "version" : "1.10.2"
       }
     },
     {
@@ -158,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",
       "state" : {
-        "revision" : "46c1e6b5ac09d8f82c991061c659f67e573d425d",
-        "version" : "2.1.0"
+        "revision" : "3e4e743631e86c8c70dbc6efdc7beaa6e90fd3bb",
+        "version" : "2.1.1"
       }
     },
     {
@@ -167,8 +167,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "2e63d0061da449ad0ed130768d05dceb1496de44",
-        "version" : "5.12.5"
+        "revision" : "c4b8660bb3ef543fe4bdcaac0db956b32dc5583f",
+        "version" : "5.13.0"
       }
     },
     {

@@ -39,15 +39,16 @@ class WeightViewModel {
     
     var weightModel: WeightModel {
         return WeightModel(
-            weight: currentWeight ?? "0kg",
+            weight: currentWeight ?? "0.0",
             data: data,
             callBack: { [ weak self ] in
                 self?.presentWeightPicker()
             },
+            dataSet: dataSet ?? [],
             loadGraph: { [weak self ] in
                 self?.loadGraph()
-            },
-            dataSet: dataSet ?? [])
+            }
+        )
     }
    
     // =============================================
@@ -63,10 +64,9 @@ class WeightViewModel {
     
     func viewDidLoad() {
         WeightService.startObservingWeight(self)
-        WeightService.start()
         WeightService.fetchAllWeight()
-        loadGraph()
-        refreshController?()
+        WeightService.start()
+//        refreshController?()
     }
     
     func loadGraph() {
@@ -114,9 +114,11 @@ class WeightViewModel {
 extension WeightViewModel: WeightServiceObserver {
     func weightServiceWeightUpdated(_ weight: Weight?) {
         self.weight = weight
+        refreshController?()
     }
     
     func weightServiceRefreshedData() {
+        loadGraph()
         refreshController?()
     }
     
@@ -125,7 +127,7 @@ extension WeightViewModel: WeightServiceObserver {
 extension WeightMainView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model?.data.count ?? 0
+        return WeightService.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -180,11 +182,15 @@ extension WeightMainView: UITableViewDelegate, UITableViewDataSource {
                     debugPrint("DEBUG: Error while trying to delete water:  \(String(describing: error))")
                 }
             }
-            WeightService.data.removeAll(where: {$0.id == data?.id})
             
+            WeightService.data.removeAll(where: {$0.id == data?.id})
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
             tableView.reloadData()
+            
+            if WeightService.currentWeight.id == data?.id {
+                WeightService.currentWeight.count = 0
+            }
         }
     }
 }

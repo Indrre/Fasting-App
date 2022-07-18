@@ -12,8 +12,8 @@ struct WeightModel {
     var weight: String
     var data: [Weight]
     var callBack: (() -> Void?)
-    let loadGraph: (() -> Void?)
     var dataSet: [Dataset]
+    let loadGraph: (() -> Void?)
 }
 
 class WeightMainView: UIView {
@@ -124,7 +124,6 @@ class WeightMainView: UIView {
         model.loadGraph()
         addShadow()
         configure()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -146,11 +145,11 @@ class WeightMainView: UIView {
         lblWeight.snp.makeConstraints {
             $0.top.equalTo(lblToday.snp.bottom).offset(5)
         }
-        addSubview(lblBMI)
-        lblBMI.snp.makeConstraints {
-            $0.top.equalTo(lblWeight.snp.bottom).offset(10)
-            $0.left.equalTo(lblWeight.snp.left)
-        }
+//        addSubview(lblBMI)
+//        lblBMI.snp.makeConstraints {
+//            $0.top.equalTo(lblWeight.snp.bottom).offset(10)
+//            $0.left.equalTo(lblWeight.snp.left)
+//        }
         
         addSubview(btnEdit)
         btnEdit.setTitle("Edit", for: .normal)
@@ -167,7 +166,7 @@ class WeightMainView: UIView {
     
         addSubview(graphView)
         graphView.snp.makeConstraints {
-            $0.top.equalTo(lblBMI.snp.bottom).offset(10)
+            $0.top.equalTo(lblWeight.snp.bottom).offset(20)
             $0.height.equalTo(147)
             $0.width.equalToSuperview()
         }
@@ -194,6 +193,10 @@ class WeightMainView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
+                
+        if model?.data.count == 0 {
+            model?.callBack()
+        }
     }
     
     @objc func editButtonPressed() {

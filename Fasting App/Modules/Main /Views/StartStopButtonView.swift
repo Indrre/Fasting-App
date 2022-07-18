@@ -12,14 +12,6 @@ enum State {
     case stopped, running
 }
 
-// struct StartStopModel {
-//    let state: State
-//
-//    init( state: State = .running) {
-//        self.state = state
-//    }
-// }
-
 class StartStopButtonView: TouchableView {
     
     // =============================================
@@ -54,10 +46,6 @@ class StartStopButtonView: TouchableView {
             }
         }
     }
-    
-//    var model: StartStopModel {
-//        didSet { currentState = model.state }
-//    }
     
     // =============================================
     // MARK: Initialization

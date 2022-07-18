@@ -26,6 +26,7 @@ class WaterViewModel {
     
     var waterData: [Water] {
         return WaterService.data
+            .sorted(by: { $0.date! > $1.date! })
     }
     
     var water: Water? {
@@ -87,7 +88,6 @@ class WaterViewModel {
     
     func setupSevenDays() {
         lastSevenDays = []
-        
         let calendar = Calendar.current
         let today = Date()
         let daysInWeek: Int = 7
@@ -126,7 +126,6 @@ class WaterViewModel {
             if sum > 1 {
                 average = "\(Int(sum) * 250 )ml average"
             }
-            
         }
     }
 }
@@ -139,10 +138,11 @@ extension WaterViewModel: WaterServiceObserver {
     func waterServiceRefreshedData() {
         setupSevenDays()
         refreshController?()
+
     }
     
     func waterServiceWaterUpdated(_ water: Water?) {
         self.water = water
+        refreshController?()
     }
 }
-

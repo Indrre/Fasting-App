@@ -24,7 +24,7 @@ class WaterPickerViewModel {
             refreshController?()
         }
     }
-
+    
     var waterPickerModel: WaterPickerModel {
         return WaterPickerModel(
             label: label,
@@ -68,11 +68,11 @@ class WaterPickerViewModel {
         }
         label = String(newWater)
         refreshController?()
-
+        
     }
     
     func saveWater() {
-    var water = WaterService.currentWater
+        var water = WaterService.currentWater
         water.count = newWater
         water.date = .today
         WaterService.updateWater(water)
@@ -90,5 +90,6 @@ extension WaterPickerViewModel: WaterServiceObserver {
     
     func waterServiceWaterUpdated(_ water: Water?) {
         self.water = water
+        refreshController?()
     }
 }

@@ -14,15 +14,25 @@ enum Includes: Int {
 
 struct DatePickerViewModel {
     
+    enum DateType {
+        case end, start
+    }
+    
     let title: String
-    let subtitle: String
+    var subtitle: String
     let startDate: TimeInterval?
     let endDate: TimeInterval?
     let includes: [Includes]
     let selectedDaysHours: ((_ selectedHours: Int, _ selectedDays: Int) -> Void)
     let selectedStart: ((_ start: TimeInterval?) -> Void)
     let selectedEnd: ((_ end: TimeInterval?) -> Void)
-    var newStartDate: ((_ newStart: TimeInterval?) -> Void)
+    
+    var dateUpdated: ((
+        _ type: DateType,
+        _ date: TimeInterval,
+        _ completion: (String?) -> Void
+    ) -> Void)
+
     let save: (() -> Void)
 }
 
@@ -34,7 +44,7 @@ class DatePickerView: UIView {
     
     var selectedHours = 0
     var selectedDays = 0
-    var newStartDate: Date?
+
     // =============================================
     // MARK: Callbacks
     // =============================================
@@ -103,8 +113,19 @@ class DatePickerView: UIView {
     }()
     
     @objc func startDateChanged(sender: UIDatePicker) {
-//        newStartDate = Date(timeIntervalSince1970: sender)
-//        startDatePicker.date = Date(startDatePicker.date.timeIntervalSince1970)
+        let start = sender.date.timeIntervalSince1970
+        endDatePicker.minimumDate = Date(timeIntervalSince1970: start)
+        
+        model.dateUpdated(.start, start) { [weak self] updatedLabel in
+            self?.lblSubTitle.text = updatedLabel
+        }
+    }
+    
+    @objc func endDateChanged(sender: UIDatePicker) {
+        let end = sender.date.timeIntervalSince1970
+        model.dateUpdated(.end, end) { [weak self] updatedLabel in
+            self?.lblSubTitle.text = updatedLabel
+        }
     }
     
     lazy var endDatePicker: UIDatePicker = {
@@ -112,6 +133,7 @@ class DatePickerView: UIView {
         datePicker.tag = Includes.end.rawValue
         datePicker.tintColor = .stdText
         datePicker.datePickerMode = .dateAndTime
+        datePicker.addTarget(self, action: #selector(endDateChanged), for: .valueChanged)
 
         return datePicker
     }()
@@ -236,7 +258,10 @@ class DatePickerView: UIView {
         
         lblTitle.text = model.title
         lblSubTitle.text = model.subtitle
-        startDatePicker.date = model.startDate != nil ? Date(timeIntervalSince1970: model.startDate!) : Date()
+        if let startDate = model.startDate {
+            startDatePicker.date = Date(timeIntervalSince1970: startDate)
+        }
+        
         endDatePicker.date = model.endDate != nil ? Date(timeIntervalSince1970: model.endDate!) : Date()
                 
         model.includes.forEach {

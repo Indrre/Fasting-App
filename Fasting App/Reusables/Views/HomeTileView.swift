@@ -113,6 +113,7 @@ class HomeTileView: TouchableView {
     
     init() {
         super.init(frame: .zero)
+        
         clipsToBounds = false
         
         addSubview(containerView)

@@ -50,4 +50,36 @@ extension UIView {
         layer0.position = center
         layer.addSublayer(layer0)
     }
+    
+    /**
+     Fade in `UIView` - with default setup
+     - Parameter time: TimeInterval = 0.3
+     - Parameter alpha: CGFloat = 1
+     - Parameter completion: (() -> Void)? = nil
+     */
+    func fadeIn(time: TimeInterval = 0.4, alpha: CGFloat = 1, completion: (() -> Void)? = nil) {
+        UIView.animate(
+            withDuration: time,
+            animations: {
+                self.alpha = alpha
+        }, completion: { _ in
+            completion?()
+        })
+    }
+    
+    /**
+     Fade out `UIView` - with default setup
+     - Parameter time: TimeInterval = 0.3
+     - Parameter alpha: CGFloat = 1
+     - Parameter completion: (() -> Void)? = nil
+     */
+    func fadeOut(time: TimeInterval = 0.4, alpha: CGFloat = 0, completion: (() -> Void)? = nil) {
+        UIView.animate(
+            withDuration: time,
+            animations: {
+                self.alpha = alpha
+        }, completion: { _ in
+            completion?()
+        })
+    }
 }

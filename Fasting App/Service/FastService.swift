@@ -105,9 +105,14 @@ class FastService {
     
     class func updateFast(_ fast: Fast) {
         self.currentFast = fast
-        Service.shared.updateFast(fast)
-        if currentFast?.end != nil {
+        
+        if currentFast?.start == 0 {
             self.currentFast = nil
+        } else {
+            Service.shared.updateFast(fast)
+            if currentFast?.end != nil {
+                self.currentFast = nil
+            }
         }
     }
 }

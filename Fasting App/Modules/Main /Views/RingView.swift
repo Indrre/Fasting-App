@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SnapKit
 import UIKit
 
 struct RingViewModel {
@@ -31,9 +32,9 @@ struct RingViewModel {
         timeLapsed: Float,
         stroke: CGFloat,
         prsentPicker: (() -> Void)? = nil,
-        stopStartBtn: ((_ state: State) -> Void)? = nil
-        
-        ) {
+        stopStartBtn: ((_ state: State) -> Void)? = nil)
+    
+    {
         self.trackColor = trackColor
         self.animatedColor = animatedColor
         self.timer = timer
@@ -65,30 +66,28 @@ class RingView: UIView {
         didSet {
             lblFast.text = model.fast
             lblTimer.text = model.timer
+            stroke = model.stroke ?? 0
             timeSelected = Int(model.timeSelected ?? 0)
             state = model.state
             timeLapsed = model.timeLapsed
-            stroke = model.stroke ?? 0
+           
         }
     }
+    
     var state: State? {
         didSet {
             btnStartStop.currentState = state!
-            if state == .running {
-                animateRing(timeSelected: timeSelected, stroke: stroke ?? 0)
+            if
+                let stroke = stroke,
+                state == .running {
+                animateRing(stroke: stroke)
+            }
+            if state == .stopped {
+                centerView.layer.removeAllAnimations()
             }
         }
     }
 
-    let ringView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.layer.borderWidth = 20
-        view.addShadow(color: UIColor.black.withAlphaComponent(0.8))
-        view.isUserInteractionEnabled = false
-        return view
-    }()
-    
     let centerView: UIView = {
         let view = UIView()
         view.backgroundColor = .ringColor
@@ -120,7 +119,7 @@ class RingView: UIView {
         label.textColor = UIColor.stdText
         return label
     }()
-    
+        
     lazy var btnStartStop: StartStopButtonView = {
         let view = StartStopButtonView()
         view.callback = { [weak self] in
@@ -128,6 +127,12 @@ class RingView: UIView {
             }
         return view
     }()
+    
+    var initialSetupDone: Bool = false {
+        didSet {
+            setupView()
+        }
+    }
     
     // ========================================
     // MARK: Initialization
@@ -137,12 +142,9 @@ class RingView: UIView {
         self.model = model
         super.init(frame: .zero)
         
-        backgroundColor = UIColor.black.withAlphaComponent(0.1)
-        ringView.layer.borderColor = UIColor.ringColor!.cgColor
-        
         addSubview(centerView)
         centerView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(-32)
+            $0.edges.equalToSuperview()
         }
         
         centerView.addSubview(lblContainerStackView)
@@ -150,42 +152,42 @@ class RingView: UIView {
             $0.center.equalToSuperview()
         }
         lblContainerStackView.addArrangedSubview(lblTimer)
-      
-        lblContainerStackView.addArrangedSubview(lblFast)
-        
-        addSubview(ringView)
-        ringView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        lblTimer.snp.makeConstraints {
+            $0.height.equalTo(60)
         }
-        
+
+        lblContainerStackView.addArrangedSubview(lblFast)
+
         centerView.addSubview(btnStartStop)
         btnStartStop.snp.makeConstraints {
             $0.centerX.equalTo(lblFast)
-            $0.size.equalTo(30)
-            $0.top.equalTo(lblContainerStackView.snp.bottom).offset(25)
+            $0.size.equalTo(35)
+            $0.top.equalTo(lblContainerStackView.snp.bottom).offset(15)
         }
+ 
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // =============================================
-    // MARK: Lifecycle
-    // =============================================
-    
+
     override func layoutSubviews() {
-        setupTimeRunningRing()
         super.layoutSubviews()
-        layer.cornerRadius = frame.width/2
-        ringView.layer.cornerRadius = ringView.frame.width/2
         centerView.layer.cornerRadius = centerView.frame.width/2
-        setupLabelTap()
+        
+        if !initialSetupDone {
+            setupView()
+            initialSetupDone = true
+        }
     }
-    
     // =============================================
     // MARK: Helpers
     // =============================================
+    
+    func setupView() {
+        setupTimeRunningRing()
+        setupLabelTap()
+    }
     
     @objc func labelTapped() {
         model.prsentPicker?()
@@ -197,33 +199,45 @@ class RingView: UIView {
         lblTimer.addGestureRecognizer(labelTap)
     }
     
-    func animateRing(timeSelected: Int, stroke: CGFloat) {
+        func animateRing(stroke: CGFloat) {
+
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        basicAnimation.toValue = 1
-        basicAnimation.duration = CFTimeInterval(timeSelected)
         basicAnimation.fillMode = .forwards
-        basicAnimation.isRemovedOnCompletion = false
+        basicAnimation.isRemovedOnCompletion = true
+        timeRing?.removeAllAnimations()
         timeRing?.add(basicAnimation, forKey: "strokeEnd")
-        timeRing?.strokeEnd = stroke
+        timeRing?.strokeEnd = model.stroke ?? 0
     }
-    
+        
     func setupTimeRunningRing() {
-        let radius = frame.size.width/2
+        
+//        trackLayer?.removeFromSuperlayer()
+        
+        let radius = (centerView.frame.size.width/2) - 30
+        let center = CGPoint(x: centerView.frame.size.width/2, y: centerView.frame.size.width/2)
+        
         trackLayer = CAShapeLayer.create(
-            strokeColor: UIColor.ringBackground ?? .gray,
+            arcCenter: center,
+            strokeColor: UIColor.ringTrackColor ?? .gray,
             fillColor: UIColor.clear,
             radius: radius
         )
         
-        layer.addSublayer(trackLayer!)
-        
+        if let tracklayer = trackLayer {
+            centerView.layer.addSublayer(tracklayer)
+        }
+       
         timeRing = CAShapeLayer.create(
+            arcCenter: center,
             strokeColor: model.animatedColor ?? .lightGray,
             fillColor: UIColor.clear,
             radius: radius
         )
-        layer.addSublayer(timeRing!)
-        timeRing?.strokeEnd = 0
+        if let timeRing = timeRing {
+            centerView.layer.addSublayer(timeRing)
+        }
+
+        timeRing?.strokeEnd = stroke ?? 0
     }
     
     func handleRingButton() {

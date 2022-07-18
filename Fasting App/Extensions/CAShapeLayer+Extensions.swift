@@ -10,9 +10,13 @@ import UIKit
 
 extension CAShapeLayer {
 
-    class func create(strokeColor: UIColor, fillColor: UIColor, radius: CGFloat) -> CAShapeLayer {
+    class func create(
+        arcCenter: CGPoint,
+        strokeColor: UIColor,
+        fillColor: UIColor,
+        radius: CGFloat) -> CAShapeLayer {
         let circularPath = UIBezierPath(
-            arcCenter: CGPoint(x: radius, y: radius),
+            arcCenter: arcCenter,
             radius: radius,
             startAngle: -(.pi / 2),
             endAngle: 1.5 * .pi,
@@ -25,8 +29,8 @@ extension CAShapeLayer {
         layer.lineWidth = 20
         layer.fillColor = fillColor.cgColor
         layer.lineCap = .round
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = CGSize(width: 0.0, height: 0.1)
+//        layer.shadowOpacity = 0.2
+//        layer.shadowOffset = CGSize(width: 0.0, height: 0.1)
         
         return layer
     }

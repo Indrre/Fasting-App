@@ -28,7 +28,7 @@ class ProfileSettingsView: UIView {
     // MARK: Properties
     // =============================================
     
-    let imageSize: CGFloat = 200
+    let imageSize: CGFloat = 175
     
     lazy var imageView: UIImageView = {
         let view = UIImageView()
@@ -136,9 +136,7 @@ class ProfileSettingsView: UIView {
     init(model: ProfileSettingsModel) {
         self.model = model
         super.init(frame: .zero)
-        
-        imageView.addShadow()
-        
+            
         addSubview(imageView)
         imageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -159,14 +157,22 @@ class ProfileSettingsView: UIView {
             $0.centerX.equalTo(imageView)
         }
         
+        addSubview(btnSignOut)
+        btnSignOut.snp.makeConstraints {
+            $0.height.equalTo(50)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide).inset(20)
+            $0.width.equalToSuperview().inset(20)
+        }
+        
         addSubview(scrollView)
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         scrollView.snp.makeConstraints {
             $0.top.equalTo(pictureBtnEdit.snp.bottom).offset(20)
             $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview().offset(-70)
         }
-        
+
         scrollView.addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -176,10 +182,6 @@ class ProfileSettingsView: UIView {
         }
         
         stackView.addArrangedSubview(optionStackView)
-        stackView.addArrangedSubview(btnSignOut)
-        btnSignOut.snp.makeConstraints {
-            $0.height.equalTo(50)
-        }
     }
     
     required init?(coder: NSCoder) {

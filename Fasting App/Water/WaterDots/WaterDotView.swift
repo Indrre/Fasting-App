@@ -64,6 +64,7 @@ class WaterDotView: UIView {
         didSet {
             lblvalue.text = model?.milliliters
             dotView.quantity = model?.dotCount ?? 0
+            debugPrint("DEBUG dotView.quantity \(dotView.quantity)")
         }
     }
     

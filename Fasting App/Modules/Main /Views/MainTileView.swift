@@ -135,9 +135,7 @@ class MainTileView: UIView {
             title: "Calories",
             color: .calorieColor,
             value: "357kcal",
-            action: { [weak self] in
-//                self?.presentWeightController()
-            }
+            action: { }
         )
         return view
     }()
@@ -165,7 +163,7 @@ class MainTileView: UIView {
     init(model: MainTileModel) {
         self.model = model
         super.init(frame: .zero)
-        
+
         addSubview(lblStackView)
         lblStackView.snp.makeConstraints {
             $0.top.equalToSuperview()
