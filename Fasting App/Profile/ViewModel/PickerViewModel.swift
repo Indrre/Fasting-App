@@ -32,10 +32,11 @@ class PickerViewModel {
             refreshController?()
         }
     }
-        var data: [Weight] {
-            return WeightService.data
-                .sorted(by: { $0.date ?? .today > $1.date ?? .today })
-        }
+        
+    var data: [Weight] {
+        return WeightService.data
+            .sorted(by: { $0.date ?? .today > $1.date ?? .today })
+    }
     
     var ageViewModel: AgePickerModel {
         return AgePickerModel(

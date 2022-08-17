@@ -25,7 +25,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     var activity: String?
     var newAge: Int?
     
-    var weight: String?
+    var weightString: String?
     
     var data: [Weight?] {
         return WeightService.data
@@ -57,7 +57,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             profileImage: profileImage,
             name: user?.fullName ?? "",
             age: String(user?.age ?? 19),
-            weight: weight,
+            weight: weightString,
             height: String(height  ?? "0") + (user?.heightMsureUnit ?? "0"),
             gender: user?.gender ?? "Female",
             activity: user?.activity ?? "Inactive ",
@@ -101,15 +101,23 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     }
     
     func getWeight() {
-        let currentWeight = WeightService.currentWeight
-        guard let weightUnit = currentWeight.unit else { return }
-        guard let userWeight = currentWeight.count else { return }
+        var currentWeight: Weight?
+        guard let weight = data[0] else { return }
+
+        if weight.count != 0 {
+            currentWeight = weight
+        } else {
+           currentWeight = data[1]
+        }
+        
+        guard let weightUnit = currentWeight?.unit else { return }
+        guard let userWeight = currentWeight?.count else { return }
         
         if weightUnit == "kg" {
             let calculations = Double(userWeight) / Double(1000)
             
             let label = String(format: "%.1f", calculations)
-            weight = "\(label)kg"
+            weightString = "\(label)kg"
         } else {
             
             var pounds = (Double(userWeight) * 0.00220462)
@@ -119,7 +127,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
                numberOfStones += 1
             }
             let numbetOfPounds = pounds.rounded()
-            weight = "\(Int(numberOfStones))st \(Int(numbetOfPounds))lb"
+            weightString = "\(Int(numberOfStones))st \(Int(numbetOfPounds))lb"
         }
     }
     
