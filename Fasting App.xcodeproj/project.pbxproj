@@ -86,6 +86,7 @@
 		9386E33127DBE239008AB597 /* HorizontalTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33027DBE239008AB597 /* HorizontalTimerView.swift */; };
 		9386E33327DBF642008AB597 /* FastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33227DBF642008AB597 /* FastViewModel.swift */; };
 		9386E33527DC8F24008AB597 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9386E33427DC8F23008AB597 /* DatePickerView.swift */; };
+		938D003D28932C8E00B564EB /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D003C28932C8E00B564EB /* UIWindow+Extension.swift */; };
 		938FD80227E141510064487F /* TimeGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938FD80127E141500064487F /* TimeGraphView.swift */; };
 		938FD80427E151B30064487F /* TimeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938FD80327E151B30064487F /* TimeBarView.swift */; };
 		93B2EBCB284A9821008E09B0 /* PickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2EBCA284A9821008E09B0 /* PickerViewModel.swift */; };
@@ -203,6 +204,7 @@
 		9386E33027DBE239008AB597 /* HorizontalTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTimerView.swift; sourceTree = "<group>"; };
 		9386E33227DBF642008AB597 /* FastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastViewModel.swift; sourceTree = "<group>"; };
 		9386E33427DC8F23008AB597 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		938D003C28932C8E00B564EB /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		938FD80127E141500064487F /* TimeGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeGraphView.swift; sourceTree = "<group>"; };
 		938FD80327E151B30064487F /* TimeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBarView.swift; sourceTree = "<group>"; };
 		93B2EBCA284A9821008E09B0 /* PickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewModel.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				9301219127EDF53500C872C4 /* UIView+Extensions.swift */,
 				9301219327EDF5B200C872C4 /* ProfilePicker+Extensions.swift */,
 				93DB94BC282D9BC700CC0693 /* ViewController.swift */,
+				938D003C28932C8E00B564EB /* UIWindow+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -528,6 +531,14 @@
 			path = FastViewModel;
 			sourceTree = "<group>";
 		};
+		938E93D828A66A6600B0C031 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9376E0B827A01CB300245FDA /* MainViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		938FD7F727DE66980064487F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,9 +551,9 @@
 		938FD7F827DE66A80064487F /* Main  */ = {
 			isa = PBXGroup;
 			children = (
-				9376E0B827A01CB300245FDA /* MainViewController.swift */,
 				938FD7F927DE66D00064487F /* Views */,
 				931C5ED127A716C500752097 /* ViewModel */,
+				938E93D828A66A6600B0C031 /* Controller */,
 			);
 			path = "Main ";
 			sourceTree = "<group>";
@@ -940,6 +951,7 @@
 				93CFCCF8280C34D1009ECD4D /* DataSet.swift in Sources */,
 				93CFCCFC280C35E6009ECD4D /* WeightMainView.swift in Sources */,
 				93CFCCF6280C3482009ECD4D /* LineChartView.swift in Sources */,
+				938D003D28932C8E00B564EB /* UIWindow+Extension.swift in Sources */,
 				93CFCCE9280C2B0C009ECD4D /* WeightViewContorller.swift in Sources */,
 				9386E32D27DBD66B008AB597 /* FastViewController.swift in Sources */,
 				9381D02D27C58D8700DC3BFB /* HomeTileView.swift in Sources */,
@@ -1138,7 +1150,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Fasting App/Fasting App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 7M6M2NB68R;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1166,7 +1178,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Fasting App/Fasting App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 7M6M2NB68R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Fasting App/Info.plist";

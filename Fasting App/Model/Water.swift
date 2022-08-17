@@ -20,14 +20,15 @@ struct Water {
         self.id = id
         self.date = date
         self.count = count
-
     }
+    
     init(id: String, data: [String: Any]) {
          self.id = id
          self.date = data["date"] as? TimeInterval
          self.count = data["count"] as? Int
 
      }
+    
     let data = [Water]()
 
 }

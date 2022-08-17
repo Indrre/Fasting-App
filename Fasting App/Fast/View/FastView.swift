@@ -8,13 +8,16 @@
 import Foundation
 import UIKit
 import SnapKit
+import Firebase
 
 struct FastModel {
     
     let graphModel: FastBarModel
     let timerLapsed: TimeInterval?
     let hours: String?
-    let fastId: String?
+    let currentFast: Fast?
+    let fastData: [Fast]
+    let updateFast: ((Fast) -> Void)
 }
 
 class FastView: UIView {
@@ -22,7 +25,7 @@ class FastView: UIView {
     // ========================================
     // MARK: Properties
     // ========================================
-        
+    
     var timerLapsed: TimeInterval?
     var hours: String?
     
@@ -66,7 +69,7 @@ class FastView: UIView {
             tableView.reloadData()
         }
     }
-
+    
     // ========================================
     // MARK: Initialization
     // ========================================
@@ -74,7 +77,7 @@ class FastView: UIView {
     init(model: FastModel) {
         self.model = model
         super.init(frame: .zero)
-                
+        
         addSubview(horizontalTimerView)
         horizontalTimerView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
@@ -117,5 +120,65 @@ class FastView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// =================================
+// MARK: UITableView
+// =================================
+
+extension FastView: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        model.fastData.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FastViewCell", for: indexPath) as? ViewCell else { fatalError("unable to create cells") }
+        cell.textLabel?.font = UIFont(name: "Montserrat-ExtraLight", size: 2)
+        cell.selectionStyle = .none
+
+        let dayTimePeriodFormatter = DateFormatter()
+        dayTimePeriodFormatter.dateFormat = "E, d MMM"
+
+        var data = model.fastData
+        data.removeAll(where: {$0.start == nil})
+
+        cell.model = ViewCellModel(
+            date: dayTimePeriodFormatter.string(from: Date(timeIntervalSince1970: (data[indexPath.row].end ?? .today))),
+            hours: String("\(Int(data[indexPath.row].timeLapsed / 60 / 60))h"))
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            let data = model.fastData[indexPath.row]
+            let id = data.id
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            REF_FASTS.child(uid).child(id).removeValue { (error, _) in
+                if error != nil {
+                    debugPrint("DEBUG: Error while trying to delete fast:  \(String(describing: error))")
+                }
+            }
+
+            FastService.data.removeAll(where: {$0.id == data.id})
+
+            if var fast = model.currentFast {
+                if fast.id == data.id {
+                    fast.start = 0
+                    model.updateFast(fast)
+                }
+            }
+
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+            tableView.reloadData()
+        }
     }
 }

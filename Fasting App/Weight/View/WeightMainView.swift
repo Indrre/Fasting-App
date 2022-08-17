@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 struct WeightModel {
     var weight: String
@@ -14,6 +15,8 @@ struct WeightModel {
     var callBack: (() -> Void?)
     var dataSet: [Dataset]
     let loadGraph: (() -> Void?)
+    var currentWeight: Weight
+    var updateWeight: ((Weight) -> Void)
 }
 
 class WeightMainView: UIView {
@@ -160,8 +163,8 @@ class WeightMainView: UIView {
         
         addSubview(weightIcon)
         weightIcon.snp.makeConstraints {
-            $0.bottom.equalTo(lblWeight).offset(5)
-            $0.right.equalToSuperview()
+            $0.bottom.equalTo(lblWeight.snp.bottom).offset(-15)
+            $0.right.equalToSuperview().offset(-5)
         }
     
         addSubview(graphView)
@@ -193,10 +196,7 @@ class WeightMainView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
-                
-        if model?.data.count == 0 {
-            model?.callBack()
-        }
+
     }
     
     @objc func editButtonPressed() {
@@ -234,5 +234,83 @@ class WeightMainView: UIView {
             currentWeight = "\(Int(numberOfStones))st \(Int(numbetOfPounds))lb"
         }
         return currentWeight ?? ""
+    }
+}
+
+// =================================
+// MARK: UITableView
+// =================================
+
+extension WeightMainView: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return model?.data.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "WeightCell", for: indexPath) as? WeightCell else { fatalError("unable to create cells") }
+        cell.textLabel?.font = UIFont(name: "Montserrat-ExtraLight", size: 2)
+        cell.selectionStyle = .none
+
+        let dayTimePeriodFormatter = DateFormatter()
+        dayTimePeriodFormatter.dateFormat = "E, d MMM"
+        
+        let weight = WeightService.currentWeight
+        
+        let data = model?.data[indexPath.row]
+        if weight.unit == "kg" {
+            let calculations = Double(data?.count ?? 0) / Double(1000)
+            
+            let label = String(format: "%.1f", calculations)
+            count = "\(label)kg"
+        } else {
+            
+            var pounds = (Double(data?.count ?? 0) * 0.00220462)
+            var numberOfStones = 0.0
+            while pounds > 14 {
+                pounds -= 14
+               numberOfStones += 1
+            }
+            
+            let numbetOfPounds = pounds.rounded()
+            count = "\(Int(numberOfStones))st \(Int(numbetOfPounds))lb"
+        }
+        cell.model = WeightCellModel(
+            date: dayTimePeriodFormatter.string(from: Date(timeIntervalSince1970: (data?.date ?? TimeInterval.today) + 1)),
+            value: count ?? ""
+        )
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            
+            let data = model?.data[indexPath.row]
+            guard let id = data?.id else { return }
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            REF_WEIGHT.child(uid).child(id).removeValue { (error, _) in
+                if error != nil {
+                    debugPrint("DEBUG: Error while trying to delete water:  \(String(describing: error))")
+                }
+            }
+            
+            if var weight = model?.currentWeight {
+                if weight.id == data?.id {
+                    weight.count = 0
+                    model?.updateWeight(weight)
+                }
+            }
+            
+            WeightService.data.removeAll(where: {$0.id == data?.id})
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+            tableView.reloadData()
+        }
     }
 }

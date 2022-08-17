@@ -26,6 +26,7 @@ class ProfileHeaderView: TouchableView {
     let lblName: UILabel = {
         let view = UILabel()
         view.textColor = .stdText
+
         return view
     }()
     

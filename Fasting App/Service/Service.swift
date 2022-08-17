@@ -26,7 +26,6 @@ struct Service {
     
     static var shared = Service()
     var image = UIImage()
-//    var userFasts: [Fast]?
     
 // MARK: - User
     
@@ -172,10 +171,11 @@ struct Service {
     
     func updateUserWeight(_ weight: Weight) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let unit = weight.unit else { return }
         let params: [String: Any] = [
             "date": weight.date as Any,
             "count": weight.count ?? 0,
-            "unit": weight.unit!
+            "unit": unit
         ]
         
         let path = String(format: "%@/%@", uid, weight.id)

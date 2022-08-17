@@ -17,7 +17,8 @@ struct WaterModel {
     var label: String
     let presentPicker: (() -> Void?)
     let graphModel: WaterBarModel
-    var refreshController: (() -> Void)?
+    var currentWater: Water
+    var updateWater: ((Water) -> Void)
 }
 
 class WaterMainView: UIView {
@@ -104,10 +105,6 @@ class WaterMainView: UIView {
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
-        if model.waterData.count == 0 {
-            model.presentPicker()
-        }  
   }
     
     required init?(coder: NSCoder) {
@@ -134,7 +131,7 @@ extension WaterMainView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+       
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "WaterCell", for: indexPath) as? WaterCell else { fatalError("unable to create cells") }
         cell.textLabel?.font = UIFont(name: "Montserrat-ExtraLight", size: 2)
         cell.selectionStyle = .none
@@ -158,6 +155,7 @@ extension WaterMainView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.beginUpdates()
+            
             let data = model.waterData[indexPath.row]
             let id = data.id
             guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -166,14 +164,16 @@ extension WaterMainView: UITableViewDelegate, UITableViewDataSource {
                     debugPrint("DEBUG: Error while trying to delete water:  \(String(describing: error))")
                 }
             }
+            
             WaterService.data.removeAll(where: {$0.id == data.id})
-
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
             tableView.reloadData()
             
-            if WaterService.currentWater.id == data.id {
-                WaterService.currentWater.count = 0
+            if model.currentWater.id == data.id {
+                var water = model.currentWater
+                water.count = 0
+                model.updateWater(water)
             }
         }
     }

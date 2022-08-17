@@ -279,15 +279,16 @@ class DatePickerView: UIView {
                     startDatePicker.maximumDate = Date()
                 }
             case .end:
+                
                 firstStackView.addArrangedSubview(lblStart)
                 firstStackView.addArrangedSubview(startDatePicker)
                 
                 secondtackView.addArrangedSubview(lblEnd)
                 secondtackView.addArrangedSubview(endDatePicker)
                 endDatePicker.date = Date()
-                endDatePicker.minimumDate = Date(timeIntervalSince1970: model.startDate!)
+                endDatePicker.minimumDate = Date(timeIntervalSince1970: model.startDate ?? .today)
                 endDatePicker.maximumDate = Date()
-                endDatePicker.minimumDate = Date(timeIntervalSince1970: model.startDate!)
+                endDatePicker.minimumDate = Date(timeIntervalSince1970: model.startDate ?? .today)
             }
         }
     }

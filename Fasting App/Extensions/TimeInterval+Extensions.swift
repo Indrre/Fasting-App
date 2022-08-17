@@ -31,13 +31,6 @@ extension TimeInterval {
 
         }
     }
-    
-//    var dayCharacter: String {
-//             let dateFormatter = DateFormatter()
-//             dateFormatter.dateFormat = "EEEE"
-//             let weekDay = dateFormatter.string(from: Date())
-//        return (weekDay.first?.lowercased())!
-//     }
 }
 
 public extension TimeInterval {

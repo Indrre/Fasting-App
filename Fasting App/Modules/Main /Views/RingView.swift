@@ -32,9 +32,8 @@ struct RingViewModel {
         timeLapsed: Float,
         stroke: CGFloat,
         prsentPicker: (() -> Void)? = nil,
-        stopStartBtn: ((_ state: State) -> Void)? = nil)
-    
-    {
+        stopStartBtn: ((_ state: State) -> Void)? = nil
+    ) {
         self.trackColor = trackColor
         self.animatedColor = animatedColor
         self.timer = timer
@@ -76,7 +75,7 @@ class RingView: UIView {
     
     var state: State? {
         didSet {
-            btnStartStop.currentState = state!
+            btnStartStop.currentState = state ?? .stopped
             if
                 let stroke = stroke,
                 state == .running {
@@ -211,8 +210,6 @@ class RingView: UIView {
         
     func setupTimeRunningRing() {
         
-//        trackLayer?.removeFromSuperlayer()
-        
         let radius = (centerView.frame.size.width/2) - 30
         let center = CGPoint(x: centerView.frame.size.width/2, y: centerView.frame.size.width/2)
         
@@ -238,6 +235,7 @@ class RingView: UIView {
         }
 
         timeRing?.strokeEnd = stroke ?? 0
+        
     }
     
     func handleRingButton() {

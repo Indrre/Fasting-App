@@ -35,7 +35,6 @@ class MainViewModel {
     var lblWeight: String?
     var newStart: TimeInterval?
     var newEnd: TimeInterval?
-    
     var subtitleLabel: String?
         
     var profileImage: UIImage? = UIImage(named: "profile-pic") {
@@ -80,12 +79,6 @@ class MainViewModel {
         }
     }
     
-    func cancelFast() {
-        timer?.invalidate()
-        state = .stopped
-        refreshController?()
-    }
-    
     var water: Water? {
         didSet {
             setupLabels()
@@ -98,18 +91,6 @@ class MainViewModel {
             setupLabels()
             refreshController?()
         }
-    }
-    
-    func setupLabels() {
-        let count = WaterService.currentWater.count ?? 0
-        if count < 1 || count > 1 {
-            waterLabel = "\(count) glasses"
-        } else {
-            waterLabel = "\(count) glass"
-        }
-        
-        let weight = WeightService.currentWeight
-        weightLabel = "\(setWeightLabel(weight: weight))"
     }
     
     var state: State = .stopped {
@@ -144,7 +125,7 @@ class MainViewModel {
     var ringModel: RingViewModel {
         return RingViewModel(
             trackColor: UIColor.gray,
-            animatedColor: UIColor(named: "time-color")!,
+            animatedColor: UIColor.fastColor,
             timer: timerLabel,
             fast: fastLabel,
             timeSelected: timeSelected,
@@ -184,14 +165,20 @@ class MainViewModel {
     
     var fastCompletionStateLabel: String {
         var timeLapsed: TimeInterval?
+        
+        // TODO: refactor
+        
         if newStart == nil {
             newStart = fast?.start
         }
         if newEnd == nil {
             newEnd = NSDate().timeIntervalSince1970
         }
-        timeLapsed = TimeInterval(newEnd!) - TimeInterval(newStart!)
-        
+        if let start = newStart,
+           let end = newEnd {
+            timeLapsed = TimeInterval(end) - TimeInterval(start)
+        }
+       
         return String(
             format: "You have fasted for %d of your %d hour fast!",
             Int((timeLapsed ?? 0) / 60 / 60),
@@ -221,6 +208,53 @@ class MainViewModel {
         WaterService.start()
         WeightService.start()
         updateLabel()
+    }
+    
+    func cancelFast() {
+        timer?.invalidate()
+        state = .stopped
+        refreshController?()
+    }
+    
+    func updateWater() {
+        let id = "\(Int(TimeInterval.today))"
+        var currentWater = WaterService.currentWater
+        if currentWater.id != id {
+            if currentWater.id < id {
+                currentWater.id = id
+                currentWater.date = .today
+                currentWater.count = 0
+                WaterService.updateWater(currentWater)
+            }
+        }
+    }
+    
+    func updateWeight() {
+        let id = "\(Int(TimeInterval.today))"
+        var currentWeight = WeightService.currentWeight
+        if currentWeight.id != id {
+            if currentWeight.id < id {
+                currentWeight.id = id
+                currentWeight.date = .today
+                currentWeight.count = 0
+                Service.shared.updateUserWeight(currentWeight)
+            }
+        }
+        WeightService.start()
+    }
+    
+    func setupLabels() {
+        
+        let count = WaterService.currentWater.count ?? 0
+        if count < 1 || count > 1 {
+            waterLabel = "\(count) glasses"
+        } else {
+            waterLabel = "\(count) glass"
+        }
+        
+        let weight = WeightService.currentWeight
+        weightLabel = "\(setWeightLabel(weight: weight))"
+
     }
     
     func fetchUserImage() {
@@ -471,14 +505,14 @@ class MainViewModel {
         content.badge = 0
         content.sound = UNNotificationSound.default
         
+        
         // 3. Create notification trigger
-        if FastService.currentFast == nil {
-            return
-        } else {
-            let timeLapsed = FastService.currentFast!.timeLapsed
-            let timeSelected = FastService.currentFast!.timeSelected
-            timeLapsedToNotification = timeSelected - timeLapsed
-        }
+        guard let currentFast = FastService.currentFast else { return }
+        
+        let timeLapsed = currentFast.timeLapsed
+        let timeSelected = currentFast.timeSelected
+        timeLapsedToNotification = timeSelected - timeLapsed
+        
         let date = Date().addingTimeInterval(timeLapsedToNotification)
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
@@ -588,6 +622,6 @@ extension DatePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         } else if component == 3 {
             pickerLabel?.text = "\(row)" // value
         }
-        return pickerLabel!
+        return pickerLabel ?? UIView()
     }
 }

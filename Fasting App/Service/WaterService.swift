@@ -78,8 +78,7 @@ class WaterService {
     
     class func start() {
         let id = "\(Int(TimeInterval.today))"
-        Service.shared.fetchWaterData(
-            id: id) { water, error in
+        Service.shared.fetchWaterData(id: id) { water, error in
             if error != nil {
                 debugPrint("DEBUG: Error Fetching current water: - \(String(describing: error))")
             } else {
@@ -104,19 +103,10 @@ class WaterService {
         self.currentWater = water
         Service.shared.updateWater(water)
     }
+    
+//    class func refreshCurrentWater() {
+//        currentWater.id = "\(Int(TimeInterval.today))"
+//        currentWater.date = TimeInterval.today
+//        updateWater(currentWater)
+//    }
 }
-
-// ToDo:
-
-
-// Touchable view - init()
-
-//
-
-//
-
-// ui does not refresh on a new day
-
-// Fast bars are incorrect?
-
-// Refactor TableViews

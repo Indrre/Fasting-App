@@ -12,7 +12,7 @@ struct HeightPickerModel {
     var mesureUnit: String?
     var firstHeightUnit: Int?
     var secondHeightUnit: Int?
-    let callback: ((_ mesureUnits: String?, _ heightFirstValue: Int, _ heightSecondCalue: Int) -> Void?)
+    let callback: ((_ mesureUnits: String, _ heightFirstValue: Int, _ heightSecondCalue: Int) -> Void?)
 }
 
 class HeightPickerView: UIView {
@@ -111,35 +111,6 @@ class HeightPickerView: UIView {
         }
     }
     
-    func loadPicker() {
-        if selectedUnits == units[0] {
-            heightPicker.selectRow(
-                meterArray.firstIndex(of: model.firstHeightUnit ?? 0) ?? 0,
-                inComponent: 1,
-                animated: true
-            )
-            
-            heightPicker.selectRow(
-                cmArray.firstIndex(of: model.secondHeightUnit ?? 0) ?? 0,
-                inComponent: 3,
-                animated: true
-            )
-        } else {
-            heightPicker.selectRow(
-                feetArray.firstIndex(of: model.firstHeightUnit ?? 0) ?? 0,
-                inComponent: 1,
-                animated: true
-            )
-            
-            heightPicker.selectRow(
-                inchArray.firstIndex(of: model.secondHeightUnit ?? 0) ?? 0,
-                inComponent: 3,
-                animated: true
-            )
-        }
-        heightPicker.reloadAllComponents()
-    }
-    
     // =============================================
     // MARK: Initialization
     // =============================================
@@ -205,6 +176,35 @@ class HeightPickerView: UIView {
     // MARK: Helpers
     // ========================================
     
+    func loadPicker() {
+        if selectedUnits == units[0] {
+            heightPicker.selectRow(
+                meterArray.firstIndex(of: model.firstHeightUnit ?? 0) ?? 0,
+                inComponent: 1,
+                animated: true
+            )
+            
+            heightPicker.selectRow(
+                cmArray.firstIndex(of: model.secondHeightUnit ?? 0) ?? 0,
+                inComponent: 3,
+                animated: true
+            )
+        } else {
+            heightPicker.selectRow(
+                feetArray.firstIndex(of: model.firstHeightUnit ?? 0) ?? 0,
+                inComponent: 1,
+                animated: true
+            )
+            
+            heightPicker.selectRow(
+                inchArray.firstIndex(of: model.secondHeightUnit ?? 0) ?? 0,
+                inComponent: 3,
+                animated: true
+            )
+        }
+        heightPicker.reloadAllComponents()
+    }
+    
     @objc func saveButtonPressed() {
         calculateHeight()
         delegate?.modalClose()
@@ -228,10 +228,54 @@ class HeightPickerView: UIView {
     }
     
     func calculateHeight() {
-        if selectedUnits == "metrics" {
-            model.callback("m", meters ?? 0, centimeters ?? 0)
+        var unit = ""
+        var first = 0
+        var second = 0
+        if let meters = meters {
+            first = meters
         } else {
-            model.callback("feet", (feet ?? 0), (inches ?? 0))
+            first = model.firstHeightUnit ?? 0
         }
+        if let centimeters = centimeters {
+            second = centimeters
+        } else {
+            second = model.secondHeightUnit ?? 0
+        }
+        
+        if selectedUnits == "metrics" {
+            if let meters = meters {
+                first = meters
+            } else {
+                first = model.firstHeightUnit ?? 0
+            }
+            if let centimeters = centimeters {
+                second = centimeters
+            } else {
+                second = model.secondHeightUnit ?? 0
+            }
+            unit = "m"
+        } else {
+            if let feet = feet {
+                first = feet
+            } else {
+                first = model.firstHeightUnit ?? 0
+            }
+            if let inches = inches {
+                second = inches
+            } else {
+                second = model.secondHeightUnit ?? 0
+            }
+            unit = "feet"
+        }
+        model.callback("m", first, second )
+        debugPrint("DRBUG: UNIT \(unit)")
+        debugPrint("DRBUG: FIRST  \(first)")
+        debugPrint("DRBUG: SECOND \(second)")
+
+//        if selectedUnits == "metrics" {
+//            model.callback("m", meters, centimeters )
+//        } else {
+//            model.callback("feet", feet, inches)
+//        }
     }
 }

@@ -19,13 +19,19 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     private let imageStorage = Storage.storage().reference()
     
     var age: Int?
-    var weight: String?
     var height: String?
     var heightUnit: String?
     var gender: String?
     var activity: String?
     var newAge: Int?
-        
+    
+    var weight: String?
+    
+    var data: [Weight?] {
+        return WeightService.data
+            .sorted(by: { $0.date ?? .today > $1.date ?? .today })
+    }
+
     var user: User? {
         didSet {
             fetchUserImage()
@@ -85,64 +91,13 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     
     func viewDidLoad() {
         WeightService.start()
+        WeightService.fetchAllWeight()
         WeightService.startObservingWeight(self)
         getWeight()
         getHeight()
         UserService.startObservingUser(self)
         UserService.refreshUser()
-    }
-    
-    func saveName(name: String) {
-        let values = ["fullName": name]
-        Service.shared.updateUserValues(values: values as [String: Any])
-        UserService.refreshUser()
-    }
-    
-    func saveAge(age: Int) {
-        self.age = age
-        let values = ["age": age]
-        Service.shared.updateUserValues(values: values as [String: Any])
-        UserService.refreshUser()
-    }
-    
-    func saveWeight(mesureUnits: String, value: Double) {
-        
-        var weight = WeightService.currentWeight
-        if mesureUnits == "st" {
-            let count = value * 453.592
-            
-            weight.count = Int(count)
-        } else {
-            weight.count = Int(value)
-        }
-        weight.unit = mesureUnits
-        weight.date = .today
-        Service.shared.updateUserWeight(weight)
-        WeightService.start()
-    }
-    
-    func saveHeight(mesureUnits: String, heightFirstUnit: Double, heightSecondUnit: Double) {
-        
-        let values = [
-            "heightUnit": mesureUnits,
-            "heightFirstUnit": heightFirstUnit,
-            "heightSecondUnit": heightSecondUnit] as [String: Any]
-        Service.shared.updateUserValues(values: values as [String: Any])
-        UserService.refreshUser()
-    }
-    
-    func saveGender(gender: String) {
-        let values = ["gender": gender] as [String: Any]
-        Service.shared.updateUserValues(values: values as [String: Any])
-        self.gender = gender
-        UserService.refreshUser()
-    }
-    
-    func saveActivity(activity: String) {
-        let values = ["activity": activity] as [String: Any]
-        Service.shared.updateUserValues(values: values as [String: Any])
-        self.activity = activity
-        UserService.refreshUser()
+        refreshController?()
     }
     
     func getWeight() {

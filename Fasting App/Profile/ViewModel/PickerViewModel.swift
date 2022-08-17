@@ -32,11 +32,10 @@ class PickerViewModel {
             refreshController?()
         }
     }
-    
-    var data: [Weight] {
-        return WeightService.data
-            .sorted(by: { $0.date! > $1.date! })
-    }
+        var data: [Weight] {
+            return WeightService.data
+                .sorted(by: { $0.date ?? .today > $1.date ?? .today })
+        }
     
     var ageViewModel: AgePickerModel {
         return AgePickerModel(
@@ -53,7 +52,7 @@ class PickerViewModel {
             firstWeightUnit: firstWeightUnit,
             secondWeightUnit: secondWeightUnit,
             callback: { [weak self] mesureUnit, weight in
-                self?.saveWeight(mesureUnits: mesureUnit!, value: weight)
+                self?.saveWeight(mesureUnits: mesureUnit, value: weight)
             }
         )
     }
@@ -64,7 +63,7 @@ class PickerViewModel {
             firstHeightUnit: firstHeightUnit,
             secondHeightUnit: secondHeightUnit,
             callback: { [weak self] mesureUnit, firstUnit, secondUnit in
-                self?.saveHeight(mesureUnits: mesureUnit!, heightFirstUnit: firstUnit, heightSecondUnit: secondUnit)
+                self?.saveHeight(mesureUnits: mesureUnit, heightFirstUnit: firstUnit, heightSecondUnit: secondUnit)
             }
         )
     }
@@ -119,13 +118,14 @@ class PickerViewModel {
             weight.count = Int(value)
         }
         weight.unit = mesureUnits
+        weight.id = "\(Int(TimeInterval.today))"
         weight.date = .today
         Service.shared.updateUserWeight(weight)
         WeightService.start()
     }
     
     func saveHeight(mesureUnits: String, heightFirstUnit: Int, heightSecondUnit: Int) {
-        
+
         let values = [
             "heightUnit": mesureUnits,
             "heightFirstUnit": heightFirstUnit,
@@ -151,15 +151,13 @@ class PickerViewModel {
     func getWeight() {
         
         var currentWeight: Weight?
-        
-        if WeightService.currentWeight.count != 0 {
-            currentWeight = WeightService.currentWeight
+        let weight = data[0]
+
+        if weight.count != 0 {
+            currentWeight = weight
         } else {
-            if  data.count != 0 {
-                currentWeight = data[0]
-            }
+           currentWeight = data[1]
         }
-        
         guard let unit = currentWeight?.unit else { return }
         guard let userWeight = currentWeight?.count else { return }
         

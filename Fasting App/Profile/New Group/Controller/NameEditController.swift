@@ -38,11 +38,32 @@ override func viewDidLoad() {
         $0.height.equalTo(500)
         $0.left.right.equalToSuperview().inset(10)
     }
+    
+    setupKeyboardHiding()
 }
 
 // =============================================
 // MARK: Helpers
 // =============================================
+    
+    func setupKeyboardHiding() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    var keyboardSeize: CGFloat = 285
+    @objc func keyBoardWillShow(sender: NSNotification) {
+        if let keyboardSize = (sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+               let keyboardHeight = keyboardSize.height
+            keyboardSeize = keyboardHeight
+           }
+        nameEditView.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(keyboardSeize - 50)
+        }
+    }
+    
+    @objc func keyboardWillHide(sender: NSNotification) {
+        dismiss()
+    }
     
     func updateName(name: String) {
         let values = ["fullName": name]

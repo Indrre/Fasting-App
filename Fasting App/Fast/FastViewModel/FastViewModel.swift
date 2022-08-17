@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import SnapKit
-import Firebase
 
 class FastViewModel {
     
@@ -20,12 +19,17 @@ class FastViewModel {
     var days: [Date] = []
     var lastSevenDays: [Fast] = []
     var average: String = ""
-    let fastId = FastService.currentFast?.id
+    let currentFast = FastService.currentFast
     
     var timerData: [Fast] {
         var data = FastService.data
         data.removeAll(where: {$0.start == nil})
         return data
+    }
+    
+    var fastData: [Fast] {
+        return FastService.data
+            .sorted(by: { $0.start ?? .today > $1.start ?? .today })
     }
     
     var timerLapsed: TimeInterval?
@@ -52,7 +56,11 @@ class FastViewModel {
             graphModel: graphModel,
             timerLapsed: timerLapsed,
             hours: hours,
-            fastId: fastId
+            currentFast: currentFast,
+            fastData: fastData,
+            updateFast: { [ weak self ] fast in
+                self?.updateFast(fast: fast)
+            }
         )
     }
     
@@ -139,6 +147,11 @@ class FastViewModel {
             average = "\(Int(sum) / 7 / 60 / 60)h average"
         }
     }
+    
+    func updateFast(fast: Fast) {
+    FastService.updateFast(fast)
+
+    }
 }
 
 // =================================
@@ -154,64 +167,5 @@ extension FastViewModel: FastServiceObserver {
     
     func fastServiceFastUpdated(_ fast: Fast?) {
         self.fastTimerData = fast
-    }
-    
-}
-
-// =================================
-// MARK: UITableViewDelegate
-// =================================
-
-extension FastView: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        FastService.data.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FastViewCell", for: indexPath) as? ViewCell else { fatalError("unable to create cells") }
-        cell.textLabel?.font = UIFont(name: "Montserrat-ExtraLight", size: 2)
-        cell.selectionStyle = .none
-
-        let dayTimePeriodFormatter = DateFormatter()
-        dayTimePeriodFormatter.dateFormat = "E, d MMM"
-        
-        var data = FastService.data
-        data.removeAll(where: {$0.start == nil})
-        
-        cell.model = ViewCellModel(
-            date: dayTimePeriodFormatter.string(from: Date(timeIntervalSince1970: (data[indexPath.row].end ?? .today))),
-            hours: String("\(Int(data[indexPath.row].timeLapsed / 60 / 60))h"))
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableView.beginUpdates()
-            let data = FastService.data[indexPath.row]
-            let id = data.id
-            guard let uid = Auth.auth().currentUser?.uid else { return }
-            REF_FASTS.child(uid).child(id).removeValue { (error, _) in
-                if error != nil {
-                    debugPrint("DEBUG: Error while trying to delete fast:  \(String(describing: error))")
-                }
-            }
-            FastService.data.removeAll(where: {$0.id == data.id})
-            
-            var fast = FastService.currentFast
-            if model.fastId == data.id {
-                fast?.start = 0
-                FastService.updateFast(fast!)
-            }
-            
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
-            tableView.reloadData()
-        }
     }
 }

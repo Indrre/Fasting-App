@@ -73,4 +73,9 @@ class WeightViewContorller: ViewController {
     func setup() {
         weightView.model = model.weightModel
     }
+    
+    func loadModel() {
+        model.viewDidLoad()
+        setup()
+    }
 }

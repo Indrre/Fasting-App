@@ -43,7 +43,6 @@ class HorizontalTimerView: UIView {
         let view = UIImageView()
         view.tintColor = .bottomBackground
         view.image = UIImage(named: "timer-icon-large")?.withRenderingMode(.alwaysTemplate)
-        view.clipsToBounds = true
         return view
     }()
     
@@ -109,8 +108,8 @@ class HorizontalTimerView: UIView {
         
         addSubview(timerIcon)
         timerIcon.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(5)
-            $0.bottom.equalTo(timerView)
+            $0.right.equalToSuperview().offset(-20)
+            $0.bottom.equalTo(timerView.snp.top).offset(-5)
         }
     }
     

@@ -178,7 +178,7 @@ extension HeightPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         if selectedUnits == "metrics" {
             if component == 1 {
                 meters = row
-                firstUnit = Int(meters ?? 0)
+                firstUnit = Int(meters ?? 0) 
             } else {
                 centimeters = row
                 secondUnit = Int(centimeters ?? 0)

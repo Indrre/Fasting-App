@@ -20,13 +20,18 @@ class WaterViewModel {
         return WaterService.currentWater.count ?? 0
     }
     
+    var currentWater = WaterService.currentWater
+    
     var lastSevenDays: [Water] = []
     var days: [Date] = []
     var average: String = ""
-    
+   
     var waterData: [Water] {
-        return WaterService.data
-            .sorted(by: { $0.date! > $1.date! })
+        var data =  WaterService.data
+            .sorted(by: { $0.date ?? .today > $1.date ?? .today })
+        data.removeAll(where: {$0.count == 0})
+        
+        return data
     }
     
     var water: Water? {
@@ -44,7 +49,11 @@ class WaterViewModel {
             presentPicker: {  [ weak self ] in
                 self?.presentWaterPicker()
             },
-            graphModel: graphModel
+            graphModel: graphModel,
+            currentWater: currentWater,
+            updateWater: { [ weak self ] water in
+                self?.updateWater(water: water)
+            }
         )
     }
     
@@ -78,6 +87,10 @@ class WaterViewModel {
         WaterService.start()
         WaterService.fetchAllWater()
         refreshController?()
+
+        if waterData.count == 0 {
+            presentWaterPicker()
+        }
     }
     
     func presentWaterPicker() {
@@ -128,6 +141,25 @@ class WaterViewModel {
             }
         }
     }
+    
+    func updateWater(water: Water) {
+        WaterService.currentWater.count = 0
+    }
+    
+    func refresh() {
+        // TODO: need to refactor
+        var water = currentWater
+        currentWater.id = "\(Int(TimeInterval.today))"
+        currentWater.date = TimeInterval.today
+        if currentWater.id != water.id {
+            water.count = 0
+        }
+        updateWater(water: water)
+
+        WaterService.start()
+        WaterService.fetchAllWater()
+        setupSevenDays()
+    }
 }
 
 // =================================
@@ -138,7 +170,6 @@ extension WaterViewModel: WaterServiceObserver {
     func waterServiceRefreshedData() {
         setupSevenDays()
         refreshController?()
-
     }
     
     func waterServiceWaterUpdated(_ water: Water?) {

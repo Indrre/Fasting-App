@@ -82,7 +82,7 @@ class MainViewController: ViewController {
         profileHeaderView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(70)
             $0.left.right.equalToSuperview().inset(10)
-            $0.height.equalTo(70)
+            $0.height.equalTo(80)
         }
         
         view.addSubview(scrollView)
@@ -101,13 +101,10 @@ class MainViewController: ViewController {
         }
         
         setRingView()
-        stackView.addArrangedSubview(mainTileView)
+        
     }
     
     func setRingView() {
-        stackView.subviews.forEach { (view) in
-            view.removeFromSuperview()
-        }
         
         let timerContainer = UIView()
         stackView.addArrangedSubview(timerContainer)
@@ -120,6 +117,11 @@ class MainViewController: ViewController {
             $0.size.equalTo(timerContainer.snp.width).multipliedBy(0.85)
             $0.center.equalToSuperview()
         }
+        
+        stackView.addArrangedSubview(mainTileView)
+        mainTileView.snp.makeConstraints {
+            $0.top.equalTo(timerContainer.snp.bottom).inset(25)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -130,17 +132,6 @@ class MainViewController: ViewController {
             height: stackView.frame.size.height
         )
     }
-//    
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//        super.traitCollectionDidChange(previousTraitCollection)
-//        if #available(iOS 13.0, *) {
-//            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-////                fastRingView.layer.borderColor = UIColor.stdBackground!.cgColor
-//                view.addShadow(color: UIColor.black.withAlphaComponent(0.8))
-////                fastRingView.layer.borderWidth = 20
-//            }
-//        }
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

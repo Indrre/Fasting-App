@@ -12,7 +12,7 @@ struct WeightPickerModel {
     var mesureUnit: Unit?
     var firstWeightUnit: Int?
     var secondWeightUnit: Int?
-    let callback: ((_ mesureUnits: String?, _ weight: Double) -> Void?)
+    let callback: ((_ mesureUnits: String, _ weight: Double) -> Void?)
 }
 
 enum Unit: String, CaseIterable {
@@ -192,26 +192,27 @@ class WeightPickerView: UIView {
     // ========================================
     
     @objc func saveButtonPressed() {
-        
+        guard let firstWeightUnit = firstWeightUnit else { return firstWeightUnit = 0 }
+        guard let secondWeightUnit = secondWeightUnit else { return secondWeightUnit = 0 }
         if selectedUnit == .kilograms {
             
             if kilograms == 0 {
-                kilograms = Int(firstWeightUnit!) * 1000
+                kilograms = Int(firstWeightUnit) * 1000
                 totalGramsEntered = kilograms + grams
             }
             if grams == 0 {
-                grams = Int(secondWeightUnit ?? 0)
+                grams = Int(secondWeightUnit)
                 totalGramsEntered = kilograms + grams
             }
             
             model.callback("kg", Double(totalGramsEntered))
         } else {
             if stones == 0 {
-                stones = Int(firstWeightUnit!) * 14
+                stones = Int(firstWeightUnit) * 14
                 totalPoundsEntered = stones + pounds
             }
             if pounds == 0 {
-                pounds = Int(secondWeightUnit!)
+                pounds = Int(secondWeightUnit)
                 totalPoundsEntered = stones + pounds
             }
             model.callback("st", Double(totalPoundsEntered))
@@ -235,7 +236,6 @@ class WeightPickerView: UIView {
     }
     
     func loadPicker() {
-        
         if selectedUnit == .kilograms {
             weightPicker.selectRow(
                 kgArray.firstIndex(of: model.firstWeightUnit ?? 0) ?? 0,
@@ -254,7 +254,7 @@ class WeightPickerView: UIView {
                 inComponent: 1,
                 animated: true
             )
-            debugPrint("DRBUG: model.firstWeightUnit \(model.firstWeightUnit)")
+            
             weightPicker.selectRow(
                 poundArray.firstIndex(of: model.secondWeightUnit ?? 0) ?? 0,
                 inComponent: 3,

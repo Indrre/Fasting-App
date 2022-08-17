@@ -75,6 +75,7 @@ class WaterPickerViewModel {
         var water = WaterService.currentWater
         water.count = newWater
         water.date = .today
+        water.id = "\(Int(TimeInterval.today))"
         WaterService.updateWater(water)
     }
 }

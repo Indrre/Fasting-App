@@ -22,15 +22,16 @@ extension CAShapeLayer {
             endAngle: 1.5 * .pi,
             clockwise: true
         )
-        
+        circularPath.flatness = 0.1
+            
         let layer = CAShapeLayer()
         layer.path = circularPath.cgPath
         layer.strokeColor = strokeColor.cgColor
         layer.lineWidth = 20
         layer.fillColor = fillColor.cgColor
         layer.lineCap = .round
-//        layer.shadowOpacity = 0.2
-//        layer.shadowOffset = CGSize(width: 0.0, height: 0.1)
+//        layer.shadowOpacity = 0.01
+//        layer.shadowOffset = CGSize(width: 0.0, height: 0.01)
         
         return layer
     }
