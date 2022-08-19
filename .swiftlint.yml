@@ -1,0 +1,12 @@
+disabled_rules:
+    - identifier_name
+    - trailing_whitespace
+    
+    
+
+type_name:
+  allowed_symbols: "_"
+
+line_length:
+  warning: 190
+  error: 250
