@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/microsoft/appcenter-sdk-apple",
       "state" : {
-        "revision" : "8354a50fe01a7e54e196d3b5493b5ab53dd5866a",
-        "version" : "4.4.2"
+        "revision" : "b2dc99cfedead0bad4e6573d86c5228c89cff332",
+        "version" : "4.4.3"
       }
     },
     {
@@ -51,7 +51,7 @@
       "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
         "branch" : "master",
-        "revision" : "d5637c4cd7f03b4f4d2c9cfe5d9cf0734de7ff21"
+        "revision" : "3512851cf669f2173f04b415e64a1ded020595a2"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleAppMeasurement.git",
       "state" : {
-        "revision" : "192cce3e0486aecfdb61102a9c694c78dc89dc48",
-        "version" : "9.1.0"
+        "revision" : "f54f60d0164d887e1174fa51ab2efe48a8e9d178",
+        "version" : "9.3.0"
       }
     },
     {
