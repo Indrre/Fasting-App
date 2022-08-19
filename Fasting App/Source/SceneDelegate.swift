@@ -13,12 +13,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
-//            let controller = MainViewController()
-            let controller = LoginViewController()
             let win = UIWindow(windowScene: windowScene)
-            win.rootViewController = UINavigationController(
-                rootViewController: controller
-            )
+            
+            if (UserDefaults.standard.string(forKey: kAppleUserKey)?.isEmpty ?? true) {
+                // User not present
+                let controller = LoginViewController()
+                
+                win.rootViewController = UINavigationController(
+                    rootViewController: controller
+                )
+            } else {
+                // user is present
+                UserService.refreshUser()
+                let controller = MainViewController()
+                
+                win.rootViewController = UINavigationController(
+                    rootViewController: controller
+                )
+                
+            }
             window = win
             win.makeKeyAndVisible()
         }

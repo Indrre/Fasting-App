@@ -43,7 +43,7 @@ class WeightViewContorller: ViewController {
         
         model.viewDidLoad()
         setup()
-        WeightService.fetchAllWeight()
+//        WeightService.fetchAllWeight()
 
         view.addSubview(weightView)
         weightView.snp.makeConstraints {

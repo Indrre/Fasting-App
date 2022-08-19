@@ -14,6 +14,8 @@ protocol UserServiceObserver: AnyObject {
     func userServiceUserUpdated(_ user: User?)
 }
 
+let kAppleUserKey = "com.FastApp.UserKey"
+
 class UserService {
     
     fileprivate struct _UserServiceObserver {
@@ -63,12 +65,21 @@ class UserService {
         }
     }
     
-    class func refreshUser() {
-        guard let currentID = Auth.auth().currentUser?.uid else { return }
-
-        Service.shared.fetchUserData(uid: currentID) { user in
-            self.user = user
+    static var userId: String? {
+            get {
+                UserDefaults.standard.string(forKey: kAppleUserKey)
+            }
+            set {
+                UserDefaults.standard.setValue(newValue, forKey: kAppleUserKey)
+            }
         }
-        
+    
+    class func refreshUser() {
+            guard let currentID = userId ?? Auth.auth().currentUser?.uid else { return }
+
+            Service.shared.fetchUserData(uid: currentID) { user in
+                self.user = user
+                self.userId = user.uid
+            }
     }
 }

@@ -204,19 +204,37 @@ struct Service {
         }
     }
     
-    func fetchAllWeight(completion: @escaping (([Weight]?, Error?) -> Void)) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        REF_WEIGHT.child(uid).observeSingleEvent(of: .value) { (returningData) in
-            guard let dictionary = returningData.value as? [String: Any] else {
-                return
+//    func fetchAllWeight(completion: @escaping (([Weight]?, Error?) -> Void)) {
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+//
+//        REF_WEIGHT.child(uid).observeSingleEvent(of: .value) { (returningData) in
+//            guard let dictionary = returningData.value as? [String: Any] else {
+//                return
+//            }
+//            let array = dictionary.keys.compactMap { key in
+//                return Weight(
+//                    id: key,
+//                    data: dictionary[key] as? [String: Any] ?? [:])
+//            }
+//            completion(array, nil)
+//        }
+//    }
+    
+    mutating func fetchAllWeight(
+        completion: @escaping (([Weight]?, Error?) -> Void)) {
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            
+            REF_WEIGHT.child(uid).observeSingleEvent(of: .value) { (returningData) in
+                guard let dictionary = returningData.value as? [String: Any] else {
+                    return
+                }
+                
+                let array = dictionary.keys.compactMap { key in
+                    return Weight(
+                        id: key,
+                        data: dictionary[key] as? [String: Any] ?? [:])
+                }
+                completion(array, nil)
             }
-            let array = dictionary.keys.compactMap { key in
-                return Weight(
-                    id: key,
-                    data: dictionary[key] as? [String: Any] ?? [:])
-            }
-            completion(array, nil)
         }
-    }
 }

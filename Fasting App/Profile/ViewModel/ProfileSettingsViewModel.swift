@@ -25,7 +25,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     var activity: String?
     var newAge: Int?
     
-    var weightString: String?
+    var weightString: String = "0"
     
     var data: [Weight?] {
         return WeightService.data
@@ -36,13 +36,14 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         didSet {
             fetchUserImage()
             getHeight()
+            getWeight()
             refreshController?()
         }
     }
         
     var currentWeight: Weight? {
         didSet {
-            getWeight()
+//            getWeight()
             refreshController?()
         }
     }
@@ -102,12 +103,16 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     
     func getWeight() {
         var currentWeight: Weight?
-        guard let weight = data[0] else { return }
-
-        if weight.count != 0 {
-            currentWeight = weight
-        } else {
-           currentWeight = data[1]
+          
+        guard
+            data.count > 0,
+            let weight = data[0] else { return }
+        
+        currentWeight = weight
+        if data.count >= 2 {
+            if data[0]?.count == 0 {
+                currentWeight = data[1]
+            }
         }
         
         guard let weightUnit = currentWeight?.unit else { return }
@@ -259,11 +264,11 @@ extension ProfileSettingViewModel: UserServiceObserver {
 }
 
 extension ProfileSettingViewModel: WeightServiceObserver {
-    func weightServiceWeightUpdated(_ weight: Weight?) {
+    func weightServiceCurrentWeightUpdated(_ weight: Weight?) {
         self.currentWeight = weight
     }
     
-    func weightServiceRefreshedData() {
+    func weightServiceAllWeightUpdated() {
         refreshController?()
     }
 }

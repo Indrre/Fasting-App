@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 protocol WeightServiceObserver: AnyObject {
-    func weightServiceWeightUpdated(_ weight: Weight?)
-    func weightServiceRefreshedData()
+    func weightServiceCurrentWeightUpdated(_ weight: Weight?)
+    func weightServiceAllWeightUpdated()
 }
 
 class WeightService {
@@ -18,8 +18,10 @@ class WeightService {
     static var data = [Weight]() {
         didSet {
             observers.forEach {
-                $0.observer?.weightServiceRefreshedData()
+                $0.observer?.weightServiceAllWeightUpdated()
             }
+            return data.sort(by: { $0.date ?? .today > $1.date ?? .today })
+
         }
     }
     
@@ -65,7 +67,7 @@ class WeightService {
     static var currentWeight = Weight(date: TimeInterval.today, count: 0, unit: "kg") {
         didSet {
             observers.forEach {
-                $0.observer?.weightServiceWeightUpdated(currentWeight)
+                $0.observer?.weightServiceCurrentWeightUpdated(currentWeight)
             }
         }
     }
