@@ -12,7 +12,7 @@ import Firebase
 class WaterViewModel {
     
     // =============================================
-    // MARK: Properties
+    // MARK: Properties ???
     // =============================================
     
     var label: String = "0 ml"

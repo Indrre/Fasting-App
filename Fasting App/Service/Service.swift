@@ -27,12 +27,12 @@ struct Service {
     static var shared = Service()
     var image = UIImage()
     
-// MARK: - User
+    // MARK: - User
     
     func fetchUserData(uid: String, completion: @escaping(User) -> Void) {
         REF_USERS.child(uid).observeSingleEvent(of: .value) { (returningData) in
             guard let dictionary = returningData.value as? [String: Any] else { return }
-        
+            
             let uid = returningData.key
             let user = User(uid: uid, dictionary: dictionary)
             
@@ -46,7 +46,7 @@ struct Service {
         REF_USERS.child(uid).updateChildValues(values)
     }
     
-// MARK: - Water
+    // MARK: - Water
     
     func fetchWaterData(id: String, completion: @escaping ((Water?, Error?) -> Void)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -63,7 +63,7 @@ struct Service {
             )
             completion(object, nil)
         }
-   
+        
     }
     
     func updateWater(_ water: Water) {
@@ -97,7 +97,7 @@ struct Service {
             }
         }
     
-// MARK: - Fast
+    // MARK: - Fast
     
     func updateUserFast(values: [String: Any]) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -203,22 +203,6 @@ struct Service {
             completion(object, nil)
         }
     }
-    
-//    func fetchAllWeight(completion: @escaping (([Weight]?, Error?) -> Void)) {
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//
-//        REF_WEIGHT.child(uid).observeSingleEvent(of: .value) { (returningData) in
-//            guard let dictionary = returningData.value as? [String: Any] else {
-//                return
-//            }
-//            let array = dictionary.keys.compactMap { key in
-//                return Weight(
-//                    id: key,
-//                    data: dictionary[key] as? [String: Any] ?? [:])
-//            }
-//            completion(array, nil)
-//        }
-//    }
     
     mutating func fetchAllWeight(
         completion: @escaping (([Weight]?, Error?) -> Void)) {

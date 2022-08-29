@@ -7,8 +7,6 @@
 
 import Foundation
 import UIKit
-
-
 class PickerViewModel {
     
     // =============================================
@@ -150,12 +148,11 @@ class PickerViewModel {
         self.activity = activity
         UserService.refreshUser()
     }
-    
+        
     func getWeight() {
         
         var currentWeight: Weight?
         
-
         if data.count > 0 {
             currentWeight = data[0]
         } else {

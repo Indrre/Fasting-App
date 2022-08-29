@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import FirebaseAuth
 import FirebaseStorage
 
 class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
@@ -59,7 +58,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             name: user?.fullName ?? "",
             age: String(user?.age ?? 19),
             weight: weightString,
-            height: String(height  ?? "0") + (user?.heightMsureUnit ?? "0"),
+            height: String(height  ?? "0") + (user?.heightMsureUnit ?? ""),
             gender: user?.gender ?? "Female",
             activity: user?.activity ?? "Inactive ",
             callback: { [weak self] in
@@ -67,9 +66,6 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             },
             presentController: {  [weak self] type in
                 self?.presentPickerView(type: type)
-            },
-            signOut: { [weak self] in
-                self?.signOut()
             }
         )
     }
@@ -85,6 +81,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     var presentPickerController: ((UIViewController) -> Void)?
     var presentController: ((_ type: PersonalInfo) -> Void)?
     var presentLogin: ((UIViewController) -> Void)?
+    var presentSettings: ((UIViewController) -> Void)?
     
     // =============================================
     // MARK: Helpers
@@ -235,20 +232,6 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         )
         actionSheet.view.tintColor = UIColor.stdText
         presentActionSheet?(actionSheet)
-    }
-    
-    func signOut() {
-        do {
-            try Auth.auth().signOut()
-            presentLoginController()
-        } catch {
-            debugPrint("DEBUG: Error Signing Out")
-        }
-    }
-    
-    func presentLoginController() {
-        let controller = LoginViewController()
-        presentLogin?(controller)
     }
 }
 

@@ -19,7 +19,6 @@ struct ProfileSettingsModel {
     var activity: String?
     let callback: (() -> Void?)
     let presentController: ((_ type: PersonalInfo) -> Void)?
-    let signOut: (() -> Void?)
 }
 
 class ProfileSettingsView: UIView {
@@ -94,21 +93,6 @@ class ProfileSettingsView: UIView {
         }
     }
     
-    lazy var btnSignOut: UIButton = {
-        let view = UIButton()
-        view.backgroundColor = .timeColor
-        view.layer.cornerRadius = 10
-        view.setTitle("Sign Out", for: .normal)
-        view.titleLabel?.font = UIFont(name: "Montserrat-Medium", size: 18)
-        view.setTitleColor(.white, for: .normal)
-        view.addTarget(self, action: #selector(signOut), for: .touchUpInside)
-        return view
-    }()
-    
-    func showPicker(type: PersonalInfo) {
-        model.presentController?(type)
-    }
-    
     var model: ProfileSettingsModel {
         didSet {
             lblName.text = model.name
@@ -146,31 +130,23 @@ class ProfileSettingsView: UIView {
         
         addSubview(lblName)
         lblName.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom).offset(15)
+            $0.top.equalTo(imageView.snp.bottom).offset(20)
             $0.centerX.equalTo(imageView)
         }
         
         addSubview(pictureBtnEdit)
         pictureBtnEdit.setTitle("Edit", for: .normal)
         pictureBtnEdit.snp.makeConstraints {
-            $0.top.equalTo(lblName.snp.bottom).offset(10)
+            $0.top.equalTo(lblName.snp.bottom).offset(15)
             $0.centerX.equalTo(imageView)
-        }
-        
-        addSubview(btnSignOut)
-        btnSignOut.snp.makeConstraints {
-            $0.height.equalTo(50)
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(safeAreaLayoutGuide).inset(20)
-            $0.width.equalToSuperview().inset(20)
         }
         
         addSubview(scrollView)
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(pictureBtnEdit.snp.bottom).offset(20)
+            $0.top.equalTo(pictureBtnEdit.snp.bottom).offset(25)
             $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(-70)
+            $0.bottom.equalToSuperview().offset(-10)
         }
 
         scrollView.addSubview(stackView)
@@ -209,7 +185,8 @@ class ProfileSettingsView: UIView {
         model.callback()
     }
     
-    @objc func signOut() {
-        model.signOut()
+    
+    func showPicker(type: PersonalInfo) {
+        model.presentController?(type)
     }
 }
