@@ -114,10 +114,10 @@ class ProfileViewController: ViewController, MFMailComposeViewControllerDelegate
         profileSettingsView.model = model.profileSettingsModel
     }
     
-    @objc func takeToSettings() {
-        let controller = SettingsViewController()
-        navigationController?.pushViewController(controller, animated: true)
-    }
+//    @objc func takeToSettings() {
+//        let controller = SettingsViewController()
+//        navigationController?.pushViewController(controller, animated: true)
+//    }
     
     func setNavigationBarItem() {
         let navigationArrow = UIButton(type: .system)
@@ -167,12 +167,12 @@ class ProfileViewController: ViewController, MFMailComposeViewControllerDelegate
     }
     
     func showActionSheetController() {
-        let actionSheet = UIAlertController(title: nil, message: "Please select to edit", preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Image", style: .default, handler: {(_) -> Void in self.takeToSettings() }))
-        actionSheet.addAction(UIAlertAction(title: "Name", style: .default, handler: {(_) -> Void in self.takeToSettings()}))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(_) -> Void in }))
-        present(actionSheet, animated: true, completion: nil)
-        actionSheet.view.tintColor = UIColor.stdText
+//        let actionSheet = UIAlertController(title: nil, message: "Please select to edit", preferredStyle: .actionSheet)
+//        actionSheet.addAction(UIAlertAction(title: "Image", style: .default, handler: {(_) -> Void in self.takeToSettings() }))
+//        actionSheet.addAction(UIAlertAction(title: "Name", style: .default, handler: {(_) -> Void in self.takeToSettings()}))
+//        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(_) -> Void in }))
+//        present(actionSheet, animated: true, completion: nil)
+//        actionSheet.view.tintColor = UIColor.stdText
     }
     
     @objc func sendEmail() {

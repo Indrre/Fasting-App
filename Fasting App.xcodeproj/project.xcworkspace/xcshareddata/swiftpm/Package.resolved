@@ -51,7 +51,7 @@
       "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
         "branch" : "master",
-        "revision" : "1358e34825288a1583e0920cec254449a254f22a"
+        "revision" : "f8ee68bfc7873efbfdfcea831a20435c4b89f875"
       }
     },
     {
@@ -60,7 +60,7 @@
       "location" : "https://github.com/firebase/FirebaseUI-iOS",
       "state" : {
         "branch" : "master",
-        "revision" : "c3a6fe549635589c277e64da146f00ef39bccd4e"
+        "revision" : "dc61b9916c4cc225d7c0a105a273fb8bf245dd04"
       }
     },
     {
@@ -185,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
       "state" : {
-        "revision" : "fa0fcd43f272a260e7f734f23e6dc55e16fcae0a",
-        "version" : "1.19.1"
+        "revision" : "b8230909dedc640294d7324d37f4c91ad3dcf177",
+        "version" : "1.20.1"
       }
     }
   ],
