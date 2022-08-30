@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 class PickerViewModel {
     
     // =============================================
@@ -148,24 +148,26 @@ class PickerViewModel {
         self.activity = activity
         UserService.refreshUser()
     }
-    
+        
     func getWeight() {
         
         var currentWeight: Weight?
-        let weight = data[0]
-
-        if weight.count != 0 {
-            currentWeight = weight
+        
+        if data.count > 0 {
+            currentWeight = data[0]
         } else {
-           currentWeight = data[1]
+            if data.count > 1 {
+                currentWeight = data[1]
+            }
         }
+          
         guard let unit = currentWeight?.unit else { return }
         guard let userWeight = currentWeight?.count else { return }
         
         if unit == "kg" {
             weightUnit = Unit.kilograms
             firstWeightUnit = userWeight / 1000
-            secondWeightUnit = userWeight % 1000            
+            secondWeightUnit = userWeight % 1000
         } else {
             weightUnit = Unit.stones
             

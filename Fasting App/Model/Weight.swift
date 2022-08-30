@@ -30,5 +30,5 @@ struct Weight {
           self.count = data["count"] as? Int
           self.unit = data["unit"] as? String
       }
-//     let data = [Weight]()
+     let data = [Weight]()
 }

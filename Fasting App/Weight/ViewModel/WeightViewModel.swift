@@ -73,13 +73,9 @@ class WeightViewModel {
     
     func viewDidLoad() {
         WeightService.startObservingWeight(self)
-        WeightService.fetchAllWeight()
         WeightService.start()
+        WeightService.fetchAllWeight()
         refreshController?()
-        
-        if data.count == 0 {
-            presentWeightPicker()
-        }
     }
     
     func refresh() {
@@ -90,10 +86,6 @@ class WeightViewModel {
         WeightService.fetchAllWeight()
         loadGraph()
         refreshController?()
-    }
-    
-    func refreshCurrentWeight() {
-        
     }
     
     func loadGraph() {
@@ -143,13 +135,17 @@ class WeightViewModel {
 // =================================
 
 extension WeightViewModel: WeightServiceObserver {
-    func weightServiceWeightUpdated(_ weight: Weight?) {
+    func weightServiceCurrentWeightUpdated(_ weight: Weight?) {
         self.weight = weight
         refreshController?()
     }
     
-    func weightServiceRefreshedData() {
+    func weightServiceAllWeightUpdated() {
         loadGraph()
         refreshController?()
+        
+        if data.count == 0 {
+            presentWeightPicker()
+        }
     }
 }

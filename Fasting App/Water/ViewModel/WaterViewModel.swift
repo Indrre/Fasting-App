@@ -12,14 +12,14 @@ import Firebase
 class WaterViewModel {
     
     // =============================================
-    // MARK: Properties
+    // MARK: Properties ???
     // =============================================
     
     var label: String = "0 ml"
     var count: Int {
         return WaterService.currentWater.count ?? 0
     }
-    
+        
     var currentWater = WaterService.currentWater
     
     var lastSevenDays: [Water] = []
@@ -30,7 +30,6 @@ class WaterViewModel {
         var data =  WaterService.data
             .sorted(by: { $0.date ?? .today > $1.date ?? .today })
         data.removeAll(where: {$0.count == 0})
-        
         return data
     }
     
@@ -87,10 +86,6 @@ class WaterViewModel {
         WaterService.start()
         WaterService.fetchAllWater()
         refreshController?()
-
-        if waterData.count == 0 {
-            presentWaterPicker()
-        }
     }
     
     func presentWaterPicker() {
@@ -147,7 +142,6 @@ class WaterViewModel {
     }
     
     func refresh() {
-        // TODO: need to refactor
         var water = currentWater
         currentWater.id = "\(Int(TimeInterval.today))"
         currentWater.date = TimeInterval.today
@@ -167,12 +161,16 @@ class WaterViewModel {
 // =================================
 
 extension WaterViewModel: WaterServiceObserver {
-    func waterServiceRefreshedData() {
+    func waterServiceAllWaterUpdated() {
         setupSevenDays()
         refreshController?()
+
+        if waterData.count == 0 {
+            presentWaterPicker()
+        }
     }
     
-    func waterServiceWaterUpdated(_ water: Water?) {
+    func waterServiceCurrectWaterUpdated(_ water: Water?) {
         self.water = water
         refreshController?()
     }

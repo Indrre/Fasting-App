@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import FirebaseAuth
 import FirebaseStorage
 
 class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
@@ -25,7 +24,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     var activity: String?
     var newAge: Int?
     
-    var weightString: String?
+    var weightString: String = "0"
     
     var data: [Weight?] {
         return WeightService.data
@@ -36,6 +35,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         didSet {
             fetchUserImage()
             getHeight()
+            getWeight()
             refreshController?()
         }
     }
@@ -58,7 +58,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             name: user?.fullName ?? "",
             age: String(user?.age ?? 19),
             weight: weightString,
-            height: String(height  ?? "0") + (user?.heightMsureUnit ?? "0"),
+            height: String(height  ?? "0") + (user?.heightMsureUnit ?? ""),
             gender: user?.gender ?? "Female",
             activity: user?.activity ?? "Inactive ",
             callback: { [weak self] in
@@ -66,9 +66,6 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
             },
             presentController: {  [weak self] type in
                 self?.presentPickerView(type: type)
-            },
-            signOut: { [weak self] in
-                self?.signOut()
             }
         )
     }
@@ -84,6 +81,9 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     var presentPickerController: ((UIViewController) -> Void)?
     var presentController: ((_ type: PersonalInfo) -> Void)?
     var presentLogin: ((UIViewController) -> Void)?
+    var presentSettings: ((UIViewController) -> Void)?
+    var startSpinning: (() -> Void)?
+    var stopSpinning: (() -> Void)?
     
     // =============================================
     // MARK: Helpers
@@ -102,12 +102,16 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
     
     func getWeight() {
         var currentWeight: Weight?
-        guard let weight = data[0] else { return }
-
-        if weight.count != 0 {
-            currentWeight = weight
-        } else {
-           currentWeight = data[1]
+          
+        guard
+            data.count > 0,
+            let weight = data[0] else { return }
+        
+        currentWeight = weight
+        if data.count >= 2 {
+            if data[0]?.count == 0 {
+                currentWeight = data[1]
+            }
         }
         
         guard let weightUnit = currentWeight?.unit else { return }
@@ -147,6 +151,7 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         guard let imageURL = user?.imageURL else { return }
         ImageService.fetchImage(urlString: imageURL) { [weak self] image, _ in
             self?.profileImage = image
+            self?.stopSpinning?()
         }
     }
     
@@ -172,26 +177,28 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         guard let imageData = selectedImage.pngData() else { return }
         
         let userID = user?.uid
-        imageStorage.child("\(String(describing: userID))/file.png").putData(imageData, metadata: nil) { _, error in
+        startSpinning?()
+        imageStorage.child("\(String(describing: userID))/file.png").putData(imageData, metadata: nil) { [weak self] link , error in
             guard error == nil else {
                 debugPrint("DEBUG: Failed to upload image")
+                self?.stopSpinning?()
                 return
             }
             
-            self.imageStorage.child("\(String(describing: userID))/file.png").downloadURL(completion: {url, error in
+            self?.imageStorage.child("\(String(describing: userID))/file.png").downloadURL() { [weak self] url, error in
                 guard let url = url, error == nil else {
+                    self?.stopSpinning?()
                     return
                 }
                 let urlString = url.absoluteString
                 
                 let values = ["imageURL": urlString]
-                Service.shared.updateUserValues(values: values )
-                self.refreshController?()
-            })
-            UserService.refreshUser()
+                Service.shared.updateUserValues(values: values)
+                UserService.refreshUser()
+            }
         }
     }
-    
+
     func showNameEditController() {
         let controller = NameEditController()
         presentNameEditController?(controller)
@@ -231,20 +238,6 @@ class ProfileSettingViewModel: NSObject, UIImagePickerControllerDelegate & UINav
         actionSheet.view.tintColor = UIColor.stdText
         presentActionSheet?(actionSheet)
     }
-    
-    func signOut() {
-        do {
-            try Auth.auth().signOut()
-            presentLoginController()
-        } catch {
-            debugPrint("DEBUG: Error Signing Out")
-        }
-    }
-    
-    func presentLoginController() {
-        let controller = LoginViewController()
-        presentLogin?(controller)
-    }
 }
 
 // =================================
@@ -259,11 +252,11 @@ extension ProfileSettingViewModel: UserServiceObserver {
 }
 
 extension ProfileSettingViewModel: WeightServiceObserver {
-    func weightServiceWeightUpdated(_ weight: Weight?) {
+    func weightServiceCurrentWeightUpdated(_ weight: Weight?) {
         self.currentWeight = weight
     }
     
-    func weightServiceRefreshedData() {
+    func weightServiceAllWeightUpdated() {
         refreshController?()
     }
 }

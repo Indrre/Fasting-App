@@ -85,11 +85,11 @@ class WaterPickerViewModel {
 // =================================
 
 extension WaterPickerViewModel: WaterServiceObserver {
-    func waterServiceRefreshedData() {
+    func waterServiceAllWaterUpdated() {
         refreshController?()
     }
     
-    func waterServiceWaterUpdated(_ water: Water?) {
+    func waterServiceCurrectWaterUpdated(_ water: Water?) {
         self.water = water
         refreshController?()
     }

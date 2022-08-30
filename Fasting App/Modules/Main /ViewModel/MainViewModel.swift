@@ -165,9 +165,7 @@ class MainViewModel {
     
     var fastCompletionStateLabel: String {
         var timeLapsed: TimeInterval?
-        
-        // TODO: refactor
-        
+                
         if newStart == nil {
             newStart = fast?.start
         }
@@ -505,7 +503,6 @@ class MainViewModel {
         content.badge = 0
         content.sound = UNNotificationSound.default
         
-        
         // 3. Create notification trigger
         guard let currentFast = FastService.currentFast else { return }
         
@@ -553,23 +550,23 @@ extension MainViewModel: FastServiceObserver {
 }
 
 extension MainViewModel: WaterServiceObserver {
-    func waterServiceWaterUpdated(_ water: Water?) {
+    func waterServiceCurrectWaterUpdated(_ water: Water?) {
         self.water = water
         refreshController?()
     }
     
-    func waterServiceRefreshedData() {
+    func waterServiceAllWaterUpdated() {
         refreshController?()
     }
 }
 
 extension MainViewModel: WeightServiceObserver {
-    func weightServiceWeightUpdated(_ weight: Weight?) {
+    func weightServiceCurrentWeightUpdated(_ weight: Weight?) {
         self.weight = weight
         refreshController?()
     }
     
-    func weightServiceRefreshedData() {
+    func weightServiceAllWeightUpdated() {
         refreshController?()
     }
 }

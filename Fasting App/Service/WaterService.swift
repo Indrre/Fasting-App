@@ -10,8 +10,8 @@ import FirebaseAuth
 import SwiftUI
 
 protocol WaterServiceObserver: AnyObject {
-    func waterServiceWaterUpdated(_ water: Water?)
-    func waterServiceRefreshedData()
+    func waterServiceCurrectWaterUpdated(_ water: Water?)
+    func waterServiceAllWaterUpdated()
 }
 
 class WaterService {
@@ -19,7 +19,7 @@ class WaterService {
     static var data = [Water]() {
         didSet {
             observers.forEach {
-                $0.observer?.waterServiceRefreshedData()
+                $0.observer?.waterServiceAllWaterUpdated()
             }
             return data.sort(by: { $0.date ?? .today > $1.date ?? .today })
         }
@@ -67,7 +67,7 @@ class WaterService {
     static var currentWater = Water(date: TimeInterval.today, count: 0) {
         didSet {
             observers.forEach {
-                $0.observer?.waterServiceWaterUpdated(currentWater)
+                $0.observer?.waterServiceCurrectWaterUpdated(currentWater)
             }
         }
     }
@@ -103,10 +103,4 @@ class WaterService {
         self.currentWater = water
         Service.shared.updateWater(water)
     }
-    
-//    class func refreshCurrentWater() {
-//        currentWater.id = "\(Int(TimeInterval.today))"
-//        currentWater.date = TimeInterval.today
-//        updateWater(currentWater)
-//    }
 }
