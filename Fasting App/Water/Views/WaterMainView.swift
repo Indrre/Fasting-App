@@ -159,7 +159,7 @@ extension WaterMainView: UITableViewDelegate, UITableViewDataSource {
             let data = model.waterData[indexPath.row]
             let id = data.id
             guard let uid = Auth.auth().currentUser?.uid else { return }
-            REF_WATER.child(uid).child(id).removeValue { (error, _) in
+            REFWATER.child(uid).child(id).removeValue { (error, _) in
                 if error != nil {
                     debugPrint("DEBUG: Error while trying to delete water:  \(String(describing: error))")
                 }

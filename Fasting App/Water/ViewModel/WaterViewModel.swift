@@ -104,9 +104,9 @@ class WaterViewModel {
         days = [today]
         
         // This loop will start from yesterday and append the array with the previous day
-        for i in 1..<daysInWeek {
+        for idx in 1..<daysInWeek {
             var component = DateComponents()
-            component.day = -i
+            component.day = -idx
             if let newDate = calendar.date(byAdding: component, to: today) {
                 days.insert(newDate, at: 0)
             }

@@ -294,7 +294,7 @@ extension WeightMainView: UITableViewDelegate, UITableViewDataSource {
             let data = model?.data[indexPath.row]
             guard let id = data?.id else { return }
             guard let uid = Auth.auth().currentUser?.uid else { return }
-            REF_WEIGHT.child(uid).child(id).removeValue { (error, _) in
+            REFWEIGHT.child(uid).child(id).removeValue { (error, _) in
                 if error != nil {
                     debugPrint("DEBUG: Error while trying to delete water:  \(String(describing: error))")
                 }

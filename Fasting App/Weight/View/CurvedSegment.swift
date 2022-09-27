@@ -53,8 +53,8 @@ public class CurveAlgorithm {
         var curveSegments: [CurvedSegment] = []
         curveSegments = controlPointsFrom(points: dataPoints)
         
-        for i in 1..<dataPoints.count {
-            path.addCurve(to: dataPoints[i], controlPoint1: curveSegments[i-1].controlPoint1, controlPoint2: curveSegments[i-1].controlPoint2)
+        for idx in 1..<dataPoints.count {
+            path.addCurve(to: dataPoints[idx], controlPoint1: curveSegments[idx-1].controlPoint1, controlPoint2: curveSegments[idx-1].controlPoint2)
         }
         return path
     }
@@ -67,11 +67,11 @@ public class CurveAlgorithm {
         var result: [CurvedSegment] = []
         let delta: CGFloat = 0.3
         
-        for i in 1..<points.count {
-            let A = points[i-1]
-            let B = points[i]
-            let controlPoint1 = CGPoint(x: A.x + delta*(B.x-A.x), y: A.y + delta*(B.y - A.y))
-            let controlPoint2 = CGPoint(x: B.x - delta*(B.x-A.x), y: B.y - delta*(B.y - A.y))
+        for idx in 1..<points.count {
+            let pointA = points[idx-1]
+            let pointB = points[idx]
+            let controlPoint1 = CGPoint(x: pointA.x + delta*(pointB.x-pointA.x), y: pointA.y + delta*(pointB.y - pointA.y))
+            let controlPoint2 = CGPoint(x: pointB.x - delta*(pointB.x-pointA.x), y: pointB.y - delta*(pointB.y - pointA.y))
             let curvedSegment = CurvedSegment(
                 controlPoint1: controlPoint1,
                 controlPoint2: controlPoint2
@@ -79,15 +79,15 @@ public class CurveAlgorithm {
             result.append(curvedSegment)
         }
         
-        for i in 1..<points.count-1 {
-            let M = result[i-1].controlPoint2
-            let N = result[i].controlPoint1
-            let A = points[i]
-            let MM = CGPoint(x: 2 * A.x - M.x, y: 2 * A.y - M.y)
-            let NN = CGPoint(x: 2 * A.x - N.x, y: 2 * A.y - N.y)
+        for idx in 1..<points.count-1 {
+            let point2 = result[idx-1].controlPoint2
+            let point1 = result[idx].controlPoint1
+            let pointA = points[idx]
+            let MM = CGPoint(x: 2 * pointA.x - point2.x, y: 2 * pointA.y - point2.y)
+            let NN = CGPoint(x: 2 * pointA.x - point1.x, y: 2 * pointA.y - point1.y)
             
-            result[i].controlPoint1 = CGPoint(x: (MM.x + N.x)/2, y: (MM.y + N.y)/2)
-            result[i-1].controlPoint2 = CGPoint(x: (NN.x + M.x)/2, y: (NN.y + M.y)/2)
+            result[idx].controlPoint1 = CGPoint(x: (MM.x + point1.x)/2, y: (MM.y + point1.y)/2)
+            result[idx-1].controlPoint2 = CGPoint(x: (NN.x + point2.x)/2, y: (NN.y + point2.y)/2)
         }
         
         return result

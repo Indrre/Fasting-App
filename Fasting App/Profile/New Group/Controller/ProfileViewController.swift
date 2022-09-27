@@ -221,10 +221,10 @@ class ProfileViewController: ViewController, MFMailComposeViewControllerDelegate
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let user = Auth.auth().currentUser else { return }
     
-        DB_REF.child("users").child(uid).removeValue()
-        DB_REF.child("fasts").child(uid).removeValue()
-        DB_REF.child("water").child(uid).removeValue()
-        DB_REF.child("weight").child(uid).removeValue()
+        DBREF.child("users").child(uid).removeValue()
+        DBREF.child("fasts").child(uid).removeValue()
+        DBREF.child("water").child(uid).removeValue()
+        DBREF.child("weight").child(uid).removeValue()
 
         user.delete { error in
           if let error = error {

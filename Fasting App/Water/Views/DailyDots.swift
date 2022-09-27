@@ -73,8 +73,8 @@ class VisualDotsView: UIView {
         stackView.subviews.forEach({ $0.removeFromSuperview() })
         // Add the number of dots required
         var dotCount = number
-        for i in 0..<quantity {
-            let alpha: CGFloat = 0.1 * CGFloat(i+1)
+        for idx in 0..<quantity {
+            let alpha: CGFloat = 0.1 * CGFloat(idx+1)
             let dot = createDot()
             dot.alpha = alpha
             

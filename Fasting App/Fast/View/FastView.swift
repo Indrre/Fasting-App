@@ -161,7 +161,7 @@ extension FastView: UITableViewDelegate, UITableViewDataSource {
             let data = model.fastData[indexPath.row]
             let id = data.id
             guard let uid = Auth.auth().currentUser?.uid else { return }
-            REF_FASTS.child(uid).child(id).removeValue { (error, _) in
+            REFFASTS.child(uid).child(id).removeValue { (error, _) in
                 if error != nil {
                     debugPrint("DEBUG: Error while trying to delete fast:  \(String(describing: error))")
                 }

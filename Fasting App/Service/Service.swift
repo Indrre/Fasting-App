@@ -12,11 +12,11 @@ import UIKit
 // MARK: - DatabaseRefs
 // =================================
 
-let DB_REF = Database.database().reference()
-let REF_USERS = DB_REF.child("users")
-let REF_FASTS = DB_REF.child("fasts")
-let REF_WATER = DB_REF.child("water")
-let REF_WEIGHT = DB_REF.child("weight")
+let DBREF = Database.database().reference()
+let REFUSERS = DBREF.child("users")
+let REFFASTS = DBREF.child("fasts")
+let REFWATER = DBREF.child("water")
+let REFWEIGHT = DBREF.child("weight")
 
 // =================================
 // MARK: - Shared Service
@@ -30,7 +30,7 @@ struct Service {
     // MARK: - User
     
     func fetchUserData(uid: String, completion: @escaping(User) -> Void) {
-        REF_USERS.child(uid).observeSingleEvent(of: .value) { (returningData) in
+        REFUSERS.child(uid).observeSingleEvent(of: .value) { (returningData) in
             guard let dictionary = returningData.value as? [String: Any] else { return }
             
             let uid = returningData.key
@@ -43,7 +43,7 @@ struct Service {
     func updateUserValues(values: [String: Any]) {
         // Sets and updates database with values
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        REF_USERS.child(uid).updateChildValues(values)
+        REFUSERS.child(uid).updateChildValues(values)
     }
     
     // MARK: - Water
@@ -51,7 +51,7 @@ struct Service {
     func fetchWaterData(id: String, completion: @escaping ((Water?, Error?) -> Void)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let path = String(format: "%@/%@", uid, id)
-        REF_WATER.child(path).observeSingleEvent(of: .value) { (returningData) in
+        REFWATER.child(path).observeSingleEvent(of: .value) { (returningData) in
             guard let dictionary = returningData.value as? [String: Any] else { return }
             let date = dictionary["date"] as? TimeInterval ?? nil
             let count = dictionary["count"] as? Int ?? 0
@@ -75,7 +75,7 @@ struct Service {
         ]
         
         let path = String(format: "%@/%@", uid, water.id)
-        REF_WATER.child(path).updateChildValues(params)
+        REFWATER.child(path).updateChildValues(params)
         WaterService.fetchAllWater()
     }
     
@@ -83,7 +83,7 @@ struct Service {
         completion: @escaping (([Water]?, Error?) -> Void)) {
             guard let uid = Auth.auth().currentUser?.uid else { return }
             
-            REF_WATER.child(uid).observeSingleEvent(of: .value) { (returningData) in
+            REFWATER.child(uid).observeSingleEvent(of: .value) { (returningData) in
                 guard let dictionary = returningData.value as? [String: Any] else {
                     return
                 }
@@ -101,14 +101,14 @@ struct Service {
     
     func updateUserFast(values: [String: Any]) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        REF_FASTS.child(uid).updateChildValues(values)
+        REFFASTS.child(uid).updateChildValues(values)
     }
     
     mutating func fetchFasts(
         completion: @escaping (([Fast]?, Error?) -> Void)) {
             guard let uid = Auth.auth().currentUser?.uid else { return }
             
-            REF_FASTS.child(uid).observeSingleEvent(of: .value) { (returningData) in
+            REFFASTS.child(uid).observeSingleEvent(of: .value) { (returningData) in
                 guard
                     let dictionary = returningData.value as? [String: Any] else {
                     return
@@ -134,7 +134,7 @@ struct Service {
             guard let uid = Auth.auth().currentUser?.uid else { return }
             
             let path = String(format: "%@/%@", uid, id)
-            REF_FASTS.child(path).observeSingleEvent(of: .value) { (returningData) in
+            REFFASTS.child(path).observeSingleEvent(of: .value) { (returningData) in
                 
                 guard let dictionary = returningData.value as? [String: Any] else { return }
                 let start = dictionary["start"] as? TimeInterval ?? nil
@@ -164,7 +164,7 @@ struct Service {
         if let end = fast.end { params["end"] = end }
         
         let path = String(format: "%@/%@", uid, fast.id)
-        REF_FASTS.child(path).updateChildValues(params)
+        REFFASTS.child(path).updateChildValues(params)
     }
     
 // MARK: - Weight
@@ -179,7 +179,7 @@ struct Service {
         ]
         
         let path = String(format: "%@/%@", uid, weight.id)
-        REF_WEIGHT.child(path).updateChildValues(params)
+        REFWEIGHT.child(path).updateChildValues(params)
         WeightService.fetchAllWeight()
     }
     
@@ -187,7 +187,7 @@ struct Service {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let path = String(format: "%@/%@", uid, id)
         
-        REF_WEIGHT.child(path).observeSingleEvent(of: .value) { ( returningData) in
+        REFWEIGHT.child(path).observeSingleEvent(of: .value) { ( returningData) in
             guard let dictionary = returningData.value as? [String: Any] else { return }
             
             let date = dictionary["date"] as? TimeInterval ?? nil
@@ -208,7 +208,7 @@ struct Service {
         completion: @escaping (([Weight]?, Error?) -> Void)) {
             guard let uid = Auth.auth().currentUser?.uid else { return }
             
-            REF_WEIGHT.child(uid).observeSingleEvent(of: .value) { (returningData) in
+            REFWEIGHT.child(uid).observeSingleEvent(of: .value) { (returningData) in
                 guard let dictionary = returningData.value as? [String: Any] else {
                     return
                 }

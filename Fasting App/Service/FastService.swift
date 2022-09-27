@@ -48,9 +48,9 @@ class FastService {
 
     public class func stopObserving(_ observer: FastServiceObserver) {
         var idx: Int?
-        for (i, wrapper) in observers.enumerated() {
+        for (point, wrapper) in observers.enumerated() {
             if wrapper.isValid && wrapper.observer === observer {
-                idx = i
+                idx = point
                 break
             }
         }

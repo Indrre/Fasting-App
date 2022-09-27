@@ -177,8 +177,8 @@ public class LineChart: UIView {
         
         let touchLocation = gestureRecognizer.location(in: self)
         if let xGestureBar = xGestureBar, let yGestureBar = yGestureBar {
-            let y = getYLocation(point: touchLocation)
-            xGestureBar.frame.origin.y = y + topSpace
+            let originY = getYLocation(point: touchLocation)
+            xGestureBar.frame.origin.y = originY + topSpace
             yGestureBar.frame.origin.x = touchLocation.x
         } else {
             let yView = UIView()
@@ -227,9 +227,9 @@ public class LineChart: UIView {
             var result: [CGPoint] = []
             let minMaxRange: CGFloat = CGFloat(max - min) * topHorizontalLine
             
-            for i in 0..<entries.count {
-                let height = dataLayer.frame.height * (1 - ((CGFloat(entries[i].value) - CGFloat(min)) / minMaxRange))
-                let point = CGPoint(x: CGFloat(i)*lineGap, y: height)
+            for idx in 0..<entries.count {
+                let height = dataLayer.frame.height * (1 - ((CGFloat(entries[idx].value) - CGFloat(min)) / minMaxRange))
+                let point = CGPoint(x: CGFloat(idx)*lineGap, y: height)
                 result.append(point)
             }
             return result

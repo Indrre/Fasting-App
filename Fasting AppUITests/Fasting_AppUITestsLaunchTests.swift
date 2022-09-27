@@ -7,7 +7,7 @@
 
 import XCTest
 
-class Fasting_AppUITestsLaunchTests: XCTestCase {
+class FastingAppUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
